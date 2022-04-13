@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class DirectionController
+public class DirectionController : MonoBehaviour
 {
     [Inject] private GroundDetection _detection;
     [Inject] private InputReader _input;
@@ -10,12 +10,17 @@ public class DirectionController
     public Vector3 SlopeVector { get; private set; }
     public Vector3 JumpVector { get; private set; }
 
-    public void TryDetect(Vector3 direction)
+    public void Update()
+    {
+        TryDetect();
+    }
+
+    public void TryDetect()
     {
         var normal = _detection.GroundNormal;
         var inputDirection = _input.MoveInputDirection;
 
-        LookSlopeVector = Vector3.ProjectOnPlane(direction, normal).normalized;
+        LookSlopeVector = Vector3.ProjectOnPlane(transform.forward, normal).normalized;
         SlopeVector = Vector3.ProjectOnPlane(Vector3.down, normal).normalized;
         JumpVector = (Vector3.up + (LookSlopeVector * inputDirection.magnitude)).normalized;
     }

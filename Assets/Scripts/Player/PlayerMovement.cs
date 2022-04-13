@@ -10,20 +10,23 @@ public class PlayerMovement
     private AnimationCurve _accelerationCurve;
     private AnimationCurve _maxAccelerationCurve;
     
-    [Inject] private DirectionController _direction;
-    [Inject] private InputReader _input;
+    private DirectionController _direction;
+    private InputReader _input;
 
     private Vector3 _moveDirection;
     private Vector3 _goalVel;
     private Vector3 _neededAccel;
 
-    public PlayerMovement(PlayerMovementData data)
+    public PlayerMovement(PlayerMovementData data, InputReader input, DirectionController direction)
     {
         _acceleration = data.Acceleration;
         _maxAcceleration = data.MaxAcceleration;
         _maxSpeed = data.MaxSpeed;
         _accelerationCurve = data.AccelerationCurve;
         _maxAccelerationCurve = data.MaxAccelerationCurve;
+
+        _input = input;
+        _direction = direction;
     }
 
     public void CharacterMove(ref Vector3 velocity)
@@ -46,8 +49,6 @@ public class PlayerMovement
 
         _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
         velocity = _goalVel;
-
-
     }
 
 }

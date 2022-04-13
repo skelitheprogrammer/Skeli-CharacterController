@@ -3,17 +3,17 @@ using UnityEngine;
 public class PlayerJumping
 {
     private DirectionController _direction;
-    private float _jumpForce;
+    private float _jumpHeight;
 
-    public PlayerJumping(DirectionController direction, float jumpForce)
+    public PlayerJumping(DirectionController direction, PlayerJumpingData data)
     {
         _direction = direction;
-        _jumpForce = jumpForce;
+        _jumpHeight = data.JumpHeight;
     }
 
     public void Jump(ref Vector3 velocity)
     {
-        var jumpHeight = Mathf.Sqrt(-2 * _jumpForce * Physics.gravity.y);
+        var jumpHeight = Mathf.Sqrt(-2 * _jumpHeight * Physics.gravity.y);
         var jumpForce = jumpHeight * _direction.JumpVector;
         velocity += jumpForce;
     }

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveData: {fileID: 11400000, guid: d4c7f75627d38434b9a39155da2331a9, type: 2}
   _rotationData: {fileID: 11400000, guid: baa2f9969c6177a4dab56946bca31b42, type: 2}
+  _jumpData: {fileID: 11400000, guid: 7394704958769664ab0a853604c534ad, type: 2}
+  _gravityData: {fileID: 11400000, guid: 731de91532961b74c94a357434f191eb, type: 2}

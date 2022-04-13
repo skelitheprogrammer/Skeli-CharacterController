@@ -13,18 +13,19 @@ public class DrawPlayerGroundDirection : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+
+
         if (_direction == null) 
         {
             return;
         }
+        /*        Gizmos.color = _green;
+                Gizmos.DrawRay(_direction.transform.position, _direction.LookSlopeVector * _lengthMultiplier);
 
-/*        Gizmos.color = _green;
-        Gizmos.DrawRay(_direction.transform.position, _direction.LookSlopeVector * _lengthMultiplier);
+                Gizmos.color = _lightGreen;
+                Gizmos.DrawRay(_direction.transform.position, _direction.SlopeVector * _lengthMultiplier);
 
-        Gizmos.color = _lightGreen;
-        Gizmos.DrawRay(_direction.transform.position, _direction.SlopeVector * _lengthMultiplier);
-
-        Gizmos.color = _orange;
-        Gizmos.DrawRay(_direction.transform.position, _direction.JumpVector * _lengthMultiplier);*/
+                Gizmos.color = _orange;
+                Gizmos.DrawRay(_direction.transform.position, _direction.JumpVector * _lengthMultiplier);*/
     }
 }

@@ -15,11 +15,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _movement.CharacterMove(ref velocity);
-/*        _rotation.CharacterRotate(transform);
+        _rotation.CharacterRotate(transform);
 
-        _jump.Jump(ref velocity);
+        //_jump.Jump(ref velocity);
         _gravity.ApplyGravity(ref velocity);
 
-        _controller.Move(velocity * Time.deltaTime);*/
+        _controller.Move(velocity * Time.deltaTime);
     }
 }

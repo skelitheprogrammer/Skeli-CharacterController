@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerRotationData", menuName = "Data/Player/Rotation Data")]
+[CreateAssetMenu(fileName = "PlayerRotationData", menuName = "Data/Player/Rotation")]
 public class PlayerRotationDataSO : ScriptableObject
 {
     [field: SerializeField] public PlayerRotationData Data { get; private set; }

@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 
-public class GroundDetection
+public class GroundDetection : MonoBehaviour
 {
-    public Vector3 Offset { get; private set; }
-    public float Distance { get; private set; }
-    public float Radius { get; private set; }
+    [field: SerializeField] public Vector3 Offset { get; private set; }
+    [field: SerializeField] public float Distance { get; private set; }
+    [field: SerializeField] public float Radius { get; private set; }
 
     public Vector3 GroundNormal { get; private set; }
     public float Angle { get; private set; }
     public bool Detected { get; private set; }
 
-    public GroundDetection(Vector3 offset, float distance, float radius)
+    private void Update()
     {
-        Offset = offset;
-        Distance = distance;
-        Radius = radius;
+        Detect();
     }
 
-    public void Detect(Vector3 position)
+    public void Detect()
     {
-        Detected = Physics.SphereCast(position + Offset, Radius, Vector3.down, out var hit, Distance);
+        Detected = Physics.SphereCast(transform.position + Offset, Radius, Vector3.down, out var hit, Distance);
 
         Angle = Vector3.Angle(hit.normal, Vector3.up);
 

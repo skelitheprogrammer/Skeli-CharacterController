@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876e2d55469a1dd4abd6688b3d4075f5, type: 3}
+  m_Name: New Player Init Setup SO
+  m_EditorClassIdentifier: 
+  <Character>k__BackingField: {fileID: 7860219977924613174, guid: 5085383581bb5d44c8e6fa32c5f57dd6,
+    type: 3}
+  <MainCamera>k__BackingField: {fileID: 8094476493215919635, guid: e42f42332adb5a149a12e3e61731775a,
+    type: 3}
+  <Vcam>k__BackingField: {fileID: 2091871366480360353, guid: 5f36b06572acfd7479978852be4cd9b9,
+    type: 3}

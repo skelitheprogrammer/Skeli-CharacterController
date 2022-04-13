@@ -6,10 +6,10 @@ public class PlayerGravity
 
     private float _groundedValue;
 
-    public PlayerGravity(GroundDetection groundDetection, float groundedValue)
+    public PlayerGravity(GroundDetection groundDetection,PlayerGravityData data)
     {
         _groundDetection = groundDetection;
-        _groundedValue = groundedValue;
+        _groundedValue = data.GroundedGravity;
     }
 
     public void ApplyGravity(ref Vector3 velocity)

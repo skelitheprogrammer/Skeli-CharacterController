@@ -1,18 +1,20 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using Zenject;
 
 public class PlayerRotation
 {
-    [Inject] private InputReader _input;
-    [Inject] private Camera _camera;
+    private InputReader _input;
+    [Inject(Id = Constants.MainCamera)]private Camera _camera;
 
     private float _rotationSmoothTime;
 
     private float _targetRotation;
     private float _rotationVelocity;
 
-    public PlayerRotation(PlayerRotationData data)
+    public PlayerRotation(InputReader input,PlayerRotationData data)
     {
+        _input = input;
         _rotationSmoothTime = data.RotationSmoothTime;
     }
 
@@ -25,4 +27,9 @@ public class PlayerRotation
 
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
     }
+}
+
+public static class Constants
+{
+    public const string MainCamera = "MainCamera";
 }
