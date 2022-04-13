@@ -1,9 +1,9 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerDirectionController
+public class DirectionController
 {
-    [Inject] private PlayerGroundDetection _detection;
+    [Inject] private GroundDetection _detection;
     [Inject] private InputReader _input;
 
     public Vector3 LookSlopeVector { get; private set; }

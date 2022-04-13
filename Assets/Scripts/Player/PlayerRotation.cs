@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
+using Zenject;
 
-public class PlayerRotation : MonoBehaviour 
+public class PlayerRotation
 {
-    [SerializeField] private InputReader _input;
-    [SerializeField] private Camera _camera;
-    [SerializeField] private float _rotationSmoothTime;
+    [Inject] private InputReader _input;
+    [Inject] private Camera _camera;
+
+    private float _rotationSmoothTime;
 
     private float _targetRotation;
     private float _rotationVelocity;
 
-    public void CharacterRotate()
+    public PlayerRotation(PlayerRotationData data)
+    {
+        _rotationSmoothTime = data.RotationSmoothTime;
+    }
+
+    public void CharacterRotate(Transform transform)
     {
         if (_input.MoveInput == Vector2.zero) return;
 

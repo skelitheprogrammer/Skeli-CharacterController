@@ -1,25 +1,32 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerMovement
 {
-    [SerializeField] private float _acceleration = 200;
-    [SerializeField] private float _maxAcceleration = 150;
-    [SerializeField] private float _maxSpeed = 10;
+    private float _acceleration = 200;
+    private float _maxAcceleration = 150;
+    private float _maxSpeed = 10;
 
-    [SerializeField] private Camera _camera;
-    [SerializeField] private PlayerDirectionController _direction;
-
-    [SerializeField] private AnimationCurve _accelerationCurve;
-    [SerializeField] private AnimationCurve _maxAccelerationCurve;
+    private AnimationCurve _accelerationCurve;
+    private AnimationCurve _maxAccelerationCurve;
     
-    [SerializeField] private CharacterController _controller;
-    [SerializeField] private InputReader _input;
+    [Inject] private DirectionController _direction;
+    [Inject] private InputReader _input;
 
     private Vector3 _moveDirection;
     private Vector3 _goalVel;
     private Vector3 _neededAccel;
 
-    public void CharacterMove()
+    public PlayerMovement(PlayerMovementData data)
+    {
+        _acceleration = data.Acceleration;
+        _maxAcceleration = data.MaxAcceleration;
+        _maxSpeed = data.MaxSpeed;
+        _accelerationCurve = data.AccelerationCurve;
+        _maxAccelerationCurve = data.MaxAccelerationCurve;
+    }
+
+    public void CharacterMove(ref Vector3 velocity)
     {
         _moveDirection = _direction.LookSlopeVector * _input.MoveInput.magnitude;
         var unitGoal = _moveDirection;
@@ -38,8 +45,9 @@ public class PlayerMovement
         var goalVel = unitGoal * _maxSpeed;
 
         _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
-        
-        _controller.Move(_goalVel * Time.deltaTime);
+        velocity = _goalVel;
+
+
     }
 
 }

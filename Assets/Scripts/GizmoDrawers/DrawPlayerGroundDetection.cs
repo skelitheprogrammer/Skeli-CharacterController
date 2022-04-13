@@ -3,18 +3,15 @@ using Zenject;
 
 public class DrawPlayerGroundDetection : MonoBehaviour
 {
-    private PlayerGroundDetection _detection;
+    [Inject]private GroundDetection _detection;
     [SerializeField] private bool _enable = true;
 
     private void OnDrawGizmos()
     {
         if (!_enable) return;
-        if (_detection == null)
-        {
-            TryGetComponent(out _detection);
-        }
+        if (_detection == null) return;
 
-        Gizmos.color = Color.red;
+/*        Gizmos.color = Color.red;
 
         if (_detection.Detected)
         {
@@ -25,6 +22,6 @@ public class DrawPlayerGroundDetection : MonoBehaviour
         var totalDistance = Vector3.down * _detection.Distance;
 
         Gizmos.DrawRay(totalOffset, totalDistance);
-        Gizmos.DrawWireSphere(totalOffset + totalDistance, _detection.Radius);
+        Gizmos.DrawWireSphere(totalOffset + totalDistance, _detection.Radius);*/
     }
 }

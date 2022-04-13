@@ -3,7 +3,7 @@ using Zenject;
 
 public class DrawPlayerGroundDirection : MonoBehaviour
 {
-    [Inject] private PlayerDirectionController _direction;
+    [Inject] private DirectionController _direction;
     [Min(1)]
     [SerializeField] private float _lengthMultiplier = 2;
 
