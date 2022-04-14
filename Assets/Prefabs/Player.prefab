@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7860219977557500820}
+  - component: {fileID: 1414630403995119285}
   m_Layer: 2
   m_Name: RotateOrigin
   m_TagString: Untagged
@@ -114,6 +115,24 @@ Transform:
   m_Father: {fileID: 7860219977924613175}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1414630403995119285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860219977557500819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 7860219977557500820}
+  _identifier: RotateOrigin
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 2
 --- !u!1 &7860219977724187133
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +443,6 @@ MonoBehaviour:
   - {fileID: 7860219977924613163}
   - {fileID: 7860219977924613147}
   - {fileID: 7860219977924613148}
-  - {fileID: 7860219977557500820}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}

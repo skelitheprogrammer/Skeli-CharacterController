@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using Zenject;
 
@@ -7,13 +8,16 @@ public class PlayerInitInstall : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<Camera>().WithId(Constants.MainCamera).FromInstance(_setup.MainCamera.GetComponent<Camera>()).NonLazy();
+        Container.Bind<Camera>().WithId(Constants.MainCamera).FromComponentInNewPrefab(_setup.MainCamera).AsCached();
     }
 
     public override void Start()
     {
-        Container.InstantiatePrefab(_setup.Character);
-        Container.InstantiatePrefab(_setup.Vcam);
-        Container.InstantiatePrefab(_setup.MainCamera);
+        var vcam = Container.InstantiatePrefab(_setup.Vcam).GetComponent<CinemachineVirtualCamera>();
+        var rotateOrigin = Container.InstantiatePrefab(_setup.Character).transform.GetChild(0);
+
+        vcam.Follow = rotateOrigin;
+
+
     }
 }

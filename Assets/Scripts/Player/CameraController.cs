@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _sensitivity = 2;
     [SerializeField] private float _topClamp = 45;
     [SerializeField] private float _botClamp = -35;
-    [Inject] private Transform _cameraRotationOrigin;
+    [Inject(Id = "RotateOrigin")] private Transform _cameraRotationOrigin;
 
     [Inject] private InputReader _input;
 

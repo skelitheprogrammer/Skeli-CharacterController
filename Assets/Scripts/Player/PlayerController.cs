@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     [Inject] private PlayerRotation _rotation;
     [Inject] private PlayerGravity _gravity;
     [Inject] private PlayerJumping _jump;
-
+    [Inject] private GroundDetection _detection;
+    [Inject] private InputReader _input;
     public Vector3 velocity;
 
     private void Update()
@@ -17,7 +18,11 @@ public class PlayerController : MonoBehaviour
         _movement.CharacterMove(ref velocity);
         _rotation.CharacterRotate(transform);
 
-        //_jump.Jump(ref velocity);
+        if (_detection.Detected && _input.IsJumped)
+        {
+            _jump.Jump(ref velocity);
+        }
+
         _gravity.ApplyGravity(ref velocity);
 
         _controller.Move(velocity * Time.deltaTime);

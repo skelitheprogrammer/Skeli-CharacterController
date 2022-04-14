@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject;
 
 public class PlayerMovement
 {
@@ -32,11 +31,8 @@ public class PlayerMovement
     public void CharacterMove(ref Vector3 velocity)
     {
         _moveDirection = _direction.LookSlopeVector * _input.MoveInput.magnitude;
-        var unitGoal = _moveDirection;
 
-        var unitVel = _goalVel.normalized;
-
-        var velDot = Vector3.Dot(unitGoal, unitVel);
+        var velDot = Vector3.Dot(_moveDirection, _goalVel.normalized);
         
         var maxAccel = _maxAcceleration * _maxAccelerationCurve.Evaluate(velDot);
 
@@ -45,9 +41,11 @@ public class PlayerMovement
 
         var accel = (_acceleration + _neededAccel.magnitude) * _accelerationCurve.Evaluate(velDot);
         
-        var goalVel = unitGoal * _maxSpeed;
+        var goalVel = _moveDirection * _maxSpeed;
+        goalVel.y = velocity.y;
 
         _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
+        
         velocity = _goalVel;
     }
 
