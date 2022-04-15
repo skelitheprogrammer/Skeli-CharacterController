@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <Acceleration>k__BackingField: 200
-    <MaxAcceleration>k__BackingField: 150
-    <MaxSpeed>k__BackingField: 10
+    <Acceleration>k__BackingField: 100
+    <MaxAcceleration>k__BackingField: 50
+    <MaxSpeed>k__BackingField: 5
     <AccelerationCurve>k__BackingField:
       serializedVersion: 2
       m_Curve:

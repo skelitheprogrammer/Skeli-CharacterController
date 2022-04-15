@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56906def43804a94e93a9573f580e6ba, type: 3}
   m_Name: PlayerRotationData
   m_EditorClassIdentifier: 
-  <RotationSmoothTime>k__BackingField: 0.15
+  <Data>k__BackingField:
+    <RotationSmoothTime>k__BackingField: 0.08

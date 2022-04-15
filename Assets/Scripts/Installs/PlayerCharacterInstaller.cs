@@ -11,13 +11,27 @@ public class PlayerCharacterInstaller : ScriptableObjectInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<PlayerMovementData>().FromInstance(_moveData.Data).AsSingle();
-        Container.Bind<PlayerRotationData>().FromInstance(_rotationData.Data).AsSingle();
-        Container.Bind<PlayerJumpingData>().FromInstance(_jumpData.Data).AsSingle();
-        Container.Bind<PlayerGravityData>().FromInstance(_gravityData.Data).AsSingle();
+        Container.Bind<PlayerGameStatus>().AsSingle().NonLazy();
+
+        Container.Bind<PlayerMovementData>().FromInstance(_moveData.Data).AsSingle().NonLazy();
         Container.Bind<PlayerMovement>().AsSingle().NonLazy();
+
+        Container.Bind<PlayerRotationData>().FromInstance(_rotationData.Data).AsSingle().NonLazy();
         Container.Bind<PlayerRotation>().AsSingle().NonLazy();
-        Container.Bind<PlayerJumping>().AsSingle().NonLazy();
+
+        InstallJumpComponents();
+
+        Container.Bind<PlayerGravityData>().FromInstance(_gravityData.Data).AsSingle().NonLazy();
         Container.Bind<PlayerGravity>().AsSingle().NonLazy();
+    }
+
+    private void InstallJumpComponents()
+    {
+        Container.Bind<PlayerJumpingData>().FromInstance(_jumpData.Data).AsSingle().NonLazy();
+
+        Container.Bind<JumpCoyoteSettings>().AsCached().NonLazy();
+        Container.Bind<PlayerJumping>().AsSingle().NonLazy();
+
+        Container.Bind<PlayerJumpController>().AsSingle().NonLazy();
     }
 }

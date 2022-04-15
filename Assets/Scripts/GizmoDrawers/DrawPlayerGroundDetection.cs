@@ -21,7 +21,7 @@ public class DrawPlayerGroundDetection : MonoBehaviour
 
         Gizmos.color = _unDetectedColor;
 
-        if (_detection.Detected)
+        if (_detection.IsDetected)
         {
             Gizmos.color = _detectedColor;
         }

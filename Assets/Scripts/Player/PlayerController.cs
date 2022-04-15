@@ -3,28 +3,42 @@ using Zenject;
 
 public class PlayerController : MonoBehaviour
 {
-    [Inject] private CharacterController _controller;
 
     [Inject] private PlayerMovement _movement;
     [Inject] private PlayerRotation _rotation;
     [Inject] private PlayerGravity _gravity;
-    [Inject] private PlayerJumping _jump;
-    [Inject] private GroundDetection _detection;
+    [Inject] private PlayerJumpController _jumpController;
+
+    [Inject] private PlayerGameStatus _status;
     [Inject] private InputReader _input;
-    public Vector3 velocity;
+    [Inject] private DirectionController _direction;
+
+    public Vector3 test;
 
     private void Update()
     {
-        _movement.CharacterMove(ref velocity);
-        _rotation.CharacterRotate(transform);
 
-        if (_detection.Detected && _input.IsJumped)
+
+        
+        _rotation.CharacterRotate(transform, _input.MoveInput);
+       
+        //_gravity.ApplyGravity();
+
+
+
+
+    }
+
+    private void FixedUpdate()
+    {
+        var moveDirection = _direction.LookSlopeVector * _input.MoveInput.magnitude;
+        _movement.CharacterMove(moveDirection);
+
+        _jumpController.Procceed();
+            _jumpController.Jump(_direction.JumpVector);
+
+        if (_input.IsJumped && _status.canJump)
         {
-            _jump.Jump(ref velocity);
         }
-
-        _gravity.ApplyGravity(ref velocity);
-
-        _controller.Move(velocity * Time.deltaTime);
     }
 }

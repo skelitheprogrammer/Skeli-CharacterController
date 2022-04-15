@@ -1,52 +1,43 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerMovement
 {
     private float _acceleration = 200;
-    private float _maxAcceleration = 150;
+    private float _maxAccelerationForce = 150;
     private float _maxSpeed = 10;
 
     private AnimationCurve _accelerationCurve;
     private AnimationCurve _maxAccelerationCurve;
-    
-    private DirectionController _direction;
-    private InputReader _input;
 
-    private Vector3 _moveDirection;
+    [Inject] private PlayerGameStatus _status;
+    [Inject] private Rigidbody _rb;
+
     private Vector3 _goalVel;
-    private Vector3 _neededAccel;
 
-    public PlayerMovement(PlayerMovementData data, InputReader input, DirectionController direction)
+    public PlayerMovement(PlayerMovementData data)
     {
         _acceleration = data.Acceleration;
-        _maxAcceleration = data.MaxAcceleration;
+        _maxAccelerationForce = data.MaxAcceleration;
         _maxSpeed = data.MaxSpeed;
         _accelerationCurve = data.AccelerationCurve;
         _maxAccelerationCurve = data.MaxAccelerationCurve;
-
-        _input = input;
-        _direction = direction;
     }
 
-    public void CharacterMove(ref Vector3 velocity)
+    public void CharacterMove(Vector3 direction)
     {
-        _moveDirection = _direction.LookSlopeVector * _input.MoveInput.magnitude;
 
-        var velDot = Vector3.Dot(_moveDirection, _goalVel.normalized);
-        
-        var maxAccel = _maxAcceleration * _maxAccelerationCurve.Evaluate(velDot);
+        float velDot = Vector3.Dot(direction, _goalVel.normalized);
+        float accel = _acceleration * _accelerationCurve.Evaluate(velDot);
+       
+        Vector3 goalVel = direction * _maxSpeed;
 
-        _neededAccel = _goalVel / Time.deltaTime;
-        _neededAccel = Vector3.ClampMagnitude(_neededAccel, maxAccel);
+        _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.fixedDeltaTime);
+        Vector3 neededAccel = (_goalVel - _rb.velocity) / Time.fixedDeltaTime;
+        float maxAccel = _maxAccelerationForce * _maxAccelerationCurve.Evaluate(velDot);
+        neededAccel = Vector3.ClampMagnitude(neededAccel, maxAccel);
+        _rb.AddForce(neededAccel * _rb.mass);
 
-        var accel = (_acceleration + _neededAccel.magnitude) * _accelerationCurve.Evaluate(velDot);
-        
-        var goalVel = _moveDirection * _maxSpeed;
-        goalVel.y = velocity.y;
-
-        _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
-        
-        velocity = _goalVel;
     }
 
 }

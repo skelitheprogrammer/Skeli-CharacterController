@@ -8,7 +8,7 @@ public class GroundDetection : MonoBehaviour
 
     public Vector3 GroundNormal { get; private set; }
     public float Angle { get; private set; }
-    public bool Detected { get; private set; }
+    public bool IsDetected { get; private set; }
 
     private void Update()
     {
@@ -17,7 +17,7 @@ public class GroundDetection : MonoBehaviour
 
     public void Detect()
     {
-        Detected = Physics.SphereCast(transform.position + Offset, Radius, Vector3.down, out var hit, Distance);
+        IsDetected = Physics.SphereCast(transform.position + Offset, Radius, Vector3.down, out var hit, Distance);
 
         Angle = Vector3.Angle(hit.normal, Vector3.up);
 

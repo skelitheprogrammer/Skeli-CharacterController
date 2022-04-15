@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: PlayerJumpingData
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <RotationSmoothTime>k__BackingField: 3
+    <JumpHeight>k__BackingField: 10
+    <CoyoteTime>k__BackingField: 0.25
+    <JumpBuffer>k__BackingField: 0.05

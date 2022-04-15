@@ -1,27 +1,37 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerGravity
 {
-    private GroundDetection _groundDetection;
+    [Inject] private GroundDetection _groundDetection;
+    [Inject] private PlayerGameStatus _status;
 
     private float _groundedValue;
+    private Vector3 _currentGravity;
 
-    public PlayerGravity(GroundDetection groundDetection,PlayerGravityData data)
+    public PlayerGravity(PlayerGravityData data)
     {
-        _groundDetection = groundDetection;
         _groundedValue = data.GroundedGravity;
     }
 
-    public void ApplyGravity(ref Vector3 velocity)
+    public void ApplyGravity()
     {
-        if (_groundDetection.Detected)
+        if (_groundDetection.IsDetected)
         {
-            velocity = new Vector3(velocity.x,_groundedValue,velocity.z);
+            _currentGravity = Vector3.up * _groundedValue;
         }
         else
         {
             var gravityForce = Physics.gravity.y * Time.deltaTime * Vector3.up;
-            velocity += gravityForce;
+            _currentGravity += gravityForce;
         }
+
+        _status.velocity += _currentGravity;
+
+    }
+
+    public void AddForce(Vector3 force)
+    {
+        _currentGravity += force;
     }
 }

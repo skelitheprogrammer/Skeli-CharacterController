@@ -17,7 +17,5 @@ public class PlayerInitInstall : MonoInstaller
         var rotateOrigin = Container.InstantiatePrefab(_setup.Character).transform.GetChild(0);
 
         vcam.Follow = rotateOrigin;
-
-
     }
 }
