@@ -11,9 +11,6 @@ public class PlayerMovement
     private AnimationCurve _maxAccelerationCurve;
 
     [Inject] private PlayerGameStatus _status;
-    [Inject] private Rigidbody _rb;
-
-    private Vector3 _goalVel;
 
     public PlayerMovement(PlayerMovementData data)
     {
@@ -27,16 +24,6 @@ public class PlayerMovement
     public void CharacterMove(Vector3 direction)
     {
 
-        float velDot = Vector3.Dot(direction, _goalVel.normalized);
-        float accel = _acceleration * _accelerationCurve.Evaluate(velDot);
-       
-        Vector3 goalVel = direction * _maxSpeed;
-
-        _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.fixedDeltaTime);
-        Vector3 neededAccel = (_goalVel - _rb.velocity) / Time.fixedDeltaTime;
-        float maxAccel = _maxAccelerationForce * _maxAccelerationCurve.Evaluate(velDot);
-        neededAccel = Vector3.ClampMagnitude(neededAccel, maxAccel);
-        _rb.AddForce(neededAccel * _rb.mass);
 
     }
 

@@ -16,14 +16,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 test;
 
     private void Update()
-    {
-
-
-        
-        _rotation.CharacterRotate(transform, _input.MoveInput);
-       
-        //_gravity.ApplyGravity();
-
+    {   
 
 
 
@@ -31,14 +24,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var moveDirection = _direction.LookSlopeVector * _input.MoveInput.magnitude;
-        _movement.CharacterMove(moveDirection);
 
-        _jumpController.Procceed();
-            _jumpController.Jump(_direction.JumpVector);
-
-        if (_input.IsJumped && _status.canJump)
-        {
-        }
     }
 }

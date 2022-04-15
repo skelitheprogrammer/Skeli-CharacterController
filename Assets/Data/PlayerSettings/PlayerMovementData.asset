@@ -15,7 +15,7 @@ MonoBehaviour:
   <Data>k__BackingField:
     <Acceleration>k__BackingField: 100
     <MaxAcceleration>k__BackingField: 50
-    <MaxSpeed>k__BackingField: 5
+    <MaxSpeed>k__BackingField: 10
     <AccelerationCurve>k__BackingField:
       serializedVersion: 2
       m_Curve:
