@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class PlayerRotation
@@ -21,7 +20,7 @@ public class PlayerRotation
         if (input == Vector2.zero) return;
 
         _targetRotation = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg + _camera.transform.eulerAngles.y;
-        float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _rotationSmoothTime);
+        var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _rotationSmoothTime);
 
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
     }

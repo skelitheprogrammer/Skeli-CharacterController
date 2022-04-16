@@ -3,10 +3,10 @@ using Zenject;
 
 public class PlayerGravity
 {
-    [Inject] private GroundDetection _groundDetection;
     [Inject] private PlayerGameStatus _status;
 
     private float _groundedValue;
+    public Vector3 _currentGravity;
 
     public PlayerGravity(PlayerGravityData data)
     {
@@ -15,7 +15,11 @@ public class PlayerGravity
 
     public void ApplyGravity()
     {
+        _currentGravity.y += Physics.gravity.y * Time.deltaTime;
+    }
 
-
+    public void ResetGravity()
+    {
+        _currentGravity.y = _groundedValue;
     }
 }

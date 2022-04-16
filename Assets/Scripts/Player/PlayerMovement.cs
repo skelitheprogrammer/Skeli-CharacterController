@@ -12,6 +12,9 @@ public class PlayerMovement
 
     [Inject] private PlayerGameStatus _status;
 
+    private Vector3 _goalVel;
+    private Vector3 _neededAccel;
+
     public PlayerMovement(PlayerMovementData data)
     {
         _acceleration = data.Acceleration;
@@ -21,8 +24,25 @@ public class PlayerMovement
         _maxAccelerationCurve = data.MaxAccelerationCurve;
     }
 
-    public void CharacterMove(Vector3 direction)
+    public Vector3 CalculateMoveVector(Vector3 direction)
     {
+        var unitVel = _goalVel.normalized;
+
+        var velDot = Vector3.Dot(direction, unitVel);
+
+        var accel = _acceleration * _accelerationCurve.Evaluate(velDot);
+        var goalVel = direction * _maxSpeed;
+
+        _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
+
+        var maxAccel = _maxAccelerationForce * _maxAccelerationCurve.Evaluate(velDot);
+
+        _neededAccel = (_goalVel - _status.velocity) / Time.deltaTime;
+        _neededAccel = Vector3.ClampMagnitude(_neededAccel, maxAccel);
+
+        Debug.Log($"{_goalVel.magnitude} | {_neededAccel.magnitude} | {_status.velocity.magnitude}");
+        return _neededAccel;
+
 
 
     }
