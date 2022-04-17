@@ -10,6 +10,7 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
     {
         Container.Bind<GroundCheckData>().FromInstance(_groundCheck.Data).AsSingle().NonLazy();
         Container.Bind<ITickable>().To<GroundCheckController>().AsSingle().NonLazy();
+        Container.Bind<ITickable>().To<DirectionController>().AsSingle().NonLazy();
         Container.Bind<CharacterStateData>().AsSingle().NonLazy();
     }
 }

@@ -10,11 +10,6 @@ public class PlayerSpawnInstall : MonoInstaller
         Container.Bind<Transform>().WithId(Constants.PLAYERTRANSFORM).FromComponentInNewPrefab(_prefab).AsSingle().OnInstantiated<Transform>(OnInstant).NonLazy();
     }
 
-    public override void Start()
-    {
-
-    }
-
     public void OnInstant(InjectContext context, Transform go)
     {
         go.position = transform.position;

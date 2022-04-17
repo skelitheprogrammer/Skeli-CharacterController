@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using Zenject;
 
+[System.Serializable]
 public class CharacterStateData
 {
-    [Inject(Id = Constants.PLAYERTRANSFORM)] public readonly Transform Transform;
+    [Inject(Id = Constants.PLAYERTRANSFORM)] public Transform Transform;
     public bool isGrounded;
     public Vector3 normal;
     public Vector3 slopeVector;

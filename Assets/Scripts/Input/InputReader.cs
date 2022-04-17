@@ -34,24 +34,12 @@ public class InputReader : MonoBehaviour
         _rotateAction.action.performed -= OnRotate;
         _rotateAction.action.canceled -= OnRotate;
 
-        _jumpInput.action.started -= OnJump;
+        _jumpInput.action.performed -= OnJump;
         _jumpInput.action.canceled -= OnJump;
     }
 
-    private void OnMove(InputAction.CallbackContext ctx)
-    {
-        MoveInput = ctx.ReadValue<Vector2>();
-
-    }
-
-    private void OnRotate(InputAction.CallbackContext ctx)
-    {
-        RotateInput = ctx.ReadValue<Vector2>();
-    }
-
-    private void OnJump(InputAction.CallbackContext ctx)
-    {
-        JumpInput = ctx.ReadValueAsButton();
-    }
+    private void OnMove(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector2>();
+    private void OnRotate(InputAction.CallbackContext ctx) => RotateInput = ctx.ReadValue<Vector2>();
+    private void OnJump(InputAction.CallbackContext ctx) => JumpInput = ctx.ReadValueAsButton();
 
 }

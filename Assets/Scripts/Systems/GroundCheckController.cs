@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class GroundCheckController : ISystem, ITickable
+public class GroundCheckController : ISystem, ITickable 
 {
     public bool Enabled { get; private set; } = true;
     [Inject(Id = Constants.PLAYERTRANSFORM)] public Transform transform;
@@ -22,10 +22,9 @@ public class GroundCheckController : ISystem, ITickable
         ref var isGrounded = ref _stateData.isGrounded;
 
         isGrounded = Physics.SphereCast(transform.position + _groundCheckData.Offset, _groundCheckData.Radius, Vector3.down,out var hit, _groundCheckData.Length);
-        Debug.Log(isGrounded);
         angle = Vector3.Angle(hit.normal, Vector3.up);
 
-        if (angle < 1)
+        if (angle == 0)
         {
             normal = Vector3.up;
         }

@@ -3,6 +3,8 @@ using Zenject;
 
 public class DrawDirectionController : GizmosBase
 {
+    [SerializeField] private Vector3 _offset;
+
     [Min(1)]
     [SerializeField] private float _lengthMultiplier;
 
@@ -17,7 +19,7 @@ public class DrawDirectionController : GizmosBase
     {
         if (_characterStateData == null) return;
 
-        var position = _characterStateData.Transform.position;
+        var position = _characterStateData.Transform.position + _offset;
         var normal = _characterStateData.normal;
         var slopeVector = _characterStateData.slopeVector;
         var lookSlopeVector = _characterStateData.lookSlopeVector;
@@ -27,10 +29,10 @@ public class DrawDirectionController : GizmosBase
         Gizmos.DrawRay(position, normal * _lengthMultiplier);
 
         Gizmos.color = _lookSlopeColor;
-        Gizmos.DrawRay(position, slopeVector * _lengthMultiplier);
+        Gizmos.DrawRay(position, lookSlopeVector * _lengthMultiplier);
 
         Gizmos.color = _slopeColor;
-        Gizmos.DrawRay(position, lookSlopeVector * _lengthMultiplier);
+        Gizmos.DrawRay(position, slopeVector * _lengthMultiplier);
 
         Gizmos.color = _jumpColor;
         Gizmos.DrawRay(position, jumpVector * _lengthMultiplier);
