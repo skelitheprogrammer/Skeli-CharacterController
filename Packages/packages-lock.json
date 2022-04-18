@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.inspiaaa.unityhfsm": {
+      "version": "https://github.com/Inspiaaa/UnityHFSM.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b2553d60754f6bfb361b521fe5bbb6ce9b37b7bd"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
@@ -18,18 +25,9 @@
     },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.rider": {
-      "version": "3.0.13",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ext.nunit": "1.0.6"
-      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
