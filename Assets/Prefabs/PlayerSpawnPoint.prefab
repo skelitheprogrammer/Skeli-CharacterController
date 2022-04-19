@@ -65,6 +65,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 7860219977924613174, guid: 5085383581bb5d44c8e6fa32c5f57dd6, type: 3}
+  _camera: {fileID: 8094476493215919635, guid: e42f42332adb5a149a12e3e61731775a, type: 3}
+  _vcam: {fileID: 2091871366480360353, guid: 5f36b06572acfd7479978852be4cd9b9, type: 3}
 --- !u!114 &3854205349447523847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,3 +84,9 @@ MonoBehaviour:
   _color: {r: 1, g: 0, b: 0, a: 1}
   _height: 2
   _radius: 0.5
+  _arrow: 1
+  _arrowColor: {r: 0, g: 0.049153328, b: 1, a: 1}
+  _arrowOffset: {x: 0, y: -1, z: 0}
+  _arrowLength: 1
+  _arrowHeadLength: 0.45
+  _arrowHeadAngle: 30

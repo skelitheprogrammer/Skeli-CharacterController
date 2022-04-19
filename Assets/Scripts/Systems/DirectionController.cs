@@ -1,20 +1,15 @@
 using UnityEngine;
 using Zenject;
 
-public class DirectionController : ISystem, ITickable
+public class DirectionController : GameSystem
 {
-    public bool Enabled { get; private set; } = true;
     [Inject] private CharacterStateData _data;
     [Inject] private InputReader _input;
 
-    public void Tick()
+    public override void Procceed()
     {
-        if (!Enabled) return;
-        Procceed();
-    }
+        if (!_enabled) return;
 
-    public void Procceed()
-    {
         var normal = _data.normal;
         var inputDirection = _input.MoveInputDirection;
         var transform = _data.Transform;
@@ -26,16 +21,6 @@ public class DirectionController : ISystem, ITickable
         lookSlopeVector = Vector3.ProjectOnPlane(transform.forward, normal).normalized;
         slopeVector = Vector3.ProjectOnPlane(Vector3.down, normal).normalized;
         jumpVector = (Vector3.up + (lookSlopeVector * inputDirection.magnitude)).normalized;
-    }
-
-    public void Toggle()
-    {
-        Enabled = !Enabled;
-    }
-
-    public void Toggle(bool state)
-    {
-        Enabled = state;
     }
 
 }

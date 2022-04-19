@@ -1,22 +1,16 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class GroundCheckController : ISystem, ITickable 
+public class GroundCheckController : GameSystem
 {
-    public bool Enabled { get; private set; } = true;
-    [Inject(Id = Constants.PLAYERTRANSFORM)] public Transform transform;
-
     [Inject] private GroundCheckData _groundCheckData;
     [Inject] private CharacterStateData _stateData;
 
-    public void Tick()
+    public override void Procceed()
     {
-        if (!Enabled) return;
-        Procceed();
-    }
+        if (!_enabled) return;
 
-    public void Procceed()
-    {
+        var transform = _stateData.Transform;
         ref var normal = ref _stateData.normal;
         ref var angle = ref _stateData.slopeAngle;
         ref var isGrounded = ref _stateData.isGrounded;
@@ -33,16 +27,4 @@ public class GroundCheckController : ISystem, ITickable
             normal = hit.normal;
         }
     }
-
-    public void Toggle()
-    {
-        Enabled = !Enabled;
-    }
-
-    public void Toggle(bool state)
-    {
-        Enabled = state;
-    }
-
-
 }

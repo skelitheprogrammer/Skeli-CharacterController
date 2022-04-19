@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8a0a05a5c25c8341b9b450491f3d131, type: 3}
-  m_Name: New Ground Check Data SO
+  m_Script: {fileID: 11500000, guid: 22a06a6af8b5828399ca4c889afa5fc4, type: 3}
+  m_Name: New Player Jump Data SO
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <Offset>k__BackingField: {x: 0, y: 0.42, z: 0}
-    <Length>k__BackingField: 0.39
-    <Radius>k__BackingField: 0.12
+    <JumpHeight>k__BackingField: 3

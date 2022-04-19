@@ -5,7 +5,7 @@ public class PlayerJumpSystem
 {
     [Inject] private CharacterStateData _data;
     [Inject] private PlayerJumpData _jumpData;
-    
+
     public Vector3 CalculateJumpForce()
     {
         var direction = _data.jumpVector;

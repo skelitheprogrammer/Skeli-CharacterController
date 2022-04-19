@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: CharacterInitInstallSO
   m_EditorClassIdentifier: 
   _groundCheck: {fileID: 11400000, guid: 794427ede7f5cfc49b6c74ad901c618d, type: 2}
+  _jumpData: {fileID: 11400000, guid: 2ffe5ddf36ce6714d84bd92ddb287807, type: 2}
+  _movementData: {fileID: 11400000, guid: 5f0693201c8ef594584ce7dd2d7aa9d9, type: 2}

@@ -1,18 +1,34 @@
+using Cinemachine;
 using UnityEngine;
 using Zenject;
 
 public class PlayerSpawnInstall : MonoInstaller
 {
     [SerializeField] private GameObject _prefab;
+    [SerializeField] private GameObject _camera;
+    [SerializeField] private GameObject _vcam;
 
     public override void InstallBindings()
     {
-        Container.Bind<Transform>().WithId(Constants.PLAYERTRANSFORM).FromComponentInNewPrefab(_prefab).AsSingle().OnInstantiated<Transform>(OnInstant).NonLazy();
+        Container.Bind<Transform>().WithId(Constants.PLAYERTRANSFORM).FromComponentInNewPrefab(_prefab).AsCached().OnInstantiated<Transform>(OnInstant).NonLazy();
     }
 
-    public void OnInstant(InjectContext context, Transform go)
+    public override void Start()
     {
-        go.position = transform.position;
-        go.parent = null;
+        Container.InstantiatePrefab(_camera).transform.parent = null;
+        Container.InstantiatePrefab(_vcam).transform.parent = null;
+
+
+    }
+
+    public void OnInstant(InjectContext context, Transform transform)
+    {
+        transform.position = base.transform.position;
+        transform.parent = null;
+    }
+
+    public void OnInstants(InjectContext context, CinemachineVirtualCamera vcam)
+    {
+        Debug.Log($"{context}");
     }
 }

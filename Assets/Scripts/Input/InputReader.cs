@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class InputReader : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
-    public Vector3 MoveInputDirection => new Vector3(MoveInput.x, 0, MoveInput.y);
+    public Vector3 MoveInputDirection => new Vector3(MoveInput.x, 0, MoveInput.y).normalized;
     public Vector2 RotateInput { get; private set; }
 
     public bool IsJumped => _jumpInput.action.WasPerformedThisFrame();
