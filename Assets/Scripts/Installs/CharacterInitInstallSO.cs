@@ -8,20 +8,24 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
     [SerializeField] private GroundCheckDataSO _groundCheck;
     [SerializeField] private PlayerJumpDataSO _jumpData;
     [SerializeField] private PlayerMovementDataSO _movementData;
+    [SerializeField] private OriginRotationDataSO _originRotationData;
 
     public override void InstallBindings()
     {
-        Container.Bind<GroundCheckData>().FromInstance(_groundCheck.Data).AsSingle().NonLazy();
-        Container.Bind<PlayerJumpData>().FromInstance(_jumpData.Data).AsSingle().NonLazy();
-        Container.Bind<PlayerMovementData>().FromInstance(_movementData.Data).AsSingle().NonLazy();
+        Container.BindInstance(_groundCheck.Data).AsSingle().NonLazy();
+        Container.BindInstance(_jumpData.Data).AsSingle().NonLazy();
+        Container.BindInstance(_movementData.Data).AsSingle().NonLazy();
+        Container.BindInstance(_originRotationData.Data).AsSingle().NonLazy();
 
         Container.Bind<GroundCheckController>().AsSingle().NonLazy();
         Container.Bind<DirectionController>().AsSingle().NonLazy();
 
         Container.Bind<StateMachine>().AsCached().NonLazy();
+
         Container.Bind<PlayerSimpleMovementSystem>().AsSingle().NonLazy();
         Container.Bind<PlayerJumpSystem>().AsSingle().NonLazy();
         Container.Bind<GravitySystem>().AsSingle().NonLazy();
+        Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
 
         Container.Bind<CharacterStateData>().AsSingle().NonLazy();
     }

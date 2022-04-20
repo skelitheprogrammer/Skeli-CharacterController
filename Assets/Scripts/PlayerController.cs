@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [Inject] private GravitySystem _gravity;
     [Inject] private PlayerJumpSystem _jump;
     [Inject] private PlayerSimpleMovementSystem _movement;
+    [Inject] private OriginRotationSystem _originRotation;
 
     [Inject] private InputReader _input;
 
@@ -52,6 +53,11 @@ public class PlayerController : MonoBehaviour
         _fsm.OnLogic();
 
         _controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        _originRotation.Procceed();
     }
 
     public void ApplyValue(Vector3 value)
