@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3854205349447523850}
-  - component: {fileID: 3854205349447523845}
   - component: {fileID: 3854205349447523844}
   - component: {fileID: 3854205349447523847}
+  - component: {fileID: 1756554288583654307}
   m_Layer: 0
   m_Name: PlayerSpawnPoint
   m_TagString: Untagged
@@ -34,24 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3854205349447523845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3854205349447523848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 3854205349447523844}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
 --- !u!114 &3854205349447523844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +49,8 @@ MonoBehaviour:
   _prefab: {fileID: 7860219977924613174, guid: 5085383581bb5d44c8e6fa32c5f57dd6, type: 3}
   _camera: {fileID: 8094476493215919635, guid: e42f42332adb5a149a12e3e61731775a, type: 3}
   _vcam: {fileID: 2091871366480360353, guid: 5f36b06572acfd7479978852be4cd9b9, type: 3}
+  _rotateObject: {fileID: 6602281441705035956, guid: 5085383581bb5d44c8e6fa32c5f57dd6,
+    type: 3}
 --- !u!114 &3854205349447523847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,3 +74,35 @@ MonoBehaviour:
   _arrowLength: 1
   _arrowHeadLength: 0.45
   _arrowHeadAngle: 30
+--- !u!114 &1756554288583654307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854205349447523848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 3854205349447523844}
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []

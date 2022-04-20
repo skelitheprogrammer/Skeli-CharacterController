@@ -12,7 +12,7 @@ public class DirectionController : GameSystem
 
         var normal = _data.normal;
         var inputDirection = _input.MoveInputDirection;
-        var transform = _data.Transform;
+        var transform = _data.transform;
 
         ref var lookSlopeVector = ref _data.lookSlopeVector;
         ref var slopeVector = ref _data.slopeVector;

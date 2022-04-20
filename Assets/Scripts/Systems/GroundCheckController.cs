@@ -10,7 +10,7 @@ public class GroundCheckController : GameSystem
     {
         if (!_enabled) return;
 
-        var transform = _stateData.Transform;
+        var transform = _stateData.transform;
         ref var normal = ref _stateData.normal;
         ref var angle = ref _stateData.slopeAngle;
         ref var isGrounded = ref _stateData.isGrounded;

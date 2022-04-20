@@ -8,27 +8,35 @@ public class PlayerSpawnInstall : MonoInstaller
     [SerializeField] private GameObject _camera;
     [SerializeField] private GameObject _vcam;
 
+    private Transform _rotateObject;
+
     public override void InstallBindings()
     {
-        Container.Bind<Transform>().WithId(Constants.PLAYERTRANSFORM).FromComponentInNewPrefab(_prefab).AsCached().OnInstantiated<Transform>(OnInstant).NonLazy();
+        Container.Bind<Transform>()
+            .WithId(Constants.PLAYERTRANSFORM)
+            .FromComponentInNewPrefab(_prefab)
+            .AsCached()
+            .OnInstantiated<Transform>(OnInstant)
+            .NonLazy();
+
+        Container.BindInstance(_rotateObject)
+            .WithId(Constants.ROTATEORIGIN)
+            .AsCached()
+            .NonLazy();
     }
 
     public override void Start()
     {
         Container.InstantiatePrefab(_camera).transform.parent = null;
-        Container.InstantiatePrefab(_vcam).transform.parent = null;
-
-
+        var vcam = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_vcam);
+        vcam.transform.parent = null;
+        vcam.Follow = _rotateObject;
     }
 
-    public void OnInstant(InjectContext context, Transform transform)
+    private void OnInstant(InjectContext context, Transform transform)
     {
         transform.position = base.transform.position;
         transform.parent = null;
-    }
-
-    public void OnInstants(InjectContext context, CinemachineVirtualCamera vcam)
-    {
-        Debug.Log($"{context}");
+        _rotateObject = transform.GetComponent<TransformReference>().Transform;
     }
 }

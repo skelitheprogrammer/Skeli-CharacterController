@@ -4,7 +4,7 @@ using Zenject;
 [System.Serializable]
 public class CharacterStateData
 {
-    [Inject(Id = Constants.PLAYERTRANSFORM)] public Transform Transform;
+    [Inject(Id = Constants.PLAYERTRANSFORM)] public Transform transform;
     public bool isGrounded;
     public Vector3 normal;
     public Vector3 slopeVector;

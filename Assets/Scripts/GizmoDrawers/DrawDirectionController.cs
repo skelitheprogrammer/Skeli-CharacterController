@@ -19,7 +19,7 @@ public class DrawDirectionController : GizmosBase
     {
         if (_characterStateData == null) return;
 
-        var position = _characterStateData.Transform.position + _offset;
+        var position = _characterStateData.transform.position + _offset;
         var normal = _characterStateData.normal;
         var slopeVector = _characterStateData.slopeVector;
         var lookSlopeVector = _characterStateData.lookSlopeVector;

@@ -16,8 +16,6 @@ public class PlayerSimpleMovementSystem
         var maxSpeed = _moveData.MaxSpeed;
         var acceleration = _moveData.Acceleration;
         var accelCurve = _moveData.AccelerationCurve;
-        var maxAcceleration = _moveData.MaxAcceleration;
-        var maxAccelCurve = _moveData.MaxAccelerationCurve;
         
         if (_data.isGrounded)
         {
@@ -32,20 +30,10 @@ public class PlayerSimpleMovementSystem
 
         var velDot = Vector3.Dot(_input.MoveInputDirection, _goalVel.normalized);
         var accel = acceleration * accelCurve.Evaluate(velDot);
-        var maxAccel = maxAcceleration * maxAccelCurve.Evaluate(velDot);
-
-        /*        _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
-
-                var difference = (_goalVel - velocity) + Vector3.up * velocity.y;
-                difference = Vector3.ClampMagnitude(difference, maxSpeed);
-                Debug.Log($"{velocity.magnitude:0.00} | {difference.magnitude:0.00} | {_goalVel.magnitude:0.00} | {velDot:0.00}");
-                return difference;*/
 
         _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
 
         var difference = _goalVel - velocity;
-        //difference = Vector3.ClampMagnitude(difference, maxSpeed);
-        Debug.Log($"{velocity.magnitude:0.00} | {difference.magnitude:0.00} | {_goalVel.magnitude:0.00} | {velDot:0.00}");
         return difference + Vector3.up * velocity.y;
     }
 }
