@@ -6,7 +6,7 @@ public class GroundCheckController : GameSystem
     [Inject] private GroundCheckData _groundCheckData;
     [Inject] private CharacterStateData _stateData;
 
-    public override void Procceed()
+    public override void DoLogic()
     {
         if (!_enabled) return;
 

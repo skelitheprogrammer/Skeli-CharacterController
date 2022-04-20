@@ -12,5 +12,5 @@ public abstract class GameSystem
         _enabled = state;
     }
 
-    public abstract void Procceed();
+    public abstract void DoLogic();
 }

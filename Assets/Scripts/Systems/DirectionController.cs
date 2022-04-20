@@ -6,7 +6,7 @@ public class DirectionController : GameSystem
     [Inject] private CharacterStateData _data;
     [Inject] private InputReader _input;
 
-    public override void Procceed()
+    public override void DoLogic()
     {
         if (!_enabled) return;
 

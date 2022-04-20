@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _groundCheck.Procceed();
-        _directionController.Procceed();
+        _groundCheck.DoLogic();
+        _directionController.DoLogic();
 
         ApplyValue(_movement.CalculateMovement(velocity));
         velocity = _gravity.ApplyGravity(velocity);
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        _originRotation.Procceed();
+        _originRotation.DoLogic();
     }
 
     public void ApplyValue(Vector3 value)

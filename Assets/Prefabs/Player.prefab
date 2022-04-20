@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7860219977557500819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.1345432, y: 0.75870526, z: -0.16586578, w: 0.6154291}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 8723216577799142452}
   - component: {fileID: 66903796493507418}
   - component: {fileID: 5233425548680619327}
-  - component: {fileID: 6602281441705035956}
   - component: {fileID: 3684238716555316694}
   - component: {fileID: 8461934578486828818}
   m_Layer: 2
@@ -222,19 +221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
---- !u!114 &6602281441705035956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860219977924613174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8164df16e71409c42bf4f7baeda8f832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Transform>k__BackingField: {fileID: 7860219977557500820}
 --- !u!114 &3684238716555316694
 MonoBehaviour:
   m_ObjectHideFlags: 0
