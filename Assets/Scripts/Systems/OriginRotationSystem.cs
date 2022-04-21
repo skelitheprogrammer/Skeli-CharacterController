@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class OriginRotationSystem : GameSystem
+public class OriginRotationSystem : GameSystem, IInitializable
 {
 	[Inject] private InputReader _input;
 	[Inject] private OriginRotationData _data;
@@ -10,12 +10,17 @@ public class OriginRotationSystem : GameSystem
 	private float _yaw;
 	private float _pitch;
 
-	private const float _threshold = 0.01f;
+    private const float _threshold = 0.01f;
+    
+    public void Initialize()
+    {
+        _pitch = _rotationOrigin.eulerAngles.x;
+    }
 
-	public override void DoLogic()
-	{
-		OriginRotation();
-	}
+    public override void DoLogic()
+    {
+        OriginRotation();
+    }
 
 	private void OriginRotation()
 	{
