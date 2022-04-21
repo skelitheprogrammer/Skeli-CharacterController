@@ -5,31 +5,40 @@ using Zenject;
 public class PlayerSpawnInstall : MonoInstaller
 {
 
-	//Сделай фабрику для того чтобы заинжектить все как надо
-	[SerializeField] private GameObject _prefab;
+	[SerializeField] private GameObject _playerPrefab;
 	[SerializeField] private GameObject _camera;
 	[SerializeField] private GameObject _vCam;
+	
+	public Transform _playerTransform;
+	public Transform _rotateOrigin;
 
 	public override void InstallBindings()
 	{
-		Debug.Log("1");
-        Container.Bind<Transform>()
-            .WithId(Constants.PLAYERTRANSFORM)
-            .FromComponentInNewPrefab(_prefab)
-            .AsCached()
-            .OnInstantiated<Transform>(OnInstant)
-            .NonLazy();
-		Debug.Log("2");
+		Container.BindFactory<Transform, PlayerSpawner.PlayerFactory>()
+		.FromComponentInNewPrefab(_playerPrefab)
+		.AsCached()
+		.NonLazy();
+
+		Container.BindFactory<Transform, PlayerSpawner.CameraFactory>()
+		.FromComponentInNewPrefab(_camera)
+		.AsCached()
+		.NonLazy();
+		
+		Container.BindFactory<Transform, PlayerSpawner.VCamFactory>()
+		.FromComponentInNewPrefab(_vCam)
+		.AsCached()
+		.NonLazy();
+		
+		// Debug.Log("1");
+		// Container.Bind<Transform>()
+		//     .WithId(Constants.PLAYERTRANSFORM)
+		//     .FromComponentInNewPrefab(_prefab)
+		//     .AsCached()
+		//     .OnInstantiated<Transform>(OnInstant)
+		//     .NonLazy();
+		// Debug.Log("2");
 
 	}
-
-	public override void Start()
-	{
-        Debug.Log("3");
-        Container.InstantiatePrefab(_camera).transform.parent = null;
-        Container.InstantiatePrefab(_vCam).transform.parent = null;
-        Debug.Log("4");
-    }
 
 	private void OnInstant(InjectContext context, Transform transform)
 	{
