@@ -47,10 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0a4b0f0211e9943b9ebd08505cd2f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 7860219977924613174, guid: 5085383581bb5d44c8e6fa32c5f57dd6,
+  _playerWrapperPrefab: {fileID: 6840563327239875512, guid: 68f0c834bfe13dd4487b192350e33982,
     type: 3}
-  _camera: {fileID: 8094476493215919635, guid: e42f42332adb5a149a12e3e61731775a, type: 3}
-  _vCam: {fileID: 2091871366480360353, guid: 5f36b06572acfd7479978852be4cd9b9, type: 3}
 --- !u!114 &3854205349447523847
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091871366480360367}
   - component: {fileID: 2091871366480360352}
-  - component: {fileID: 3785864713227174288}
+  - component: {fileID: 4436540933245844288}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -72,7 +72,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2091871367051614447}
---- !u!114 &3785864713227174288
+--- !u!114 &4436540933245844288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,10 +81,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2091871366480360353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bb608e1187d6b444bb854891afd8b47, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a7667e9f9fcabb4a93e706c1e9228ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vcam: {fileID: 2091871366480360352}
+  test: {fileID: 0}
 --- !u!1 &2091871367051614432
 GameObject:
   m_ObjectHideFlags: 0

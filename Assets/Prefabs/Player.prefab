@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateOrigin: {fileID: 7860219977557500820}
+  _playerTransform: {fileID: 7860219977924613175}
 --- !u!1001 &420583736379183433
 PrefabInstance:
   m_ObjectHideFlags: 0
