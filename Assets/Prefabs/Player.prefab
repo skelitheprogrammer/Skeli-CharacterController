@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7860219977557500819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 5233425548680619327}
   - component: {fileID: 3684238716555316694}
   - component: {fileID: 8461934578486828818}
+  - component: {fileID: 9167530029456982879}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -146,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e585ee2d7491a834b8adb023052a97d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateInput: {x: 0, y: 0}
   _moveAction: {fileID: -7787182657449943418, guid: 05eecf4cb69a8c94f931a76344d583f9,
     type: 3}
   _rotateAction: {fileID: -5230080763624501279, guid: 05eecf4cb69a8c94f931a76344d583f9,
@@ -235,7 +237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers:
   - {fileID: 11400000, guid: 7243f881b2fc12b44a7ab99336e48a9a, type: 2}
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 9167530029456982879}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -258,6 +261,19 @@ MonoBehaviour:
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 2
+--- !u!114 &9167530029456982879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860219977924613174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb333af5c2ff7740a1f419427bf4ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotateOrigin: {fileID: 7860219977557500820}
 --- !u!1001 &420583736379183433
 PrefabInstance:
   m_ObjectHideFlags: 0

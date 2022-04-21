@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
         ApplyValue(_movement.CalculateMovement(velocity));
         velocity = _gravity.ApplyGravity(velocity);
         
+        _originRotation.DoLogic();
         _fsm.OnLogic();
 
         _controller.Move(velocity * Time.deltaTime);
@@ -57,7 +58,6 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        _originRotation.DoLogic();
     }
 
     public void ApplyValue(Vector3 value)

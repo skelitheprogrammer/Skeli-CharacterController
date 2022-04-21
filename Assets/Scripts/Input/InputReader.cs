@@ -5,7 +5,7 @@ public class InputReader : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
     public Vector3 MoveInputDirection => new Vector3(MoveInput.x, 0, MoveInput.y).normalized;
-    public Vector2 RotateInput { get; private set; }
+    public Vector2 RotateInput;
 
     public bool IsJumped => _jumpInput.action.WasPerformedThisFrame();
     public bool JumpInput { get; private set; }

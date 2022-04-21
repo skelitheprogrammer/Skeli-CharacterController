@@ -30,6 +30,6 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 
         Container.Bind<IInitializable>().To<OriginRotationSystem>().AsCached().NonLazy();
 
-		Container.Bind<CharacterStateData>().AsSingle().NonLazy();
+        Container.Bind<CharacterStateData>().AsSingle().NonLazy();
 	}
 }

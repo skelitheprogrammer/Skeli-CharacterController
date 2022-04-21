@@ -4,46 +4,36 @@ using Zenject;
 
 public class PlayerSpawnInstall : MonoInstaller
 {
+
+	//Сделай фабрику для того чтобы заинжектить все как надо
 	[SerializeField] private GameObject _prefab;
 	[SerializeField] private GameObject _camera;
 	[SerializeField] private GameObject _vCam;
 
-	public Transform _rotateObject;
-
 	public override void InstallBindings()
-	{		
-		Container.Bind<Transform>()
-			.WithId(Constants.PLAYERTRANSFORM)
-			.FromComponentInNewPrefab(_prefab)
-			.AsCached()
-			.OnInstantiated<Transform>(OnInstant)
-			.NonLazy();
-			
-		Container.BindInstance(_prefab.transform.GetChild(0))
-			.WithId(Constants.ROTATEORIGIN)
-			.AsCached()
-			.NonLazy();
-			
+	{
+		Debug.Log("1");
+        Container.Bind<Transform>()
+            .WithId(Constants.PLAYERTRANSFORM)
+            .FromComponentInNewPrefab(_prefab)
+            .AsCached()
+            .OnInstantiated<Transform>(OnInstant)
+            .NonLazy();
+		Debug.Log("2");
 
 	}
 
 	public override void Start()
 	{
-	
-		Container.InstantiatePrefab(_camera).transform.parent = null;
-		
-		var vCam = Container.InstantiatePrefabForComponent<CinemachineVirtualCamera>(_vCam);
-		vCam.transform.parent = null;
-		vCam.Follow = _rotateObject;
-	}
+        Debug.Log("3");
+        Container.InstantiatePrefab(_camera).transform.parent = null;
+        Container.InstantiatePrefab(_vCam).transform.parent = null;
+        Debug.Log("4");
+    }
 
 	private void OnInstant(InjectContext context, Transform transform)
 	{
 		transform.position = base.transform.position;
 		transform.parent = null;
-		
-		var child = transform.GetChild(0);
-		_rotateObject = child;
-;
 	}
 }

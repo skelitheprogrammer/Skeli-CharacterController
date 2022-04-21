@@ -8,11 +8,9 @@ public class RotateOriginInstall : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.BindInstance(_rotateOrigin).WithId(Constants.ROTATEORIGIN).AsCached().OnInstantiated<Transform>(OnFooInstantiated).NonLazy();
-    }
-
-    void OnFooInstantiated(InjectContext context, Transform foo)
-    {
-        context.Container.Resolve<CinemachineVirtualCamera>().m_Follow = foo.transform;
+        Container.BindInstance(_rotateOrigin)
+            .WithId(Constants.ROTATEORIGIN)
+            .AsSingle()
+            .NonLazy();
     }
 }
