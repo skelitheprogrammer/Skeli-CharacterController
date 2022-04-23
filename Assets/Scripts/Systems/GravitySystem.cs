@@ -3,19 +3,21 @@ using Zenject;
 
 public class GravitySystem
 {
-    [Inject] CharacterStateData _data;
+    [Inject] private CharacterStateData _data;
 
-    public Vector3 ApplyGravity(Vector3 velocity)
+
+
+    public void ApplyGravity()
     {
+
         if (_data.isGrounded)
         {
-            velocity = new Vector3(velocity.x, -.15f, velocity.z);
+            _data.velocity.y = -.15f;
         }
         else
         {
-            velocity += Physics.gravity * Time.deltaTime;
+            _data.velocity += Physics.gravity * Time.deltaTime;
         }
-       
-        return velocity;
     }
+
 }

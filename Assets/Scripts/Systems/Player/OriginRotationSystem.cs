@@ -29,8 +29,8 @@ public class OriginRotationSystem : GameSystem, IInitializable
 
 		if (_input.RotateInput.sqrMagnitude >= _threshold)
 		{
-			_yaw += _input.RotateInput.x  * Time.deltaTime;
-			_pitch += _input.RotateInput.y * Time.deltaTime;
+			_yaw += _input.RotateInput.x * _data.Sensitivity * Time.deltaTime;
+			_pitch += _input.RotateInput.y * _data.Sensitivity * Time.deltaTime;
 		}
 
 		_yaw = ClampAngle(_yaw, float.MinValue, float.MaxValue);

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7860219977557500820}
+  - component: {fileID: 1743347293176403221}
   m_Layer: 2
   m_Name: RotateOrigin
   m_TagString: Untagged
@@ -31,6 +32,25 @@ Transform:
   m_Father: {fileID: 7860219977924613175}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1743347293176403221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860219977557500819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7338dda4f197d11478cd3f89cb7fe41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabled: 1
+  _arrowSettings:
+    ArrowColor: {r: 0, g: 0.049153328, b: 1, a: 1}
+    ArrowOffset: {x: 0, y: 0, z: 0}
+    ArrowLength: 1.5
+    ArrowHeadLength: 0.5
+    ArrowHeadAngle: 15
 --- !u!1 &7860219977924613174
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,11 +65,12 @@ GameObject:
   - component: {fileID: 6905579503600756744}
   - component: {fileID: 4987315288924946598}
   - component: {fileID: 8723216577799142452}
+  - component: {fileID: 9161726584386777317}
+  - component: {fileID: 4089983530547947825}
   - component: {fileID: 66903796493507418}
   - component: {fileID: 5233425548680619327}
   - component: {fileID: 3684238716555316694}
   - component: {fileID: 8461934578486828818}
-  - component: {fileID: 9167530029456982879}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -189,6 +210,41 @@ MonoBehaviour:
   _lookSlopeColor: {r: 0, g: 0.7649777, b: 1, a: 1}
   _slopeColor: {r: 0.7675402, g: 1, b: 0, a: 1}
   _jumpColor: {r: 1, g: 0.6227781, b: 0, a: 1}
+  _cameraSlopeColor: {r: 1, g: 0, b: 0.7317085, a: 1}
+--- !u!114 &9161726584386777317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860219977924613174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7338dda4f197d11478cd3f89cb7fe41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabled: 1
+  _arrowSettings:
+    ArrowColor: {r: 1, g: 0, b: 0, a: 1}
+    ArrowOffset: {x: 0, y: 0, z: 0}
+    ArrowLength: 1.5
+    ArrowHeadLength: 0.5
+    ArrowHeadAngle: 15
+--- !u!114 &4089983530547947825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860219977924613174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80f27047965a3c4eabb72e39d890bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabled: 1
+  _offset: {x: 0, y: 0, z: 0}
+  _color: {r: 1, g: 0, b: 0.7317085, a: 1}
 --- !u!114 &66903796493507418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +263,9 @@ MonoBehaviour:
     normal: {x: 0, y: 0, z: 0}
     slopeVector: {x: 0, y: 0, z: 0}
     lookSlopeVector: {x: 0, y: 0, z: 0}
+    cameraSlopeVector: {x: 0, y: 0, z: 0}
     jumpVector: {x: 0, y: 0, z: 0}
+    velocity: {x: 0, y: 0, z: 0}
     slopeAngle: 0
   _origin: {fileID: 0}
 --- !u!114 &5233425548680619327
@@ -222,7 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc7b637137b258b997194ddecdaac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &3684238716555316694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,8 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers:
   - {fileID: 11400000, guid: 7243f881b2fc12b44a7ab99336e48a9a, type: 2}
-  _monoInstallers:
-  - {fileID: 9167530029456982879}
+  _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -261,20 +317,6 @@ MonoBehaviour:
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 2
---- !u!114 &9167530029456982879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860219977924613174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fb333af5c2ff7740a1f419427bf4ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rotateOrigin: {fileID: 7860219977557500820}
-  _playerTransform: {fileID: 7860219977924613175}
 --- !u!1001 &420583736379183433
 PrefabInstance:
   m_ObjectHideFlags: 0

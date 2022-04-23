@@ -1,5 +1,4 @@
 using FSM;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [Inject] private PlayerJumpSystem _jump;
     [Inject] private PlayerSimpleMovementSystem _movement;
     [Inject] private OriginRotationSystem _originRotation;
+    [Inject] private PlayerRotationSystem _playerRotation;
 
     [Inject] private InputReader _input;
 
@@ -19,26 +19,25 @@ public class PlayerController : MonoBehaviour
     [Inject] private StateMachine _fsm;
     [Inject] private CharacterController _controller;
 
-    public Vector3 velocity;
-
     private void Awake()
     {
-        _fsm.AddState("IsGrounded", new State());
+        _fsm.AddState("IsGrounded", new State((enter) => _data.canJump = true));
         _fsm.AddState("IsJumping", new State((enter) => ApplyValue(_jump.CalculateJumpForce())));
-        _fsm.AddState("IsFalling", new State());
+        _fsm.AddState("IsFalling", new State((enter) => _data.canJump = false));
 
-        _fsm.AddTransition(new Transition("IsGrounded", "IsJumping", (condition) => _input.IsJumped && _data.isGrounded));
-        _fsm.AddTransition(new Transition("IsGrounded", "IsFalling", (condition) => velocity.y < 0 && !_data.isGrounded));
+        _fsm.AddTransition(new Transition("IsGrounded", "IsJumping", (condition) => _input.IsJumped && _data.canJump));
         _fsm.AddTransition(new Transition("IsJumping", "IsGrounded", (condition) => _data.isGrounded));
 
-        _fsm.AddTransition(new Transition("IsJumping", "IsFalling", (condition) => velocity.y < 0 && !_data.isGrounded));
+        _fsm.AddTransition(new Transition("IsGrounded", "IsFalling", (condition) => _data.velocity.y <= 0 && !_data.isGrounded));
         _fsm.AddTransition(new Transition("IsFalling", "IsGrounded", (condition) => _data.isGrounded));
+        _fsm.AddTransition(new Transition("IsJumping", "IsFalling", (condition) => _data.velocity.y <= 0 && !_data.isGrounded));
 
         _fsm.SetStartState("IsGrounded");
     }
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         _fsm.Init();
     }
 
@@ -47,21 +46,23 @@ public class PlayerController : MonoBehaviour
         _groundCheck.DoLogic();
         _directionController.DoLogic();
 
-        ApplyValue(_movement.CalculateMovement(velocity));
-        velocity = _gravity.ApplyGravity(velocity);
-        
-        _originRotation.DoLogic();
-        _fsm.OnLogic();
+        _gravity.ApplyGravity();
+        ApplyValue(_movement.CalculateMovement());
 
-        _controller.Move(velocity * Time.deltaTime);
+
+        _playerRotation.DoLogic();
+
+        _fsm.OnLogic();
+        _controller.Move(_data.velocity * Time.deltaTime);
     }
 
     private void LateUpdate()
     {
+        _originRotation.DoLogic();
     }
 
     public void ApplyValue(Vector3 value)
     {
-        velocity += value;
+        _data.velocity += value;
     }
 }

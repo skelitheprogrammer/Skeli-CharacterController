@@ -6,34 +6,37 @@ public class PlayerSimpleMovementSystem
     [Inject] private InputReader _input;
     [Inject] private PlayerMovementData _moveData;
     [Inject] private CharacterStateData _data;
+
     private Vector3 _goalVel;
     private Vector3 _lastDirection;
 
-    public Vector3 CalculateMovement(Vector3 velocity)
+    public Vector3 CalculateMovement()
     {
-        var directionVel =  _input.MoveInputDirection.normalized;
-
         var maxSpeed = _moveData.MaxSpeed;
         var acceleration = _moveData.Acceleration;
         var accelCurve = _moveData.AccelerationCurve;
-        
-        if (_data.isGrounded)
+        var direction = _data.cameraSlopeVector * _input.MoveInput.magnitude;
+
+        if (!_data.isGrounded)
         {
-            _lastDirection = directionVel;
-        }
-        else
-        {
-            directionVel = _lastDirection + (directionVel * maxSpeed );
+            direction = (_lastDirection + direction).normalized;
         }
 
-        var goalVel = directionVel * maxSpeed;
+        _lastDirection = direction;
 
-        var velDot = Vector3.Dot(_input.MoveInputDirection, _goalVel.normalized);
+        var velDot = Vector3.Dot(direction, _goalVel.normalized);
         var accel = acceleration * accelCurve.Evaluate(velDot);
 
+        var goalVel = direction * maxSpeed;
         _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
 
-        var difference = _goalVel - velocity;
-        return difference + Vector3.up * velocity.y;
+        var difference = _goalVel - _data.velocity + Vector3.up * _data.velocity.y;
+
+        if (!_data.isGrounded)
+        {
+            difference.y = 0;
+        }
+
+        return difference;
     }
 }

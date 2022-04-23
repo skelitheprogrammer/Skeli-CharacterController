@@ -5,6 +5,7 @@ public class PlayerTransformInstall : MonoInstaller
 {
     [SerializeField] private Transform _rotateOrigin;
     [SerializeField] private Transform _playerTransform;
+    [SerializeField] private Transform _camera;
 
     public override void InstallBindings()
     {
@@ -18,6 +19,10 @@ public class PlayerTransformInstall : MonoInstaller
             .AsCached()
             .NonLazy();
 
+        Container.BindInstance(_camera)
+            .WithId(Constants.MAINCAMERA)
+            .AsCached()
+            .NonLazy();
     }
 
 }

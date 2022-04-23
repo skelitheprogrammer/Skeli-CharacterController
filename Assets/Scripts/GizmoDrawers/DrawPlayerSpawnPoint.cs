@@ -13,13 +13,7 @@ public class DrawPlayerSpawnPoint : GizmosBase
 
     [Space(10f)]
     [SerializeField] private bool _arrow;
-    [SerializeField] private Color _arrowColor;
-    [SerializeField] private Vector3 _arrowOffset;
-    [Min(0)]
-    [SerializeField] private float _arrowLength;
-    [Min(.1f)]
-    [SerializeField] private float _arrowHeadLength;
-    [SerializeField] private float _arrowHeadAngle;
+    [SerializeField] private ArrowStruct _arrowSettings;
 
     private void Start()
     {
@@ -39,7 +33,19 @@ public class DrawPlayerSpawnPoint : GizmosBase
 
         if (!_arrow) return;
 
-        Gizmos.color = _arrowColor;
-        DrawArrow.ForGizmo(position + _arrowOffset, transform.forward * _arrowLength, _arrowHeadLength, _arrowHeadAngle, 1f);
+        Gizmos.color = _arrowSettings.ArrowColor;
+        DrawArrow.ForGizmo(position + _arrowSettings.ArrowOffset, transform.forward * _arrowSettings.ArrowLength, _arrowSettings.ArrowHeadLength, _arrowSettings.ArrowHeadAngle, 1f);
     }
+}
+
+[System.Serializable]
+public struct ArrowStruct
+{
+    public Color ArrowColor;
+    public Vector3 ArrowOffset;
+    [Min(0)]
+    public float ArrowLength;
+    [Min(.1f)]
+    public float ArrowHeadLength;
+    public float ArrowHeadAngle;
 }

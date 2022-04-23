@@ -18,7 +18,7 @@ public class GroundCheckController : GameSystem
         isGrounded = Physics.SphereCast(transform.position + _groundCheckData.Offset, _groundCheckData.Radius, Vector3.down,out var hit, _groundCheckData.Length);
         angle = Vector3.Angle(hit.normal, Vector3.up);
 
-        if (angle == 0)
+        if (angle < 1)
         {
             normal = Vector3.up;
         }
