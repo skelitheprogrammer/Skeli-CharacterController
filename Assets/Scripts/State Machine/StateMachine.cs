@@ -3,49 +3,50 @@ using System.Collections.Generic;
 
 public class StateMachine : State
 {
-    private List<State> _states = new List<State>();
-    private List<Transition> _transitions = new List<Transition>();
+	private List<State> _states = new List<State>();
+	private List<Transition> _transitions = new List<Transition>();
 
-    public State ActiveState { get; private set; }
 
-    public void AddState(State state)
-    {
-        _states.Add(state);
-    }
+	public State ActiveState { get; private set; }
 
-    public void AddTransition(Transition transition)
-    {
-        _transitions.Add(transition);
-    }
+	public void AddState(State state)
+	{
+		_states.Add(state);
+	}
 
-    public void SetActiveState(State state)
-    {
-        if (_states.Contains(state))
-        {
-            ChangeState(state);
-        }
-    }
+	public void AddTransition(Transition transition)
+	{
+		_transitions.Add(transition);
+	}
 
-    private void ChangeState(State state)
-    {
-        ActiveState?.Exit();
-        ActiveState = state;
-        ActiveState?.Enter();
-    }
+	public void SetActiveState(State state)
+	{
+		if (_states.Contains(state))
+		{
+			ChangeState(state);
+		}
+	}
 
-    public override void DoLogic()
-    {
-        OnLogic?.Invoke();
+	private void ChangeState(State state)
+	{
+		ActiveState?.Exit();
+		ActiveState = state;
+		ActiveState?.Enter();
+	}
 
-        if (ActiveState == null) throw new NullReferenceException($"Set starter state in {GetType().Name}");
-        ActiveState?.DoLogic();
+	public override void DoLogic()
+	{
+		OnLogic?.Invoke();
 
-        foreach(var transition in _transitions)
-        {
-            if (transition.ShouldTransition()) 
-            {
-                ChangeState(transition.to);
-            }
-        }
-    }
+		if (ActiveState == null) throw new NullReferenceException($"Set starter state in {GetType().Name}");
+		ActiveState?.DoLogic();
+
+		foreach(var transition in _transitions)
+		{
+			if (transition.ShouldTransition()) 
+			{
+				ChangeState(transition.to);
+			}
+		}
+	}
 }
