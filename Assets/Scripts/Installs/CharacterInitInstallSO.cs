@@ -23,8 +23,6 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.Bind<GroundCheckController>().AsSingle().NonLazy();
 		Container.Bind<DirectionController>().AsSingle().NonLazy();
 
-		Container.Bind<StateMachine>().AsCached().NonLazy();
-
 		Container.Bind<PlayerSimpleMovementSystem>().AsSingle().NonLazy();
 		Container.Bind<PlayerJumpSystem>().AsSingle().NonLazy();
 		Container.Bind<GravitySystem>().AsSingle().NonLazy();

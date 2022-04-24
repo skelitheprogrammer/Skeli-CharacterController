@@ -210,7 +210,7 @@ MonoBehaviour:
   _lookSlopeColor: {r: 0, g: 0.7649777, b: 1, a: 1}
   _slopeColor: {r: 0.7675402, g: 1, b: 0, a: 1}
   _jumpColor: {r: 1, g: 0.6227781, b: 0, a: 1}
-  _cameraSlopeColor: {r: 1, g: 0, b: 0.7317085, a: 1}
+  _cameraSlopeColor: {r: 0.34367752, g: 0, b: 1, a: 1}
 --- !u!114 &9161726584386777317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +260,7 @@ MonoBehaviour:
   _data:
     transform: {fileID: 0}
     isGrounded: 0
+    canJump: 0
     normal: {x: 0, y: 0, z: 0}
     slopeVector: {x: 0, y: 0, z: 0}
     lookSlopeVector: {x: 0, y: 0, z: 0}

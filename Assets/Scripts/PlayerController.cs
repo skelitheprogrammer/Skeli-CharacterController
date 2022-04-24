@@ -1,4 +1,4 @@
-using FSM;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -15,30 +15,38 @@ public class PlayerController : MonoBehaviour
 
     [Inject] private InputReader _input;
 
+    private StateMachine _fsm;
+
     [Inject] private CharacterStateData _data;
-    [Inject] private StateMachine _fsm;
     [Inject] private CharacterController _controller;
 
     private void Awake()
     {
-        _fsm.AddState("IsGrounded", new State((enter) => _data.canJump = true));
-        _fsm.AddState("IsJumping", new State((enter) => ApplyValue(_jump.CalculateJumpForce())));
-        _fsm.AddState("IsFalling", new State((enter) => _data.canJump = false));
 
-        _fsm.AddTransition(new Transition("IsGrounded", "IsJumping", (condition) => _input.IsJumped && _data.canJump));
-        _fsm.AddTransition(new Transition("IsJumping", "IsGrounded", (condition) => _data.isGrounded));
-
-        _fsm.AddTransition(new Transition("IsGrounded", "IsFalling", (condition) => _data.velocity.y <= 0 && !_data.isGrounded));
-        _fsm.AddTransition(new Transition("IsFalling", "IsGrounded", (condition) => _data.isGrounded));
-        _fsm.AddTransition(new Transition("IsJumping", "IsFalling", (condition) => _data.velocity.y <= 0 && !_data.isGrounded));
-
-        _fsm.SetStartState("IsGrounded");
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        _fsm.Init();
+        var stateBuilder = new StateBuilder();
+
+        //_fsm = builder/*.Logic(() => ApplyValue(_gravity.ApplyGravity()))*/.Build();
+        _fsm = stateBuilder.Build();
+
+        StateMachine grounded = stateBuilder.Build();
+        State isJumping = stateBuilder.Enter(() => ApplyValue(_jump.CalculateJumpForce())).Build();
+        StateMachine isFalling = stateBuilder.Build();
+
+        _fsm.AddState(grounded);
+        grounded.AddState(isJumping);
+        _fsm.AddState(isFalling);
+
+        _fsm.AddTransition(new Transition(grounded, isJumping, (condition) => _data.isGrounded && _data.canJump));
+        _fsm.AddTransition(new Transition(isJumping, isFalling, (condition) => _data.velocity.y < 0));
+        _fsm.AddTransition(new Transition(grounded, isFalling, (condition) => !_data.isGrounded && _data.velocity.y < 0));
+        _fsm.AddTransition(new Transition(isFalling, grounded, (condition) => _data.isGrounded));
+
+        _fsm.SetActiveState(grounded);
     }
 
     private void Update()
@@ -46,13 +54,13 @@ public class PlayerController : MonoBehaviour
         _groundCheck.DoLogic();
         _directionController.DoLogic();
 
-        _gravity.ApplyGravity();
         ApplyValue(_movement.CalculateMovement());
-
 
         _playerRotation.DoLogic();
 
-        _fsm.OnLogic();
+        Debug.Log(_fsm.ActiveState.GetType().Name);
+        _fsm.DoLogic();
+
         _controller.Move(_data.velocity * Time.deltaTime);
     }
 
