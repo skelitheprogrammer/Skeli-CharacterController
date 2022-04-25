@@ -62,7 +62,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.83864915, y: 1}
+    m_SensorSize: {x: 1.504525, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0}
-  ShoulderOffset: {x: 0.5, y: 2.5, z: 0}
+  ShoulderOffset: {x: 0.5, y: 2, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 0.5
   CameraDistance: 3

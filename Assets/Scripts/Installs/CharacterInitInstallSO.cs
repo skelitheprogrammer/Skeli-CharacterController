@@ -1,4 +1,3 @@
-using FSM;
 using UnityEngine;
 using Zenject;
 
@@ -10,15 +9,16 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 	[SerializeField] private PlayerMovementDataSO _movementData;
 	[SerializeField] private OriginRotationDataSO _originRotationData;
 	[SerializeField] private PlayerRotationDataSO _playerRotationData;
+	[SerializeField] private PlayerGravityDataSO _playerGravityData;
 
 	public override void InstallBindings()
-	{
-		
+	{	
 		Container.BindInstance(_groundCheck.Data).AsSingle().NonLazy();
 		Container.BindInstance(_jumpData.Data).AsSingle().NonLazy();
 		Container.BindInstance(_movementData.Data).AsSingle().NonLazy();
 		Container.BindInstance(_originRotationData.Data).AsSingle().NonLazy();
 		Container.BindInstance(_playerRotationData.Data).AsSingle().NonLazy();
+		Container.BindInstance(_playerGravityData.Data).AsSingle().NonLazy();
 
 		Container.Bind<GroundCheckController>().AsSingle().NonLazy();
 		Container.Bind<DirectionController>().AsSingle().NonLazy();

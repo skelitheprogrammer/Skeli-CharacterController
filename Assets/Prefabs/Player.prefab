@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7860219977557500820}
-  - component: {fileID: 1743347293176403221}
   m_Layer: 2
   m_Name: RotateOrigin
   m_TagString: Untagged
@@ -32,25 +31,6 @@ Transform:
   m_Father: {fileID: 7860219977924613175}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1743347293176403221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860219977557500819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7338dda4f197d11478cd3f89cb7fe41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enabled: 1
-  _arrowSettings:
-    ArrowColor: {r: 0, g: 0.049153328, b: 1, a: 1}
-    ArrowOffset: {x: 0, y: 0, z: 0}
-    ArrowLength: 1.5
-    ArrowHeadLength: 0.5
-    ArrowHeadAngle: 15
 --- !u!1 &7860219977924613174
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +45,6 @@ GameObject:
   - component: {fileID: 6905579503600756744}
   - component: {fileID: 4987315288924946598}
   - component: {fileID: 8723216577799142452}
-  - component: {fileID: 9161726584386777317}
   - component: {fileID: 4089983530547947825}
   - component: {fileID: 66903796493507418}
   - component: {fileID: 5233425548680619327}
@@ -211,25 +190,6 @@ MonoBehaviour:
   _slopeColor: {r: 0.7675402, g: 1, b: 0, a: 1}
   _jumpColor: {r: 1, g: 0.6227781, b: 0, a: 1}
   _cameraSlopeColor: {r: 0.34367752, g: 0, b: 1, a: 1}
---- !u!114 &9161726584386777317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860219977924613174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7338dda4f197d11478cd3f89cb7fe41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enabled: 1
-  _arrowSettings:
-    ArrowColor: {r: 1, g: 0, b: 0, a: 1}
-    ArrowOffset: {x: 0, y: 0, z: 0}
-    ArrowLength: 1.5
-    ArrowHeadLength: 0.5
-    ArrowHeadAngle: 15
 --- !u!114 &4089983530547947825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,15 +218,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    transform: {fileID: 0}
+    playerTransform: {fileID: 0}
+    camera: {fileID: 0}
+    rotateOrigin: {fileID: 0}
     isGrounded: 0
     canJump: 0
+    playerDirection: {x: 0, y: 0, z: 0}
+    lastDirection: {x: 0, y: 0, z: 0}
     normal: {x: 0, y: 0, z: 0}
     slopeVector: {x: 0, y: 0, z: 0}
     lookSlopeVector: {x: 0, y: 0, z: 0}
     cameraSlopeVector: {x: 0, y: 0, z: 0}
     jumpVector: {x: 0, y: 0, z: 0}
     velocity: {x: 0, y: 0, z: 0}
+    neededAccel: {x: 0, y: 0, z: 0}
     slopeAngle: 0
   _origin: {fileID: 0}
 --- !u!114 &5233425548680619327

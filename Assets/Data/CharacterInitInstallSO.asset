@@ -19,3 +19,4 @@ MonoBehaviour:
     type: 2}
   _playerRotationData: {fileID: 11400000, guid: 31cc1d8a2561ced43938ac07a8f5b279,
     type: 2}
+  _playerGravityData: {fileID: 11400000, guid: 89c23e392c6691041b4c6f78107f6dda, type: 2}

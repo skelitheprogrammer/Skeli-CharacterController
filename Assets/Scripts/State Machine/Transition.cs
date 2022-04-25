@@ -6,7 +6,7 @@ public class Transition
     public readonly State from;
     public readonly State to;
 
-    private List<Func<Transition,bool>> _conditions;
+    private readonly List<Func<Transition,bool>> _conditions;
 
     public Transition(State from, State to, params Func<Transition, bool>[] conditions)
     {

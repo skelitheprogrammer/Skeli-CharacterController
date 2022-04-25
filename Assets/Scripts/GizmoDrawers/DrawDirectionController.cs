@@ -20,7 +20,7 @@ public class DrawDirectionController : GizmosBase
     {
         if (_data == null) return;
 
-        var position = _data.transform.position + _offset;
+        var position = _data.playerTransform.position + _offset;
         var normal = _data.normal;
         var slopeVector = _data.slopeVector;
         var lookSlopeVector = _data.lookSlopeVector;
