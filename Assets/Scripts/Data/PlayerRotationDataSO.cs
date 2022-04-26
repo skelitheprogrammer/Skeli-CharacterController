@@ -9,5 +9,5 @@ public class PlayerRotationDataSO : ScriptableObject
 [System.Serializable]
 public class PlayerRotationData
 {
-    [field: SerializeField] public float RotationSmoothTime { get; private set; }
+    [field: SerializeField] public float RotationSmoothTime { get; private set; } = .05f;
 }

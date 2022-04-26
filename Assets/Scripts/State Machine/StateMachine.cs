@@ -1,17 +1,24 @@
 using System;
 using System.Collections.Generic;
 
-public  class StateMachine : State
+public class StateMachine : State
 {
 	private readonly List<State> _states = new List<State>();
 	private readonly List<Transition> _transitions = new List<Transition>();
-	public State ActiveState { get; private set; }
 
-    public class StateMachineBuilder : BuilderBase<StateMachine>
+    public StateMachine(string name) : base(name)
     {
-        public override BuilderBase<StateMachine> Begin()
+    }
+
+    public State ActiveState { get; private set; }
+
+
+	//to make strict builder use separate return class implementation
+    public sealed class StateMachineBuilder : BuilderBase<StateMachine>
+    {
+        public override BuilderBase<StateMachine>Begin(string name)
         {
-			_state = new StateMachine();
+			_state = new StateMachine(name);
 			return this;
         }
 
@@ -63,16 +70,33 @@ public  class StateMachine : State
 
 	public override void DoLogic()
 	{
+		if (_states.Count > 0 && ActiveState == null) throw new NullReferenceException($"Set ActiveState of {name}");
+
 		OnLogic?.Invoke();
 
-		if (ActiveState == null) throw new NullReferenceException($"Set starter state in {GetType()}");
+		foreach (var transition in _transitions)
+		{
+			if (this != transition.from || ActiveState == transition.from)
+			{
+				continue;
+			}
+
+			if (transition.ShouldTransition())
+			{
+				ChangeState(transition.to);
+			}
+		}
+
 		ActiveState?.DoLogic();
 
-		foreach(var transition in _transitions)
+		foreach (var transition in _transitions)
 		{
-			if (ActiveState == transition.to) return;
+			if (this == transition.from || ActiveState != transition.from)
+			{
+				continue;
+			}
 
-			if (transition.ShouldTransition()) 
+			if (transition.ShouldTransition())
 			{
 				ChangeState(transition.to);
 			}

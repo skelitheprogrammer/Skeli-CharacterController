@@ -29,7 +29,7 @@ public class OriginRotationSystem : GameSystem, IInitializable
 
 		if (_input.RotateInput.sqrMagnitude >= _threshold)
 		{
-			_yaw += _input.RotateInput.x * _data.Sensitivity * Time.deltaTime;
+			_yaw += _input.RotateInput.x * _data.Sensitivity * Time.unscaledDeltaTime;
 			_pitch += _input.RotateInput.y * _data.Sensitivity * Time.deltaTime;
 		}
 

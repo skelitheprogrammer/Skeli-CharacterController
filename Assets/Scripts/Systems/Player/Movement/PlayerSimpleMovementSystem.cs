@@ -14,10 +14,9 @@ public class PlayerSimpleMovementSystem
         var acceleration = _moveData.Acceleration;
         var accelCurve = _moveData.AccelerationCurve;
         var direction = _data.playerDirection;
-        var goalVel = direction * maxSpeed;
-
         ref var neededAccel = ref _data.neededAccel;
 
+        var goalVel = direction * maxSpeed;
         var velDot = Vector3.Dot(direction, _goalVel.normalized);
         var accel = acceleration * accelCurve.Evaluate(velDot);
 

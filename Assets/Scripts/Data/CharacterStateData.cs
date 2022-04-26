@@ -4,9 +4,9 @@ using Zenject;
 [System.Serializable]
 public class CharacterStateData
 {
-    [Inject(Id = Constants.PLAYERTRANSFORM)] public Transform playerTransform;
-    [Inject(Id = Constants.MAINCAMERA)] public Transform camera;
-    [Inject(Id = Constants.ROTATEORIGIN)] public Transform rotateOrigin;
+    [Inject(Id = Constants.PLAYERTRANSFORM)] public readonly Transform playerTransform;
+    [Inject(Id = Constants.MAINCAMERA)] public readonly Transform camera;
+    [Inject(Id = Constants.ROTATEORIGIN)] public readonly Transform rotateOrigin;
     public bool isGrounded;
     public bool canJump;
     public Vector3 playerDirection;

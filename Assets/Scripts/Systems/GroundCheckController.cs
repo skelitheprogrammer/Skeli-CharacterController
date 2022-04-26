@@ -9,20 +9,9 @@ public class GroundCheckController
     public void GroundCheck()
     {
         var transform = _stateData.playerTransform;
-        ref var normal = ref _stateData.normal;
-        ref var angle = ref _stateData.slopeAngle;
         ref var isGrounded = ref _stateData.isGrounded;
 
-        isGrounded = Physics.SphereCast(transform.position + _groundCheckData.Offset, _groundCheckData.Radius, Vector3.down, out var hit, _groundCheckData.Length);
-        angle = Vector3.Angle(hit.normal, Vector3.up);
+        isGrounded = Physics.CheckSphere(transform.position, _groundCheckData.Radius);
 
-        if (angle < 1)
-        {
-            normal = Vector3.up;
-        }
-        else
-        {
-            normal = hit.normal;
-        }
     }
 }

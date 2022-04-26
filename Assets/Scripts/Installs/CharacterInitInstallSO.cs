@@ -27,7 +27,9 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.Bind<PlayerJumpSystem>().AsSingle().NonLazy();
 		Container.Bind<GravitySystem>().AsSingle().NonLazy();
 		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
-		Container.Bind<PlayerRotationSystem>().AsSingle().NonLazy();
+		Container.Bind<PlayerRotationSystem>().AsCached().NonLazy();
+
+		Container.Bind<IInitializable>().To<PlayerRotationSystem>().AsCached().NonLazy();
 
 		Container.Bind<CharacterStateData>().AsSingle().NonLazy();
 	}

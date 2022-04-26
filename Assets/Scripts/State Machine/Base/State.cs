@@ -6,16 +6,23 @@ public class State : StateBase
 	protected Action OnLogic;
 	protected Action OnExit;
 
+    public readonly string name;
+
 	public override void Enter() => OnEnter?.Invoke();
 	public override void DoLogic() => OnLogic?.Invoke();
 	public override void Exit() => OnExit?.Invoke();
 
-    public class StateBuilder : BuilderBase<State>
+    public State(string name)
+    {
+        this.name = name;
+    }
+
+    public sealed class StateBuilder : BuilderBase<State>
     {
 
-        public override BuilderBase<State> Begin()
+        public override BuilderBase<State> Begin(string name)
         {
-            _state = new State();
+            _state = new State(name);
             return this;
         }
 

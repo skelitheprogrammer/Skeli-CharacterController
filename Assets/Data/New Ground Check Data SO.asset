@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Ground Check Data SO
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <Offset>k__BackingField: {x: 0, y: 0.4, z: 0}
+    <Offset>k__BackingField: {x: 0, y: 0.5, z: 0}
     <Length>k__BackingField: 0.4
-    <Radius>k__BackingField: 0.13
+    <Radius>k__BackingField: 0.15
