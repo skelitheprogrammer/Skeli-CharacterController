@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22a06a6af8b5828399ca4c889afa5fc4, type: 3}
-  m_Name: New Player Jump Data SO
+  m_Script: {fileID: 11500000, guid: 4dac7be511f1ef54e916f9177f6341ed, type: 3}
+  m_Name: Player Gravity Data SO
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <JumpHeight>k__BackingField: 3
+    <GroundedGravity>k__BackingField: -0.15
+    <GravityClamp>k__BackingField: -20

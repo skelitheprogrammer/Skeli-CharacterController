@@ -68,12 +68,12 @@ public class PlayerController : MonoBehaviour
 		_groundCheck.GroundCheck();
 		_directionController.ConfigureDirections();
 
+		_fsm.DoLogic();
 		AddForce(_movement.CalculateMovement());
 
 		_data.playerTransform.rotation = _playerRotation.CalculateRotationAngle();
 
 
-		_fsm.DoLogic();
 		_controller.Move(_data.velocity * Time.deltaTime);
 	}
 

@@ -6,32 +6,30 @@ public class StateMachine : State
 	private readonly List<State> _states = new List<State>();
 	private readonly List<Transition> _transitions = new List<Transition>();
 
-    public StateMachine(string name) : base(name)
-    {
-    }
+	public StateMachine(string name) : base(name)
+	{
+	}
 
-    public State ActiveState { get; private set; }
+	public State ActiveState { get; private set; }
 
-
-	//to make strict builder use separate return class implementation
-    public sealed class StateMachineBuilder : BuilderBase<StateMachine>
-    {
-        public override BuilderBase<StateMachine>Begin(string name)
-        {
+	public class StateMachineBuilder : BuilderBase<StateMachine>
+	{
+		public override BuilderBase<StateMachine>Begin(string name)
+		{
 			_state = new StateMachine(name);
 			return this;
-        }
+		}
 
-        public override StateMachine Build()
-        {
+		public override StateMachine Build()
+		{
 			return _state;
-        }
+		}
 
-        public override BuilderBase<StateMachine> BuildEnter(Action action)
-        {
+		public override BuilderBase<StateMachine> BuildEnter(Action action)
+		{
 			_state.OnEnter = action;
 			return this;
-        }
+		}
 
 		public override BuilderBase<StateMachine> BuildExit(Action exit)
 		{
@@ -46,7 +44,7 @@ public class StateMachine : State
 		}
 	}
 
-    public void AddState(State state)
+	public void AddState(State state)
 	{
 		_states.Add(state);
 	}
