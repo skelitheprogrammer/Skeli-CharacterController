@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
 
-public class StateMachine : State
+public class StateMachine : State, IStateMachine
 {
 	private readonly List<State> _states = new List<State>();
 	private readonly List<Transition> _transitions = new List<Transition>();
+
+	public State ActiveState { get; private set; }
 
 	public StateMachine(string name) : base(name)
 	{
 	}
 
-	public State ActiveState { get; private set; }
-
-	public class StateMachineBuilder : BuilderBase<StateMachine,StateMachineBuilderFinal>
+	public class StateMachineBuilder : BuilderBase<StateMachine, StateMachineBuilderFinal>
 	{
-		
+
 		public override StateMachineBuilderFinal Begin(string name)
 		{
 			_state = new StateMachine(name);
@@ -44,7 +44,7 @@ public class StateMachine : State
 	{
 		public StateMachine Build() => _state;
 	}
-	
+
 	public void AddState(State state)
 	{
 		_states.Add(state);
@@ -60,11 +60,29 @@ public class StateMachine : State
 		ActiveState = state;
 	}
 
-	private void ChangeState(State state)
+	public void ChangeState(State state)
 	{
 		ActiveState?.Exit();
 		SetActiveState(state);
 		ActiveState?.Enter();
+	}
+
+	public void UpdateState()
+	{
+		ActiveState?.DoLogic();
+
+		foreach (var transition in _transitions)
+		{
+			if (this == transition.from || ActiveState != transition.from)
+			{
+				continue;
+			}
+
+			if (transition.ShouldTransition())
+			{
+				ChangeState(transition.to);
+			}
+		}
 	}
 
 	public override void DoLogic()
@@ -86,20 +104,6 @@ public class StateMachine : State
 			}
 		}
 
-		ActiveState?.DoLogic();
-
-		foreach (var transition in _transitions)
-		{
-			if (this == transition.from || ActiveState != transition.from)
-			{
-				continue;
-			}
-
-			if (transition.ShouldTransition())
-			{
-				ChangeState(transition.to);
-			}
-		}
+		UpdateState();
 	}
 }
-
