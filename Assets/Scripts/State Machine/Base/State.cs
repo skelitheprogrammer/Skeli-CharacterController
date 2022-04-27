@@ -2,61 +2,51 @@ using System;
 
 public class State : StateBase
 {
-	protected Action OnEnter;
-	protected Action OnLogic;
-	protected Action OnExit;
+    protected Action OnEnter;
+    protected Action OnLogic;
+    protected Action OnExit;
 
     public readonly string name;
 
-	public override void Enter() => OnEnter?.Invoke();
-	public override void DoLogic() => OnLogic?.Invoke();
-	public override void Exit() => OnExit?.Invoke();
+    public override void Enter() => OnEnter?.Invoke();
+    public override void DoLogic() => OnLogic?.Invoke();
+    public override void Exit() => OnExit?.Invoke();
 
     public State(string name)
     {
         this.name = name;
     }
 
-    public sealed class StateBuilder : BuilderBase<State>
+    public class StateBuilder : BuilderBase<State, StateBuilderFinal>
     {
 
-        public override BuilderBase<State> Begin(string name)
+        public override StateBuilderFinal Begin(string name)
         {
             _state = new State(name);
-            return this;
+            return new StateBuilderFinal();
         }
 
-        public override State Build()
-        {
-            return _state;
-        }
-
-        public override BuilderBase<State> BuildEnter(Action enter)
+        public override StateBuilderFinal BuildEnter(Action enter)
         {
             _state.OnEnter = enter;
-            return this;
+            return new StateBuilderFinal();
         }
 
-        public override BuilderBase<State> BuildExit(Action exit)
+        public override StateBuilderFinal BuildExit(Action exit)
         {
             _state.OnExit = exit;
-            return this;
+            return new StateBuilderFinal();
         }
 
-        public override BuilderBase<State> BuildLogic(Action logic)
+        public override StateBuilderFinal BuildLogic(Action logic)
         {
             _state.OnLogic = logic;
-            return this;
+            return new StateBuilderFinal();
         }
     }
+    public sealed class StateBuilderFinal : State.StateBuilder
+    {
+        public State Build() => _state;
+    }
 
-}
-
-public abstract class StateBase
-{
-	public abstract void Enter();
-	public abstract void DoLogic();
-
-	public abstract void Exit();
-	
 }

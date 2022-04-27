@@ -19,13 +19,13 @@ public class PlayerController : MonoBehaviour
 	
 	private StateMachine _fsm;
 
-    private void Awake()
+	private void Awake()
 	{
 		Cursor.lockState = CursorLockMode.Locked;
 
 		var stateMachineBuilder = new StateMachine.StateMachineBuilder();
 		var stateBuilder = new State.StateBuilder();
-
+		
 		_fsm = stateMachineBuilder.Begin("Root")
 			.Build();
 		StateMachine grounded = stateMachineBuilder.Begin("Grounded")
@@ -40,27 +40,27 @@ public class PlayerController : MonoBehaviour
 				_data.velocity = _jump.CalculateJumpForce();
 			})
 			.Build();
-        StateMachine isFalling = stateMachineBuilder.Begin("Falling")
-            .BuildLogic(() =>
-            {
+		StateMachine isFalling = stateMachineBuilder.Begin("Falling")
+			.BuildLogic(() =>
+			{
 				AddForce(_gravity.ApplyGravity());
 				_data.neededAccel.y = 0;
 			})
 			.Build();
 
-        _fsm.AddState(grounded);
-        grounded.AddState(isJumping);
-        grounded.SetActiveState(isJumping);
-        _fsm.AddState(isFalling);
+		_fsm.AddState(grounded);
+		grounded.AddState(isJumping);
+		grounded.SetActiveState(isJumping);
+		_fsm.AddState(isFalling);
 
-        _fsm.AddTransition(new Transition(grounded, isJumping, (condition) => _data.isGrounded && _input.IsJumped));
-        _fsm.AddTransition(new Transition(isJumping, isFalling, (condition) => !_data.isGrounded));
-        _fsm.AddTransition(new Transition(grounded, isFalling, (condition) => !_data.isGrounded));
-        _fsm.AddTransition(new Transition(isFalling, grounded, (condition) => _data.isGrounded));
+		_fsm.AddTransition(new Transition(grounded, isJumping, (condition) => _data.isGrounded && _input.IsJumped));
+		_fsm.AddTransition(new Transition(isJumping, isFalling, (condition) => !_data.isGrounded));
+		_fsm.AddTransition(new Transition(grounded, isFalling, (condition) => !_data.isGrounded));
+		_fsm.AddTransition(new Transition(isFalling, grounded, (condition) => _data.isGrounded));
 
-        _fsm.SetActiveState(grounded);
+		_fsm.SetActiveState(grounded);
 
-    }
+	}
 
 	private void Update()
 	{

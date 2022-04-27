@@ -12,38 +12,39 @@ public class StateMachine : State
 
 	public State ActiveState { get; private set; }
 
-	public class StateMachineBuilder : BuilderBase<StateMachine>
+	public class StateMachineBuilder : BuilderBase<StateMachine,StateMachineBuilderFinal>
 	{
-		public override BuilderBase<StateMachine>Begin(string name)
+		
+		public override StateMachineBuilderFinal Begin(string name)
 		{
 			_state = new StateMachine(name);
-			return this;
+			return new StateMachineBuilderFinal();
 		}
 
-		public override StateMachine Build()
-		{
-			return _state;
-		}
-
-		public override BuilderBase<StateMachine> BuildEnter(Action action)
+		public override StateMachineBuilderFinal BuildEnter(Action action)
 		{
 			_state.OnEnter = action;
-			return this;
+			return new StateMachineBuilderFinal();
 		}
 
-		public override BuilderBase<StateMachine> BuildExit(Action exit)
+		public override StateMachineBuilderFinal BuildExit(Action exit)
 		{
 			_state.OnExit = exit;
-			return this;
+			return new StateMachineBuilderFinal();
 		}
 
-		public override BuilderBase<StateMachine> BuildLogic(Action logic)
+		public override StateMachineBuilderFinal BuildLogic(Action logic)
 		{
 			_state.OnLogic = logic;
-			return this;
+			return new StateMachineBuilderFinal();
 		}
 	}
 
+	public sealed class StateMachineBuilderFinal : StateMachine.StateMachineBuilder
+	{
+		public StateMachine Build() => _state;
+	}
+	
 	public void AddState(State state)
 	{
 		_states.Add(state);
@@ -101,3 +102,4 @@ public class StateMachine : State
 		}
 	}
 }
+
