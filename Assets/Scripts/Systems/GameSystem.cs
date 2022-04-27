@@ -11,6 +11,4 @@ public abstract class GameSystem
     {
         _enabled = state;
     }
-
-    public abstract void DoLogic();
 }

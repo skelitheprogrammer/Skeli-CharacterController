@@ -9,9 +9,10 @@ public class GroundCheckController
     public void GroundCheck()
     {
         var transform = _stateData.playerTransform;
+        var offset = _groundCheckData.SphereOffset;
         ref var isGrounded = ref _stateData.isGrounded;
 
-        isGrounded = Physics.CheckSphere(transform.position, _groundCheckData.Radius);
+        isGrounded = Physics.CheckSphere(transform.position + offset, _groundCheckData.Radius);
 
     }
 }

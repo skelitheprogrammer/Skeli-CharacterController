@@ -33,15 +33,14 @@ public class PlayerController : MonoBehaviour
 			{
 				_data.velocity.y = _gravity.SetGroundedGravity();
 			})
-			.BuildExit(() =>
+			.Build();
+		State isJumping = stateBuilder.Begin("Jumping")
+			.BuildEnter(() =>
 			{
-				_data.velocity.y = 0;
+				_data.velocity = _jump.CalculateJumpForce();
 			})
 			.Build();
-		State isJumping = stateBuilder.Begin("IsJumping")
-			.BuildEnter(() => _data.velocity = _jump.CalculateJumpForce())
-			.Build();
-        StateMachine isFalling = stateMachineBuilder.Begin("IsFalling")
+        StateMachine isFalling = stateMachineBuilder.Begin("Falling")
             .BuildLogic(() =>
             {
 				AddForce(_gravity.ApplyGravity());
@@ -67,20 +66,20 @@ public class PlayerController : MonoBehaviour
 	{
 		_groundCheck.GroundCheck();
 		_directionController.ConfigureDirections();
-
+		
 		_fsm.DoLogic();
+
 		AddForce(_movement.CalculateMovement());
-
 		_data.playerTransform.rotation = _playerRotation.CalculateRotationAngle();
-
 
 		_controller.Move(_data.velocity * Time.deltaTime);
 	}
 
 	private void LateUpdate()
 	{
-		_originRotation.DoLogic();
+		_originRotation.OriginRotation();
 	}
+
 	private void AddForce(Vector3 value)
 	{
 		_data.velocity += value;

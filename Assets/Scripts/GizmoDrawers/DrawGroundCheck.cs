@@ -7,17 +7,11 @@ public class DrawGroundCheck : GizmosBase
     [SerializeField] private Color _falseColor;
 
     [SerializeField] private GroundCheckDataSO _groundCheckData;
-    [Inject] private CharacterStateData _characterStateData;
-
+    [Inject] private readonly CharacterStateData _characterStateData;
 
     protected override void DrawGizmo()
     {
         if (_groundCheckData == null) return;
-
-        var offset = _groundCheckData.Data.Offset;
-        var position = transform.position;
-        var radius = _groundCheckData.Data.Radius;
-        var length = _groundCheckData.Data.Length;
 
         if (_characterStateData != null)
         {
@@ -35,9 +29,7 @@ public class DrawGroundCheck : GizmosBase
             Gizmos.color = _falseColor;
         }
 
-
-        var finPos = position + offset;
-        Gizmos.DrawRay(finPos, Vector3.down * length);
-        Gizmos.DrawWireSphere(finPos + Vector3.down * length, radius);
+        Gizmos.DrawRay(transform.position + _groundCheckData.Data.RayOffset, Vector3.down * _groundCheckData.Data.Length);
+        Gizmos.DrawWireSphere(transform.position + _groundCheckData.Data.SphereOffset, _groundCheckData.Data.Radius);
     }
 }

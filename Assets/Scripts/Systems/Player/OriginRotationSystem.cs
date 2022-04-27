@@ -16,14 +16,10 @@ public class OriginRotationSystem : GameSystem, IInitializable
     {
         _pitch = _rotationOrigin.eulerAngles.x;
     }
-
-    public override void DoLogic()
-    {
-        OriginRotation();
-    }
-
-	private void OriginRotation()
+	public void OriginRotation()
 	{
+		if (!_enabled) return;
+
 		var topClamp = _data.TopClamp;
 		var botClamp = _data.BotClamp;
 

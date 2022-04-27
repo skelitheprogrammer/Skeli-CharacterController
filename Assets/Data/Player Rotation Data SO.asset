@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player Rotation Data SO
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <RotationSmoothTime>k__BackingField: 0.05
+    <RotationSmoothTime>k__BackingField: 0.1

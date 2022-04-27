@@ -24,6 +24,11 @@ public class PlayerSimpleMovementSystem
 
         neededAccel = _goalVel - _data.velocity + Vector3.up * _data.velocity.y;
 
+        if (!_data.isGrounded)
+        {
+            neededAccel.y = 0;
+        }
+
         return neededAccel;
     }
 }

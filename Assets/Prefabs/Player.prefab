@@ -221,7 +221,7 @@ MonoBehaviour:
     isGrounded: 0
     canJump: 0
     playerDirection: {x: 0, y: 0, z: 0}
-    lastDirection: {x: 0, y: 0, z: 0}
+    previousPlayerDirection: {x: 0, y: 0, z: 0}
     normal: {x: 0, y: 0, z: 0}
     slopeVector: {x: 0, y: 0, z: 0}
     lookSlopeVector: {x: 0, y: 0, z: 0}

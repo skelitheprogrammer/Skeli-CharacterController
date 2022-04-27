@@ -10,7 +10,7 @@ public class CharacterStateData
     public bool isGrounded;
     public bool canJump;
     public Vector3 playerDirection;
-    public Vector3 lastDirection;
+    public Vector3 previousPlayerDirection;
     public Vector3 normal;
     public Vector3 slopeVector;
     public Vector3 lookSlopeVector;
