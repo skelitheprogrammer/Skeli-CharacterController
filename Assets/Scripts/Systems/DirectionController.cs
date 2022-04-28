@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class DirectionController
+public class DirectionController : GameSystem
 {
 	[Inject] private readonly GroundCheckData _groundCheckData;
 	[Inject] private readonly CharacterStateData _data;
@@ -9,6 +9,8 @@ public class DirectionController
 
 	public void ConfigureDirections()
 	{
+		if (!_enabled) return;
+
 		var inputDirection = _input.MoveInputDirection;
 		var moveInput = _input.MoveInput;
 		var transform = _data.playerTransform;

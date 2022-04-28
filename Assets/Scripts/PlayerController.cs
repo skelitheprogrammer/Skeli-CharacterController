@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 	[Inject] private readonly CharacterStateData _data;
 	[Inject] private readonly CharacterController _controller;
 	
-	private StateMachine _fsm;
+	private StateMachineContext _fsm;
 
 	private void Awake()
 	{
@@ -25,21 +25,29 @@ public class PlayerController : MonoBehaviour
 
 		var stateMachineBuilder = new StateMachine.StateMachineBuilder();
 		var stateBuilder = new State.StateBuilder();
-		
-		_fsm = stateMachineBuilder.Begin("Root")
-			.Build();
+
+		_fsm = new StateMachineContext();
+
 		StateMachine grounded = stateMachineBuilder.Begin("Grounded")
 			.BuildLogic(() =>
 			{
 				_data.velocity.y = _gravity.SetGroundedGravity();
 			})
 			.Build();
+
 		State isJumping = stateBuilder.Begin("Jumping")
 			.BuildEnter(() =>
 			{
+				_groundCheck.Toggle(false);
+				_data.isGrounded = false;
 				_data.velocity = _jump.CalculateJumpForce();
 			})
+			.BuildExit(() => 
+			{
+				_groundCheck.Toggle(true);
+			})
 			.Build();
+
 		StateMachine isFalling = stateMachineBuilder.Begin("Falling")
 			.BuildLogic(() =>
 			{
@@ -50,15 +58,15 @@ public class PlayerController : MonoBehaviour
 
 		_fsm.AddState(grounded);
 		grounded.AddState(isJumping);
-		grounded.SetActiveState(isJumping);
 		_fsm.AddState(isFalling);
 
-		_fsm.AddTransition(new Transition(grounded, isJumping, (condition) => _data.isGrounded && _input.IsJumped));
-		_fsm.AddTransition(new Transition(isJumping, isFalling, (condition) => !_data.isGrounded));
+		grounded.AddTransition(new Transition(grounded, isJumping, (condition) => _data.isGrounded && _input.IsJumped));
+		//grounded.AddTransition(new Transition(isJumping, grounded, (condition) => _data.isGrounded));
+		grounded.AddTransition(new Transition(isJumping, isFalling, (condition) => !_data.isGrounded));
 		_fsm.AddTransition(new Transition(grounded, isFalling, (condition) => !_data.isGrounded));
 		_fsm.AddTransition(new Transition(isFalling, grounded, (condition) => _data.isGrounded));
 
-		_fsm.SetActiveState(grounded);
+		_fsm.Init();
 
 	}
 
@@ -66,8 +74,8 @@ public class PlayerController : MonoBehaviour
 	{
 		_groundCheck.GroundCheck();
 		_directionController.ConfigureDirections();
-		
-		_fsm.DoLogic();
+
+		_fsm.UpdateState();
 
 		AddForce(_movement.CalculateMovement());
 		_data.playerTransform.rotation = _playerRotation.CalculateRotationAngle();

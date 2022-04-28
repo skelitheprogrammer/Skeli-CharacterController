@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class State : StateBase
 {
@@ -19,34 +20,38 @@ public class State : StateBase
 
 	public class StateBuilder : BuilderBase<State, StateBuilderFinal>
 	{
-
-		public override StateBuilderFinal Begin(string name)
+		public override BuilderBase<State, StateBuilderFinal> Begin(string name)
 		{
 			_state = new State(name);
-			return new StateBuilderFinal();
+			return this;
 		}
 
 		public override StateBuilderFinal BuildEnter(Action enter)
 		{
 			_state.OnEnter = enter;
-			return new StateBuilderFinal();
+			return new StateBuilderFinal(_state);
 		}
 
 		public override StateBuilderFinal BuildExit(Action exit)
 		{
 			_state.OnExit = exit;
-			return new StateBuilderFinal();
+			return new StateBuilderFinal(_state);
 		}
 
 		public override StateBuilderFinal BuildLogic(Action logic)
 		{
 			_state.OnLogic = logic;
-			return new StateBuilderFinal();
+			return new StateBuilderFinal(_state);
 		}
 	}
 	
-	public sealed class StateBuilderFinal : State.StateBuilder
+	public sealed class StateBuilderFinal : StateBuilder
 	{
+		public StateBuilderFinal(State state)
+        {
+			_state = state;
+        }
+
 		public State Build() => _state;
 	}
 
