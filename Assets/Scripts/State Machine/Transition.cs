@@ -5,7 +5,7 @@ public class Transition
     public readonly State from;
     public readonly State to;
 
-    private readonly Condition _condition;
+    private readonly Func<bool> _condition;
 
     public Transition(State from, State to, Func<bool> condition)
     {
@@ -14,31 +14,45 @@ public class Transition
 
         if (condition == null)
         {
-            _condition = null;
+            _condition = () => true;
             return;
         }
 
-        _condition = new Condition(condition);
+        _condition = condition;
+
     }
 
-    public Transition(State from, State to, Condition condition)
+    public Transition(State from, State to, ConditionBase condition, bool isReversed)
     {
         this.from = from;
         this.to = to;
 
         if (condition == null)
         {
-            _condition = null;
+            _condition = () => true;
             return;
         }
 
-        _condition = condition;
+        if (isReversed)
+        {
+            _condition = () => !condition.BoolCondition;
+        }
+        else
+        {
+            _condition = () => condition.BoolCondition;
+        }
+    }
+
+    public Transition(State from, State to)
+    {
+        this.from = from;
+        this.to = to;
+
+        _condition = () => true;
     }
 
     public bool ShouldTransition()
     {
-        if (_condition == null) return true;
-
-        return _condition.IsMet();
+        return _condition();
     }
 }

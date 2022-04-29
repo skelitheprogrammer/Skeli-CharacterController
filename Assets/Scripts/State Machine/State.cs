@@ -13,7 +13,6 @@ public class State : StateBase
 	public override void DoLogic() => OnLogic?.Invoke();
 	public override void Exit() 
 	{
-		Debug.Log($"Exiting {name}");
 		OnExit?.Invoke();
 	}
 

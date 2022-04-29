@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class StateMachine : State, IStateMachine
 {
@@ -97,7 +96,6 @@ public class StateMachine : State, IStateMachine
     {
 		if (transition.ShouldTransition())
 		{
-			Debug.Log($"Changing {transition.from.name} : {transition.to.name}");
 			ChangeState(transition.to);
 		}
 	}

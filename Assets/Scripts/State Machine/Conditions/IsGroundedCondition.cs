@@ -1,12 +1,13 @@
-using System;
-using Zenject;
+﻿using Zenject;
 
-public class IsGroundedCondition : Condition
+public class IsGroundedCondition : ConditionBase
 {
-    [Inject] private readonly CharacterStateData _data;
+    [Inject] private CharacterStateData _data;
+    public override bool BoolCondition { get; }
 
-    public IsGroundedCondition(Func<bool> condition) : base(condition)
+    public IsGroundedCondition()
     {
-        condition = () => _data.isGrounded;
+        BoolCondition = _data.isGrounded;
     }
+
 }

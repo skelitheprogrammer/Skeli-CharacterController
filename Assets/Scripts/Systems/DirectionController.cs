@@ -47,18 +47,14 @@ public class DirectionController : GameSystem
 		jumpVector = (Vector3.up + cameraSlopeVector * inputDirection.magnitude).normalized;
 		playerDirection = cameraSlopeVector;
 
-		_data.previousPlayerDirection = playerDirection;
-		_data.previousPlayerDirection.y = 0;
-
 		if (!_data.isGrounded)
 		{
 			normal = Vector3.zero;
 			slopeVector = Vector3.zero;
 			lookSlopeVector = Vector3.zero;
-			//playerDirection = (_data.previousPlayerDirection + playerDirection).normalized;
-			//playerDirection.y = 0;
+			playerDirection = (_data.previousPlayerDirection + playerDirection).normalized;
 		}
 
-
+		_data.previousPlayerDirection = playerDirection;
 	}
 }
