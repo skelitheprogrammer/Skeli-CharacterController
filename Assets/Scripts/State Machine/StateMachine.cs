@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class StateMachine : State, IStateMachine
 {
-	private readonly List<State> _states = new List<State>();
-	private readonly List<Transition> _stateTransitions = new List<Transition>();
+	private readonly List<State> _states = new();
+	private readonly List<Transition> _stateTransitions = new();
 
 	public State ActiveState { get; private set; }
 
-	public StateMachine(string name) : base(name)
-	{
-	}
+	public StateMachine(string name) : base(name) {}
 
 	public class StateMachineBuilder : BuilderBase<StateMachine, StateMachineBuilderFinal>
 	{
@@ -69,17 +67,13 @@ public class StateMachine : State, IStateMachine
 
 		foreach (var transition in _stateTransitions)
 		{
-            if (this == transition.from || ActiveState != transition.from)
-            {
-                continue;
-            }
+            if (this == transition.from || ActiveState != transition.from) continue;
 
-            /*            if (transition.from == ActiveState && transition.to == this)
-						{
-							Debug.Log("1");
-							ChangeState(null);
-							return;
-						}*/
+            if (transition.from == ActiveState && transition.to == this)
+            {
+                ChangeState(null);
+                return;
+            }
 
             TryProceedTransition(transition);
 		}
@@ -91,12 +85,9 @@ public class StateMachine : State, IStateMachine
 
 		foreach (var transition in _stateTransitions)
 		{
-            if (this != transition.from || ActiveState == transition.from)
-            {
-                continue;
-            }
+            if (this != transition.from || ActiveState == transition.from) continue;
 
-            TryProceedTransition(transition);
+			TryProceedTransition(transition);
 		}
 		
 		UpdateState();
@@ -106,7 +97,7 @@ public class StateMachine : State, IStateMachine
     {
 		if (transition.ShouldTransition())
 		{
-			Debug.Log($"{transition.from.name} : {transition.to.name}");
+			Debug.Log($"Changing {transition.from.name} : {transition.to.name}");
 			ChangeState(transition.to);
 		}
 	}

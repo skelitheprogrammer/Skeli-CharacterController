@@ -60,11 +60,11 @@ public class PlayerController : MonoBehaviour
 		grounded.AddState(isJumping);
 		_fsm.AddState(isFalling);
 
-		grounded.AddTransition(new Transition(grounded, isJumping, (condition) => _data.isGrounded && _input.IsJumped));
-		//grounded.AddTransition(new Transition(isJumping, grounded, (condition) => _data.isGrounded));
-		grounded.AddTransition(new Transition(isJumping, isFalling, (condition) => !_data.isGrounded));
-		_fsm.AddTransition(new Transition(grounded, isFalling, (condition) => !_data.isGrounded));
-		_fsm.AddTransition(new Transition(isFalling, grounded, (condition) => _data.isGrounded));
+		grounded.AddTransition(new Transition(grounded, isJumping, () => _data.isGrounded && _input.IsJumped));
+		grounded.AddTransition(new Transition(isJumping, grounded, () => _data.isGrounded));
+		_fsm.AddTransition(new Transition(isJumping, isFalling, () => !_data.isGrounded));
+		_fsm.AddTransition(new Transition(grounded, isFalling, () => !_data.isGrounded));
+		_fsm.AddTransition(new Transition(isFalling, grounded, () => _data.isGrounded));
 
 		_fsm.Init();
 

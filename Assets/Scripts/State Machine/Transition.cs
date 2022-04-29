@@ -1,40 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 
 public class Transition
 {
     public readonly State from;
     public readonly State to;
 
-    private readonly List<Func<Transition,bool>> _conditions;
+    private readonly Condition _condition;
 
-    public Transition(State from, State to, params Func<Transition, bool>[] conditions)
+    public Transition(State from, State to, Func<bool> condition)
     {
         this.from = from;
         this.to = to;
 
-        if (conditions == null)
+        if (condition == null)
         {
-            _conditions = null;
+            _condition = null;
             return;
         }
 
-        _conditions = new List<Func<Transition, bool>>(conditions);
+        _condition = new Condition(condition);
+    }
+
+    public Transition(State from, State to, Condition condition)
+    {
+        this.from = from;
+        this.to = to;
+
+        if (condition == null)
+        {
+            _condition = null;
+            return;
+        }
+
+        _condition = condition;
     }
 
     public bool ShouldTransition()
     {
-        if (_conditions == null) return true;
+        if (_condition == null) return true;
 
-        if (_conditions.Count == 0) return true;
-
-        if (_conditions.Count == 1) return _conditions[0](this);
-
-        foreach (var condition in _conditions)
-        {
-            if (!condition(this)) return false;
-        }
-
-        return true;
+        return _condition.IsMet();
     }
 }

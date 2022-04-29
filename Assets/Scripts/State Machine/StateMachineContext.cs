@@ -24,7 +24,7 @@ public class StateMachineContext : IStateMachine
     public void UpdateState()
     {
 		if (ActiveStateMachine == null) throw new NullReferenceException($"Initialize State Machine Context");
-
+		//Debug.Log($"Currently {ActiveStateMachine.name} {ActiveStateMachine.ActiveState?.name}");
 		ActiveStateMachine.DoLogic();
 
 		foreach (var transition in _transitions)

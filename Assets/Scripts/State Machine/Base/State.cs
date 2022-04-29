@@ -11,7 +11,11 @@ public class State : StateBase
 
 	public override void Enter() => OnEnter?.Invoke();
 	public override void DoLogic() => OnLogic?.Invoke();
-	public override void Exit() => OnExit?.Invoke();
+	public override void Exit() 
+	{
+		Debug.Log($"Exiting {name}");
+		OnExit?.Invoke();
+	}
 
 	public State(string name)
 	{

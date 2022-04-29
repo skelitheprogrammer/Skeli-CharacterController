@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using Zenject;
 
-public class IsGroundedCondition : ConditionBase
+public class IsGroundedCondition : Condition
 {
-    [Inject] private CharacterStateData _data;
+    [Inject] private readonly CharacterStateData _data;
 
-    public override bool IsMet()
+    public IsGroundedCondition(Func<bool> condition) : base(condition)
     {
-        return _data.isGrounded;
+        condition = () => _data.isGrounded;
     }
 }
