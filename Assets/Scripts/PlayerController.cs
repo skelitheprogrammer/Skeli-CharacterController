@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
 	[Inject] private readonly CharacterStateData _data;
 	[Inject] private readonly CharacterController _controller;
+	[Inject] private readonly PlayerAnimationSync _animation;
 	
 	private StateMachineContext _fsm;
 
@@ -27,17 +28,26 @@ public class PlayerController : MonoBehaviour
 		var stateBuilder = new State.StateBuilder();
 
 		_fsm = new StateMachineContext();
-
+		
 		StateMachine grounded = stateMachineBuilder.Begin("Grounded")
+			.BuildEnter(() => 
+			{
+				_animation.SetIsGrounded(true);
+			})
 			.BuildLogic(() =>
 			{
 				_data.velocity.y = _gravity.SetGroundedGravity();
+			})
+			.BuildExit(() => 
+			{
+				_animation.SetIsGrounded(false);
 			})
 			.Build();
 
 		State isJumping = stateBuilder.Begin("Jumping")
 			.BuildEnter(() =>
 			{
+				_animation.TriggerJump();
 				_groundCheck.Toggle(false);
 				_data.isGrounded = false;
 				_data.velocity = _jump.CalculateJumpForce();
@@ -49,10 +59,18 @@ public class PlayerController : MonoBehaviour
 			.Build();
 
 		StateMachine isFalling = stateMachineBuilder.Begin("Falling")
+			.BuildEnter(() => 
+			{
+				_animation.SetFreeFall(true);
+			})
 			.BuildLogic(() =>
 			{
 				AddForce(_gravity.ApplyGravity());
 				_data.neededAccel.y = 0;
+			})
+			.BuildExit(() => 
+			{
+				_animation.SetFreeFall(false);
 			})
 			.Build();
 
@@ -80,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
 		AddForce(_movement.CalculateMovement());
 		_data.playerTransform.rotation = _playerRotation.CalculateRotationAngle();
-
+		_animation.SetSpeed(_data.velocity.magnitude);
 		_controller.Move(_data.velocity * Time.deltaTime);
 	}
 
