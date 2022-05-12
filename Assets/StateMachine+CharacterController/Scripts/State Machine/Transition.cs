@@ -51,6 +51,20 @@ public class Transition : TransitionBase
         _condition = () => true;
     }
 
+    public Transition(State to, Func<bool> condition)
+    {
+        from = null;
+        this.to = to;
+
+        if (condition == null)
+        {
+            _condition = () => true;
+            return;
+        }
+
+        _condition = condition;
+    }
+
     public override bool ShouldTransition()
     {
         return _condition();

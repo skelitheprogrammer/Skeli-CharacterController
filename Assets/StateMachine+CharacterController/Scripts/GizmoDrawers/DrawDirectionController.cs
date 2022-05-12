@@ -14,18 +14,18 @@ public class DrawDirectionController : GizmosBase
     [SerializeField] private Color _jumpColor;
     [SerializeField] private Color _cameraSlopeColor;
 
-    [Inject] private CharacterStateData _data;
+    [Inject] private readonly DirectionController _data = null;
 
     protected override void DrawGizmo()
     {
         if (_data == null) return;
 
-        var position = _data.playerTransform.position + _offset;
-        var normal = _data.normal;
-        var slopeVector = _data.slopeVector;
-        var lookSlopeVector = _data.lookSlopeVector;
-        var jumpVector = _data.jumpVector;
-        var cameraSlopeVector = _data.cameraSlopeVector;
+        var position = _data.Player.position + _offset;
+        var normal = _data.Normal;
+        var slopeVector = _data.GetSlopeVector();
+        var lookSlopeVector = _data.GetLookSlopeVector();
+        var jumpVector = _data.GetJumpVector();
+        var cameraSlopeVector = _data.GetCameraSlopeVector();
 
         Gizmos.color = _normalColor;
         Gizmos.DrawRay(position, normal * _lengthMultiplier);

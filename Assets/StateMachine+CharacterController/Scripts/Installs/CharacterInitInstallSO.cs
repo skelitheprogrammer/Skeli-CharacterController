@@ -20,16 +20,25 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.BindInstance(_playerRotationData.Data).AsSingle().NonLazy();
 		Container.BindInstance(_playerGravityData.Data).AsSingle().NonLazy();
 
+		Container.Bind<StateMachineContext>().AsTransient().NonLazy();
+
 		Container.Bind<GroundCheckController>().AsSingle().NonLazy();
 		Container.Bind<DirectionController>().AsSingle().NonLazy();
 
-		Container.Bind<PlayerSimpleMovementSystem>().AsSingle().NonLazy();
-		Container.Bind<PlayerJumpSystem>().AsSingle().NonLazy();
+		Container.Bind<PlayerJumpCalculator>().AsSingle().NonLazy();
 		Container.Bind<GravitySystem>().AsSingle().NonLazy();
-		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
-		Container.Bind<PlayerRotationSystem>().AsCached().NonLazy();
 
-		Container.Bind<IInitializable>().To<PlayerRotationSystem>().AsCached().NonLazy();
+		Container.Bind<PlayerSimpleMovementSystem>().AsSingle().NonLazy();
+		Container.Bind<PlayerMovementControllerBase>().To<PlayerMovementController>().AsSingle().NonLazy();
+
+		Container.Bind<PlayerRotationSystem>().AsCached().NonLazy();
+		Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsSingle().NonLazy();
+
+		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
+		Container.Bind<CameraControllerBase>().To<PlayerCameraController>().AsSingle().NonLazy();
+
+		Container.Bind<CoyoteBufferCalculator>().AsCached().NonLazy();
+		Container.Bind<PlayerJumpControllerBase>().To<PlayerJumpController>().AsSingle().NonLazy();
 
 		Container.Bind<CharacterStateData>().AsSingle().NonLazy();
 	}

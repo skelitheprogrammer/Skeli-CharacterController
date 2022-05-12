@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [CreateAssetMenu(menuName ="Data/Player/Jump Data")]
@@ -11,5 +10,7 @@ public class PlayerJumpDataSO : ScriptableObject
 public class PlayerJumpData
 {
     [field: SerializeField] public float JumpHeight { get; private set; }
+    [field: SerializeField] public float JumpBufferTime { get; private set; }
+    [field: SerializeField] public float JumpCoyoteTime { get; private set; }
 
 }

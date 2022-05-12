@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Ground Check Data SO
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <RayOffset>k__BackingField: {x: 0, y: 0.2, z: 0}
-    <SphereOffset>k__BackingField: {x: 0, y: 0.05, z: 0}
+    <RayOffset>k__BackingField: {x: 0, y: 0, z: 0}
     <Length>k__BackingField: 0.6
-    <Radius>k__BackingField: 0.15
+    <GroundDistance>k__BackingField: 0.1

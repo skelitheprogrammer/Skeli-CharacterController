@@ -5,13 +5,13 @@ public class DrawPlayerVelocityDirection : GizmosBase
 {
     [SerializeField] private Vector3 _offset;
     [SerializeField] private Color _color;
-    [Inject] private CharacterStateData _data;
+    [Inject] private PlayerController _controller;
 
     protected override void DrawGizmo()
     {
-        if (_data == null) return;
+        if (_controller == null) return;
 
-        var speed = _data.velocity;
+        var speed = _controller.Velocity;
 
         Gizmos.color = _color;
         Gizmos.DrawRay(transform.position + _offset, speed);

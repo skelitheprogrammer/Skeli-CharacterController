@@ -4,17 +4,19 @@ using Zenject;
 public class GroundCheckController : GameSystem
 {
     [Inject] private GroundCheckData _groundCheckData;
-    [Inject] private CharacterStateData _stateData;
+    [Inject(Id = Constants.PLAYERTRANSFORM)] private Transform _playerTransform;
 
-    public void GroundCheck()
+    public RaycastHit hit;
+
+    public bool GroundCheck()
     {
-        if (!_enabled) return;
+        if (!_enabled) return false;
 
-        var transform = _stateData.playerTransform;
-        var offset = _groundCheckData.SphereOffset;
-        ref var isGrounded = ref _stateData.isGrounded;
+        var pos = _playerTransform.position + _groundCheckData.RayOffset;
+        Physics.Raycast(pos, Vector3.down, out hit);
 
-        isGrounded = Physics.CheckSphere(transform.position + offset, _groundCheckData.Radius);
+        if (hit.distance <= _groundCheckData.GroundDistance) return true;
 
+        return false;
     }
 }

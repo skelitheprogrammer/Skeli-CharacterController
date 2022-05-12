@@ -86,6 +86,11 @@ PrefabInstance:
       propertyPath: m_Lens.FieldOfView
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 2091871366480360352, guid: 5f36b06572acfd7479978852be4cd9b9,
+        type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 0.9247136
+      objectReference: {fileID: 0}
     - target: {fileID: 2091871366480360353, guid: 5f36b06572acfd7479978852be4cd9b9,
         type: 3}
       propertyPath: m_Name

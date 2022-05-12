@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class State : StateBase
 {
@@ -11,51 +10,52 @@ public class State : StateBase
 
 	public override void Enter() => OnEnter?.Invoke();
 	public override void DoLogic() => OnLogic?.Invoke();
-	public override void Exit() 
-	{
-		OnExit?.Invoke();
-	}
+	public override void Exit() => OnExit?.Invoke();
 
-	public State(string name)
-	{
-		this.name = name;
-	}
+	protected State(string name) => this.name = name;
 
-	public class StateBuilder : BuilderBase<State, StateBuilderFinal>
-	{
-		public override BuilderBase<State, StateBuilderFinal> Begin(string name)
-		{
-			_state = new State(name);
-			return this;
-		}
+	public class StateBuilder
+    {
+		protected State _state;
 
-		public override StateBuilderFinal BuildEnter(Action enter)
-		{
-			_state.OnEnter = enter;
-			return new StateBuilderFinal(_state);
-		}
-
-		public override StateBuilderFinal BuildExit(Action exit)
-		{
-			_state.OnExit = exit;
-			return new StateBuilderFinal(_state);
-		}
-
-		public override StateBuilderFinal BuildLogic(Action logic)
-		{
-			_state.OnLogic = logic;
-			return new StateBuilderFinal(_state);
-		}
-	}
-	
-	public sealed class StateBuilderFinal : StateBuilder
-	{
-		public StateBuilderFinal(State state)
+		public StateLogic Begin(string name)
         {
-			_state = state;
+			_state = new State(name);
+			return new StateLogic(_state);
         }
 
-		public State Build() => _state;
-	}
+		public class StateBuild
+        {
+			protected State _state;
+
+			public StateBuild(State state) => _state = state;
+
+			public State Build() => _state;
+		}
+
+		public class StateLogic : StateBuild
+        {
+            public StateLogic(State state) : base(state) {}
+
+            public StateLogic BuildEnter(Action enter)
+			{
+				_state.OnEnter = enter;
+				return new StateLogic(_state);
+			}
+
+			public StateLogic BuildLogic(Action logic)
+			{
+				_state.OnLogic = logic;
+				return new StateLogic(_state);
+			}
+
+			public StateLogic BuildExit(Action exit)
+			{
+				_state.OnExit = exit;
+				return new StateLogic(_state);
+			}
+
+		}
+    }
 
 }

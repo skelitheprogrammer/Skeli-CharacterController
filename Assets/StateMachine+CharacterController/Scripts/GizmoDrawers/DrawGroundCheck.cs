@@ -6,16 +6,19 @@ public class DrawGroundCheck : GizmosBase
     [SerializeField] private Color _isGroundedColor;
     [SerializeField] private Color _falseColor;
 
+    [SerializeField] private float _initRadius;
+    [SerializeField] private float _hitRadius;
+
     [SerializeField] private GroundCheckDataSO _groundCheckData;
-    [Inject] private readonly CharacterStateData _characterStateData;
+    [Inject] private readonly GroundCheckController _controller;
 
     protected override void DrawGizmo()
     {
         if (_groundCheckData == null) return;
 
-        if (_characterStateData != null)
+        if (_controller != null)
         {
-            if (_characterStateData.isGrounded)
+            if (_controller.GroundCheck())
             {
                 Gizmos.color = _isGroundedColor;
             }
@@ -29,7 +32,8 @@ public class DrawGroundCheck : GizmosBase
             Gizmos.color = _falseColor;
         }
 
-        Gizmos.DrawRay(transform.position + _groundCheckData.Data.RayOffset, Vector3.down * _groundCheckData.Data.Length);
-        Gizmos.DrawWireSphere(transform.position + _groundCheckData.Data.SphereOffset, _groundCheckData.Data.Radius);
+        Gizmos.DrawSphere(transform.position + _groundCheckData.Data.RayOffset, _initRadius);
+        Gizmos.DrawRay(transform.position + _groundCheckData.Data.RayOffset, Vector3.down * _controller.hit.point.y);
+        Gizmos.DrawSphere(_controller.hit.point, _hitRadius);
     }
 }
