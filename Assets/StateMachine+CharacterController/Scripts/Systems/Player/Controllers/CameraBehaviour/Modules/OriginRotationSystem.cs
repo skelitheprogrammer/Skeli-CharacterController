@@ -5,7 +5,7 @@ public class OriginRotationSystem : GameSystem, IInitializable
 {
 	[Inject] private readonly InputReader _input;
 	[Inject] private readonly OriginRotationData _data;
-	[Inject(Id = Constants.ROTATEORIGIN)] private readonly Transform _rotationOrigin;
+	[Inject(Id = IDConstants.ROTATEORIGIN)] private readonly Transform _rotationOrigin;
 
 	private float _yaw;
 	private float _pitch;

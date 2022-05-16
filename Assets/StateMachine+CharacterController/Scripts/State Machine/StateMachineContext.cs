@@ -23,7 +23,7 @@ public class StateMachineContext : IStateMachine
     public void UpdateState()
     {
 		if (ActiveStateMachine == null) throw new NullReferenceException($"Initialize State Machine Context");
-		
+		Debug.Log($"{ActiveStateMachine.name} {ActiveStateMachine.ActiveState?.name}");
 		ActiveStateMachine.UpdateState();
 
 		foreach (var transition in _transitions)

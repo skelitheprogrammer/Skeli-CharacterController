@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class DrawDirectionController : GizmosBase
+public class DrawDirectionController : DrawGizmosBase
 {
     [SerializeField] private Vector3 _offset;
 

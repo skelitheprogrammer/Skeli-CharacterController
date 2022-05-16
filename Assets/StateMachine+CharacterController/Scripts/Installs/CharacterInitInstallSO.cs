@@ -5,6 +5,7 @@ using Zenject;
 public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitInstallSO>
 {
 	[SerializeField] private GroundCheckDataSO _groundCheck;
+	[SerializeField] private GroundCheckDataSO _directionCheck;
 	[SerializeField] private PlayerJumpDataSO _jumpData;
 	[SerializeField] private PlayerMovementDataSO _movementData;
 	[SerializeField] private OriginRotationDataSO _originRotationData;
@@ -13,7 +14,8 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 
 	public override void InstallBindings()
 	{	
-		Container.BindInstance(_groundCheck.Data).AsSingle().NonLazy();
+		Container.BindInstance(_groundCheck.Data).WithId(IDConstants.GROUNDCHECK).AsCached().NonLazy();
+		Container.BindInstance(_directionCheck.Data).WithId(IDConstants.DIRECTIONCHECK).AsCached().NonLazy();
 		Container.BindInstance(_jumpData.Data).AsSingle().NonLazy();
 		Container.BindInstance(_movementData.Data).AsSingle().NonLazy();
 		Container.BindInstance(_originRotationData.Data).AsSingle().NonLazy();
@@ -31,15 +33,15 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.Bind<PlayerSimpleMovementSystem>().AsSingle().NonLazy();
 		Container.Bind<PlayerMovementControllerBase>().To<PlayerMovementController>().AsSingle().NonLazy();
 
-		Container.Bind<PlayerRotationSystem>().AsCached().NonLazy();
+		Container.Bind<PlayerFreeFormRotationSystem>().AsCached().NonLazy();
+		Container.Bind<PlayerStrafeRotationSystem>().AsSingle().NonLazy();
+		Container.Bind<IPlayerRotationSystem>().To<PlayerFreeFormRotationSystem>().AsCached().NonLazy();
 		Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsSingle().NonLazy();
 
 		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
 		Container.Bind<CameraControllerBase>().To<PlayerCameraController>().AsSingle().NonLazy();
 
-		Container.Bind<CoyoteBufferCalculator>().AsCached().NonLazy();
+		Container.Bind<CoyoteBufferCalculator>().AsSingle().NonLazy();
 		Container.Bind<PlayerJumpControllerBase>().To<PlayerJumpController>().AsSingle().NonLazy();
-
-		Container.Bind<CharacterStateData>().AsSingle().NonLazy();
 	}
 }

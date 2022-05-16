@@ -4,42 +4,38 @@ using Zenject;
 
 public class FootIKController : MonoBehaviour
 {
-    [field: SerializeField] public TwoBoneIKConstraint _leftIK;
-    [field: SerializeField] public TwoBoneIKConstraint _rightIK;
+    [SerializeField] private TwoBoneIKConstraint _leftIK;
+    [SerializeField] private TwoBoneIKConstraint _rightIK;
+
+    [SerializeField] private SensorBehaviour _leftSensor;
+    [SerializeField] private SensorBehaviour _rightSensor;
+
     [SerializeField] private OverrideTransform _overridePosition;
 
+    [SerializeField] private float _footOffset;
     [SerializeField] private float _smoothTime;
-    [Range(0,1f)]
-    [SerializeField] private float _weightTreshold;
-    [Range(0,1f)]
-    [SerializeField] private float _weightSmoothFactor = .5f;
-
-    [SerializeField] private float _check;
-
-    [SerializeField] private FootIKDataSO _data;
-
-    [SerializeField] private Animator _animator;
-
-    private readonly int _leftFeetHash = Animator.StringToHash("LeftFeetIK");
-    private readonly int _rightFeetHash = Animator.StringToHash("RightFeetIK");
 
     private TwoBoneIKConstraint[] _footIK;
+    private Sensor[] _sensors;
     private Transform[] _footTargetTransforms;
-    private Transform[] _footTransforms;
-    public Transform[] FootTipTransforms { get; private set; }
-    public Vector3[] FootHitPoint { get; private set; }
+    private Transform[] _footTipTransforms;
+    private float[] _footDifferences;
+    private readonly int[] _footHashes = new[] { Animator.StringToHash("LeftFeetIK"), Animator.StringToHash("RightFeetIK") };
 
     private float _positionDifference;
     private Vector3 _velocity;
+    
+    [Inject] private readonly Animator _animator;
+
 
     private void Start()
     {
-        Time.timeScale = .4f;
+        Time.timeScale = .5f;
         _footTargetTransforms = new[] { _leftIK.data.target, _rightIK.data.target };
-        _footTransforms = new[] { _leftIK.data.mid, _rightIK.data.mid };
-        FootTipTransforms = new[] { _leftIK.data.tip, _rightIK.data.tip };
+        _footTipTransforms = new[] { _leftIK.data.tip, _rightIK.data.tip };
         _footIK = new[] { _leftIK, _rightIK };
-        FootHitPoint = new Vector3[2];
+        _sensors = new[] { _leftSensor.Sensor, _rightSensor.Sensor };
+        _footDifferences = new float[2];
     }
 
     private void Update()
@@ -48,30 +44,30 @@ public class FootIKController : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            var footTipTransform = FootTipTransforms[i];
+            var footTipTransform = _footTipTransforms[i];
             var footTargetTransform = _footTargetTransforms[i];
             var footIK = _footIK[i];
+            var sensor = _sensors[i];
+            var feetWeight = _footHashes[i];
 
-            var pos = footTipTransform.position + _data.Data.RayOffset;
+            var animWeight = _animator.GetFloat(feetWeight);
+
+            footIK.transform.position = new Vector3(footTipTransform.position.x, footIK.transform.position.y, footTipTransform.position.z);
             
-            if (Physics.SphereCast(pos, _data.Data.Radius, Vector3.down, out var hit))
+            if (sensor.IsHit)
             {
-                FootHitPoint[i] = hit.point;
+                var targetPosition = sensor.hit.point + Vector3.up * _footOffset;
+                var difference = footTipTransform.position.y - targetPosition.y;
+                footIK.weight = animWeight;
 
-                var difference = footTipTransform.position.y - hit.point.y;
-                var differencePerc = difference / hit.distance;
-
-                var newWeight = 1 - differencePerc;
-
-                footIK.weight = newWeight;
-
-
-                footTargetTransform.position = footTipTransform.position - Vector3.up * difference + footTipTransform.up * footIK.transform.localPosition.y;
-                footTargetTransform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal) * transform.rotation;
+                footTargetTransform.position = targetPosition - Vector3.up * difference;
+                footTargetTransform.rotation = Quaternion.FromToRotation(Vector3.up, sensor.hit.normal) * transform.rotation;
             }
+
         }
 
-/*        _overridePosition.data.position = Vector3.SmoothDamp(_overridePosition.data.position, -Vector3.up * _positionDifference, ref _velocity, _smoothTime);*/
+        //_positionDifference = Mathf.Abs(_footDifferences[0] + _footDifferences[1]);
+        //_overridePosition.data.position = Vector3.SmoothDamp(_overridePosition.data.position, -Vector3.up * _positionDifference, ref _velocity, _smoothTime);
     }
 
 }

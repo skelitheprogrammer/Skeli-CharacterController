@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DrawPlayerSpawnPoint : GizmosBase
+public class DrawPlayerSpawnPoint : DrawGizmosBase
 {
     [SerializeField] private bool _disableOnStart;
 
@@ -29,7 +29,7 @@ public class DrawPlayerSpawnPoint : GizmosBase
 
         Gizmos.color = _color;
         var position = transform.position + Vector3.up * (_height / 2 - _radius) + Vector3.up * _radius;
-        GizmosExtensions.DrawWireCapsule(position, _height, _radius);
+        GizmosUtils.DrawWireCapsule(position, _height, _radius);
 
         if (!_arrow) return;
 

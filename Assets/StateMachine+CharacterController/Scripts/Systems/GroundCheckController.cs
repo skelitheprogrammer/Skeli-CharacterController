@@ -1,21 +1,15 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 public class GroundCheckController : GameSystem
 {
-    [Inject] private GroundCheckData _groundCheckData;
-    [Inject(Id = Constants.PLAYERTRANSFORM)] private Transform _playerTransform;
-
-    public RaycastHit hit;
+    [Inject(Id = IDConstants.GROUNDCHECK)] private GroundCheckData _groundCheckData;
+    [Inject(Id = IDConstants.GROUNDCHECK)] private Sensor _sensor;
 
     public bool GroundCheck()
     {
         if (!_enabled) return false;
 
-        var pos = _playerTransform.position + _groundCheckData.RayOffset;
-        Physics.Raycast(pos, Vector3.down, out hit);
-
-        if (hit.distance <= _groundCheckData.GroundDistance) return true;
+        if (_sensor.hit.distance <= _groundCheckData.GroundDistance) return true;
 
         return false;
     }

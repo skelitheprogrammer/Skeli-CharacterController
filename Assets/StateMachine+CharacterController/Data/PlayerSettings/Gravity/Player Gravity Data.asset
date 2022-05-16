@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Player Gravity Data
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <GroundedGravity>k__BackingField: 0.1
+    <GroundedGravity>k__BackingField: -1
     <GravityClamp>k__BackingField: -20

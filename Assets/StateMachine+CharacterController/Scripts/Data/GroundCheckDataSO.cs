@@ -9,8 +9,6 @@ public class GroundCheckDataSO : ScriptableObject
 [System.Serializable]
 public class GroundCheckData
 {
-    [field: SerializeField] public Vector3 RayOffset { get; private set; }
-    [field: SerializeField] public float Length { get; private set; }
     [field: SerializeField] public float GroundDistance { get; private set; }
 
 }

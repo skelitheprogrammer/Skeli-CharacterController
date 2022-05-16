@@ -65,51 +65,51 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 0.1
-            inSlope: 1.2451613
-            outSlope: 1.2451613
-            tangentMode: 0
+            value: 0
+            inSlope: 3.5414333
+            outSlope: 3.5414333
+            tangentMode: 34
             weightedMode: 0
             inWeight: 0
-            outWeight: 0
+            outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.24093264
-            value: 0.6
-            inSlope: 2.0752687
-            outSlope: 2.3044775
-            tangentMode: 69
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.41450778
-            value: 1
-            inSlope: -0.30087495
-            outSlope: -0.30087495
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.7585965
-            value: 0.1
-            inSlope: -1.4531137
-            outSlope: 0
-            tangentMode: 65
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 0.1
+            time: 0.22589724
+            value: 0.8
             inSlope: 0
             outSlope: 0
             tangentMode: 0
             weightedMode: 0
             inWeight: 0
             outWeight: 0
-          preInfinity: 3
-          postInfinity: 3
+          - serializedVersion: 3
+            time: 0.43349752
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.7396199
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
           rotationOrder: 4
       - name: RightFeetIK
         curve:
@@ -117,51 +117,60 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 0.99529415
-            inSlope: -2.031579
-            outSlope: -2.031579
+            value: 1
+            inSlope: -4.106937
+            outSlope: -4.106937
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.24349047
+            value: 0
+            inSlope: 0
+            outSlope: 0
             tangentMode: 0
             weightedMode: 0
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.24611399
-            value: -0.0047058463
-            inSlope: -2.031579
+            time: 0.32793805
+            value: 0
+            inSlope: 0
             outSlope: 0
-            tangentMode: 65
+            tangentMode: 0
             weightedMode: 0
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.52
-            value: -0.0047058463
-            inSlope: -0
-            outSlope: 1.1717409
-            tangentMode: 5
+            time: 0.5531316
+            value: 0.7559332
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
             weightedMode: 0
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.6917098
-            value: 0.397693
-            inSlope: 2.1409595
-            outSlope: 2.1409595
+            time: 0.9014779
+            value: 1
+            inSlope: 0
+            outSlope: 0
             tangentMode: 0
             weightedMode: 0
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
             time: 1
-            value: 0.99529415
-            inSlope: 0.9692186
-            outSlope: 0.9692186
-            tangentMode: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
             weightedMode: 0
-            inWeight: 0
+            inWeight: 0.33333334
             outWeight: 0
-          preInfinity: 3
-          postInfinity: 3
+          preInfinity: 2
+          postInfinity: 2
           rotationOrder: 4
       events: []
       transformMask: []

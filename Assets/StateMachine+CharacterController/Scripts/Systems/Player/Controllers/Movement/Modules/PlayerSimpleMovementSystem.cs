@@ -27,7 +27,6 @@ public class PlayerSimpleMovementSystem
         _previousDirection = direction;
 
         var goalVel = direction * maxSpeed;
-        //var velDot = Vector3.Dot(direction, _goalVel.normalized);
         var velDot = _directionController.GetDot();
 
         _accel = acceleration * accelCurve.Evaluate(velDot);

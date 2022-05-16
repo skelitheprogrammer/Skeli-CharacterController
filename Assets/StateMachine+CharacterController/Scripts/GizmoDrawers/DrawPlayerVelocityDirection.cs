@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class DrawPlayerVelocityDirection : GizmosBase
+public class DrawPlayerVelocityDirection : DrawGizmosBase
 {
     [SerializeField] private Vector3 _offset;
     [SerializeField] private Color _color;

@@ -10,17 +10,17 @@ public class PlayerTransformInstall : MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInstance(_playerTransform)
-           .WithId(Constants.PLAYERTRANSFORM)
+           .WithId(IDConstants.PLAYERTRANSFORM)
            .AsCached()
            .NonLazy();
 
         Container.BindInstance(_rotateOrigin)
-            .WithId(Constants.ROTATEORIGIN)
+            .WithId(IDConstants.ROTATEORIGIN)
             .AsCached()
             .NonLazy();
 
         Container.BindInstance(_camera)
-            .WithId(Constants.MAINCAMERA)
+            .WithId(IDConstants.MAINCAMERA)
             .AsCached()
             .NonLazy();
     }

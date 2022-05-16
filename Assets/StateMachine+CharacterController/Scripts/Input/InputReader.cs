@@ -5,37 +5,45 @@ public class InputReader : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
     public Vector3 MoveInputDirection => new Vector3(MoveInput.x, 0, MoveInput.y).normalized;
-    public Vector2 RotateInput;
+    public Vector2 RotateInput { get; private set; }
 
-    public bool IsJumped => _jumpInput.action.WasPerformedThisFrame();
+    public bool IsJumped => _map.Movement.Jump.WasPerformedThisFrame();
+    public bool SwitchMode => _map.Movement.SwitchModes.WasPerformedThisFrame();
     public bool JumpInput { get; private set; }
 
-    [SerializeField] private InputActionReference _moveAction;
-    [SerializeField] private InputActionReference _rotateAction;
-    [SerializeField] private InputActionReference _jumpInput;
+    private PlayerInputMap _map;
+
+    private void Awake()
+    {
+        _map = new();        
+    }
 
     private void OnEnable()
     {
-        _moveAction.action.performed += OnMove;
-        _moveAction.action.canceled += OnMove;
+        _map.Enable();
 
-        _rotateAction.action.performed += OnRotate;
-        _rotateAction.action.canceled += OnRotate;
+        _map.Movement.Move.performed += OnMove;
+        _map.Movement.Move.canceled += OnMove;
 
-        _jumpInput.action.performed += OnJump;
-        _jumpInput.action.canceled += OnJump;
+        _map.Movement.Rotate.performed += OnRotate;
+        _map.Movement.Rotate.canceled += OnRotate;
+
+        _map.Movement.Jump.performed += OnJump;
+        _map.Movement.Jump.canceled += OnJump;
     }
 
     private void OnDisable()
     {
-        _moveAction.action.performed -= OnMove;
-        _moveAction.action.canceled -= OnMove;
+        _map.Movement.Move.performed -= OnMove;
+        _map.Movement.Move.canceled -= OnMove;
 
-        _rotateAction.action.performed -= OnRotate;
-        _rotateAction.action.canceled -= OnRotate;
+        _map.Movement.Rotate.performed -= OnRotate;
+        _map.Movement.Rotate.canceled -= OnRotate;
 
-        _jumpInput.action.performed -= OnJump;
-        _jumpInput.action.canceled -= OnJump;
+        _map.Movement.Jump.performed -= OnJump;
+        _map.Movement.Jump.canceled -= OnJump;
+
+        _map.Disable();
     }
 
     private void OnMove(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector2>();

@@ -47,13 +47,13 @@ public class PlayerController : MonoBehaviour
 		StateMachine groundedSM = stateMachineBuilder.Begin("Grounded")
 			.BuildEnter(() => 
 			{
-				_gravity.Toggle(false);
 				SetSpeed(Vector3.zero);
+				_gravity.Toggle(false);
 				_animation.SetIsGrounded(true);
 			})
 			.BuildLogic(() =>
 			{
-				_velocity.y = _gravity.SetGroundedGravity();
+				_velocity.y = 0;
 			})
 			.BuildExit(() => 
 			{
@@ -81,7 +81,8 @@ public class PlayerController : MonoBehaviour
 			})
 			.Build();
 
-		_fsm.AddState(movementSM);
+
+        _fsm.AddState(movementSM);
 
 		movementSM.AddState(groundedSM);
 		movementSM.AddState(fallingSM);
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
 		groundedSM.AddState(jumpingS);
 
 		movementSM.AddTransition(new Transition(groundedSM, fallingSM, () => !_groundChecker.GroundCheck()));
-		movementSM.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck()));
+		movementSM.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck() && movementSM.ActiveState != jumpingS));
 
 		movementSM.AddTransition(new Transition(groundedSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
 

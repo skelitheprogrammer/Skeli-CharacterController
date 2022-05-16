@@ -3,15 +3,14 @@ using Zenject;
 
 public class DirectionController
 {
-	[Inject] private readonly GroundCheckData _groundCheckData;
 	[Inject] private readonly InputReader _input;
-
-	[Inject(Id = Constants.MAINCAMERA)] public Transform Camera { get; private set; }
-	[Inject(Id = Constants.PLAYERTRANSFORM)] public Transform Player { get; private set; }
+	[Inject(Id = IDConstants.DIRECTIONCHECK)] private readonly GroundCheckData _data;
+	[Inject(Id = IDConstants.MAINCAMERA)] public Transform Camera { get; private set; }
+	[Inject(Id = IDConstants.PLAYERTRANSFORM)] public Transform Player { get; private set; }
+	[Inject(Id = IDConstants.GROUNDCHECK)] private readonly Sensor _sensor;
 
 	public float Angle { get; private set; }
 	public Vector3 Normal { get; private set; }
-
 
 	public Vector3 GetSlopeVector()
     {
@@ -47,13 +46,17 @@ public class DirectionController
 
     private void CalculateNormal()
 	{
-		Physics.Raycast(Player.position + _groundCheckData.RayOffset, Vector3.down, out var hit, _groundCheckData.Length);
+		if (_sensor.hit.distance > _data.GroundDistance)
+        {
+			Normal = Vector3.zero;
+			return;
+        }
 
-		Angle = Vector3.Angle(hit.normal, Vector3.up);
+		Angle = Vector3.Angle(_sensor.hit.normal, Vector3.up);
 
 		if (Angle > 1)
 		{
-			Normal = hit.normal;
+			Normal = _sensor.hit.normal;
 		}
 		else
 		{
