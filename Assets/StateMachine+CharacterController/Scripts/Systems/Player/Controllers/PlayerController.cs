@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
 				AddForce(_movementController.CalculateSpeed(_velocity));
 
-				transform.rotation = _playerRotationController.CalculatePlayerRotation();
+				SetRotation(_playerRotationController.CalculatePlayerRotation());
 				AddForce(_gravity.ApplyGravity());
 				
 				_animation.SetHorizontalSpeed(_velocity.magnitude);
@@ -124,6 +124,11 @@ public class PlayerController : MonoBehaviour
 		if (_velocity == value) return;
  
 		_velocity = value;
+    }
+
+	private void SetRotation(Quaternion value)
+    {
+		transform.rotation = value;
     }
 
 }

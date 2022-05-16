@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class StateMachine : State, IStateMachine
 {
@@ -14,37 +15,37 @@ public class StateMachine : State, IStateMachine
 	public class StateMachineBuilder
 	{
 		public StateMachineLogic Begin(string name) => new(name);
-	}
 
-	public class StateMachineBuild
-    {
-		public readonly StateMachine state;
-
-		public StateMachineBuild(string name) => state = new StateMachine(name);
-
-		public StateMachine Build() => state;
-	}
-
-	public class StateMachineLogic : StateMachineBuild
-    {
-        public StateMachineLogic(string name) : base(name) { }
-
-        public StateMachineLogic BuildEnter(Action enter)
-        {
-			state.OnEnter = enter;
-			return this;
-        }
-
-		public StateMachineLogic BuildLogic(Action logic)
+		public class StateMachineBuild
 		{
-			state.OnLogic = logic;
-			return this;
+			public readonly StateMachine state;
+
+			public StateMachineBuild(string name) => state = new StateMachine(name);
+
+			public StateMachine Build() => state;
 		}
 
-		public StateMachineLogic BuildExit(Action exit)
+		public class StateMachineLogic : StateMachineBuild
 		{
-			state.OnExit = exit;
-			return this;
+			public StateMachineLogic(string name) : base(name) { }
+
+			public StateMachineLogic BuildEnter(Action enter)
+			{
+				state.OnEnter = enter;
+				return this;
+			}
+
+			public StateMachineLogic BuildLogic(Action logic)
+			{
+				state.OnLogic = logic;
+				return this;
+			}
+
+			public StateMachineLogic BuildExit(Action exit)
+			{
+				state.OnExit = exit;
+				return this;
+			}
 		}
 	}
 
@@ -52,31 +53,26 @@ public class StateMachine : State, IStateMachine
 
 	public void AddTransition(Transition transition) => _stateTransitions.Add(transition);
 
+	public void Init(State state)
+    {
+		ChangeState(state);
+    }
+
     public void UpdateState()
     {
+		Debug.Log($"{name} {ActiveState?.name}");
         ActiveState?.DoLogic();
 		DoLogic();
 
         LoopStateMachineTransitions();
-        //LoopActiveStateTransitions();
     }
 
 	private void ChangeState(State state)
 	{
 		ActiveState?.Exit();
 		ActiveState = state;
-
-		/*		if (ActiveState == null)
-				{
-					OnEnter?.Invoke();
-
-					return;
-				}*/
-
 		ActiveState.Enter();
 	}
-
-
 
 	private void LoopStateMachineTransitions()
     {
@@ -85,14 +81,7 @@ public class StateMachine : State, IStateMachine
 			if (ActiveState == transition.to) continue;
 
 			TryProceedTransition(transition);
-		}
-	}
-
-	private void LoopActiveStateTransitions()
-    {
-		foreach (var transition in _stateTransitions)
-		{
-            TryProceedTransition(transition);
+			return;
 		}
 	}
 
@@ -100,8 +89,27 @@ public class StateMachine : State, IStateMachine
     {
 		if (transition.ShouldTransition())
 		{
-			//Debug.LogWarning($"transition: {transition.from.name} {transition.to.name}");
+			Debug.LogWarning($"transition: {transition.from.name} {transition.to.name}");
 			ChangeState(transition.to);
 		}
 	}
+}
+
+
+public class StateMachineTickable : ITickable
+{
+	private StateMachine _stateMachine;
+
+	public void SetStateMachine(StateMachine stateMachine)
+    {
+		if (_stateMachine != null) throw new InvalidCastException("State machine already setted");
+
+		_stateMachine = stateMachine;
+    }
+
+    public void Tick()
+    {
+		if (_stateMachine == null) return;
+		_stateMachine.UpdateState();
+    }
 }

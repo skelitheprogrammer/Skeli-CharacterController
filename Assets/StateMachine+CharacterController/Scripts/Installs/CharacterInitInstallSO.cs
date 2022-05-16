@@ -23,6 +23,7 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.BindInstance(_playerGravityData.Data).AsSingle().NonLazy();
 
 		Container.Bind<StateMachineContext>().AsTransient().NonLazy();
+		Container.BindInterfacesAndSelfTo<StateMachineTickable>().AsCached().NonLazy();
 
 		Container.Bind<GroundCheckController>().AsSingle().NonLazy();
 		Container.Bind<DirectionController>().AsSingle().NonLazy();
@@ -35,8 +36,7 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 
 		Container.Bind<PlayerFreeFormRotationSystem>().AsCached().NonLazy();
 		Container.Bind<PlayerStrafeRotationSystem>().AsSingle().NonLazy();
-		Container.Bind<IPlayerRotationSystem>().To<PlayerFreeFormRotationSystem>().AsCached().NonLazy();
-		Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsSingle().NonLazy();
+		Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsCached().NonLazy();
 
 		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
 		Container.Bind<CameraControllerBase>().To<PlayerCameraController>().AsSingle().NonLazy();
