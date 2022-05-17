@@ -18,12 +18,19 @@ public class PlayerRotationController : PlayerRotationControllerBase
         _strafeRotation = strafeRotation;
         _input = input;
 
-        var stateBuilder = new State.StateBuilder();
-        var stateMachineBuilder = new StateMachine.StateMachineBuilder();
+        var stateBuilder = new StateBuilder();
+        var stateMachineBuilder = new StateMachineBuilder();
         StateMachine stateMachine = stateMachineBuilder.Begin("Rotation StateMachine").Build();
 
-        State freeFormS = stateBuilder.Begin("FreeForm").BuildEnter(() => SetRotation(_freeFormRotation)).Build();
-        State strafeS = stateBuilder.Begin("Strafe").BuildEnter(() => SetRotation(_strafeRotation)).Build();
+        State freeFormS = stateBuilder.Begin("FreeForm")
+            .BuildLogic()
+                .WithEnter(() => SetRotation(_freeFormRotation))
+            .Build();
+
+        State strafeS = stateBuilder.Begin("Strafe")
+            .BuildLogic()
+                .WithEnter(() => SetRotation(_strafeRotation))
+            .Build();
 
         stateMachine.AddState(freeFormS);
         stateMachine.AddState(strafeS);

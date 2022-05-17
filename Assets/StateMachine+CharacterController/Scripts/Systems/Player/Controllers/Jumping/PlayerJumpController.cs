@@ -3,7 +3,6 @@ using Zenject;
 
 public class PlayerJumpController : PlayerJumpControllerBase
 {
-    //[Inject] private readonly CharacterStateData _data;
     [Inject] private readonly CoyoteBufferCalculator _coyoteBuffer;
     [Inject] private readonly PlayerJumpCalculator _jumpForce;
 

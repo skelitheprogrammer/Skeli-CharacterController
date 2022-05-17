@@ -1,5 +1,6 @@
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class DrawPlayerSpawnPoint : DrawGizmosBase
 {
     [SerializeField] private bool _disableOnStart;
@@ -37,7 +38,7 @@ public class DrawPlayerSpawnPoint : DrawGizmosBase
         DrawArrow.ForGizmo(position + _arrowSettings.ArrowOffset, transform.forward * _arrowSettings.ArrowLength, _arrowSettings.ArrowHeadLength, _arrowSettings.ArrowHeadAngle, 1f);
     }
 }
-
+#endif
 [System.Serializable]
 public struct ArrowStruct
 {

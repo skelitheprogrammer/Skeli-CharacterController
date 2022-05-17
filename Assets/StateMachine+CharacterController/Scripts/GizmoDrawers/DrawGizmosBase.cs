@@ -1,5 +1,6 @@
 using UnityEngine;
 
+#if UNITY_EDITOR
 public abstract class DrawGizmosBase : MonoBehaviour
 {
     [SerializeField] protected bool _enabled = true;
@@ -17,3 +18,4 @@ public abstract class DrawGizmosBase : MonoBehaviour
         Draw();
     }
 }
+#endif
