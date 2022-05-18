@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 
+#if UNITY_EDITOR
 public class DrawPlayerVelocityDirection : DrawGizmosBase
 {
     [SerializeField] private Vector3 _offset;
@@ -17,3 +18,4 @@ public class DrawPlayerVelocityDirection : DrawGizmosBase
         Gizmos.DrawRay(transform.position + _offset, speed);
     }
 }
+#endif

@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public static class GizmosUtils
 {
     public static void DrawWireCapsule(Vector3 position, float height, float radius)
@@ -28,3 +29,4 @@ public static class GizmosUtils
         }
     }
 }
+#endif

@@ -24,9 +24,6 @@ public class StateMachine : State, IStateMachine
 
     public void UpdateState()
     {
-#if UNITY_EDITOR
-        Debug.Log($"{name} {ActiveState?.name}");
-#endif
         ActiveState?.DoLogic();
         DoLogic();
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerSimpleMovementSystem
+public class FreeFormMovementModule : IMovementModule
 {
     [Inject] private readonly GroundCheckController _groundCheck;
     [Inject] private readonly DirectionController _directionController;

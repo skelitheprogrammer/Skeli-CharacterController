@@ -3,7 +3,7 @@ using Zenject;
 
 public class PlayerMovementController : PlayerMovementControllerBase
 {
-    [Inject] private readonly PlayerSimpleMovementSystem _directionalMovement;
+    [Inject] private readonly FreeFormMovementModule _directionalMovement;
 
     public override Vector3 CalculateSpeed(Vector3 velocity)
     {

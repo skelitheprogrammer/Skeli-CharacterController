@@ -31,11 +31,11 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.Bind<PlayerJumpCalculator>().AsSingle().NonLazy();
 		Container.Bind<GravitySystem>().AsSingle().NonLazy();
 
-		Container.Bind<PlayerSimpleMovementSystem>().AsSingle().NonLazy();
+		Container.Bind<FreeFormMovementModule>().AsSingle().NonLazy();
 		Container.Bind<PlayerMovementControllerBase>().To<PlayerMovementController>().AsSingle().NonLazy();
 
-		Container.Bind<PlayerFreeFormRotationSystem>().AsCached().NonLazy();
-		Container.Bind<PlayerStrafeRotationSystem>().AsSingle().NonLazy();
+		Container.Bind<FreeFormRotationModule>().AsCached().NonLazy();
+		Container.Bind<StrafeRotationModule>().AsSingle().NonLazy();
 		Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsCached().NonLazy();
 
 		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();

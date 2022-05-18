@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class DrawArrowGizmos : DrawGizmosBase
 {
     [SerializeField] private ArrowStruct _arrowSettings;
@@ -17,3 +18,4 @@ public class DrawArrowGizmos : DrawGizmosBase
 
     }
 }
+#endif

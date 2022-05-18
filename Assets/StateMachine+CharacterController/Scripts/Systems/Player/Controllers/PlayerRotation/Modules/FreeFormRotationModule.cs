@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerFreeFormRotationSystem : IPlayerRotationSystem
+public class FreeFormRotationModule : IRotationModule
 {
     [Inject(Id = IDConstants.PLAYERTRANSFORM)] private readonly Transform _player;
     [Inject(Id = IDConstants.ROTATEORIGIN)] private readonly Transform _origin;
@@ -22,10 +22,9 @@ public class PlayerFreeFormRotationSystem : IPlayerRotationSystem
         var rotation = Mathf.SmoothDampAngle(_player.eulerAngles.y, _targetRotation, ref _rotationVelocity, _rotationData.RotationSmoothTime);    
         return Quaternion.Euler(0, rotation, 0);
     }
-
 }
 
-public class PlayerStrafeRotationSystem : IPlayerRotationSystem
+public class StrafeRotationModule : IRotationModule
 {
     [Inject(Id = IDConstants.ROTATEORIGIN)] private readonly Transform _origin;
 

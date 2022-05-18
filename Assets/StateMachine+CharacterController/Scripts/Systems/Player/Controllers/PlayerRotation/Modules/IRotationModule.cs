@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IPlayerRotationSystem
+public interface IRotationModule
 {
     Quaternion CalculateRotationAngle();
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Zenject;
-
+#if UNITY_EDITOR
 public class DrawDirectionController : DrawGizmosBase
 {
     [SerializeField] private Vector3 _offset;
@@ -45,3 +45,4 @@ public class DrawDirectionController : DrawGizmosBase
 
     }
 }
+#endif

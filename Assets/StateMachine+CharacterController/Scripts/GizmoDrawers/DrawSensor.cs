@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
+#if UNITY_EDITOR
 public class DrawSensor : DrawGizmosBase
 {
     [SerializeField] private SensorBehaviour _sensor;
@@ -27,3 +28,4 @@ public class DrawSensor : DrawGizmosBase
         }
     }
 }
+#endif

@@ -1,17 +1,15 @@
 using UnityEngine;
-using Zenject;
 
 public class PlayerRotationController : PlayerRotationControllerBase
 {
-    private readonly PlayerFreeFormRotationSystem _freeFormRotation;
-    private readonly PlayerStrafeRotationSystem _strafeRotation;
+    private readonly FreeFormRotationModule _freeFormRotation;
+    private readonly StrafeRotationModule _strafeRotation;
     private readonly InputReader _input;
-
-    private IPlayerRotationSystem _currentRotationSystem;
-
     private readonly StateMachineTickable _stateMachine;
+    
+    private IRotationModule _currentRotationSystem;
 
-    public PlayerRotationController(PlayerFreeFormRotationSystem freeFormRotation, PlayerStrafeRotationSystem strafeRotation, InputReader input, StateMachineTickable stateMachineTickable)
+    public PlayerRotationController(FreeFormRotationModule freeFormRotation, StrafeRotationModule strafeRotation, InputReader input, StateMachineTickable stateMachineTickable)
     {
         _stateMachine = stateMachineTickable;
         _freeFormRotation = freeFormRotation;
@@ -20,6 +18,7 @@ public class PlayerRotationController : PlayerRotationControllerBase
 
         var stateBuilder = new StateBuilder();
         var stateMachineBuilder = new StateMachineBuilder();
+
         StateMachine stateMachine = stateMachineBuilder.Begin("Rotation StateMachine").Build();
 
         State freeFormS = stateBuilder.Begin("FreeForm")
@@ -48,7 +47,7 @@ public class PlayerRotationController : PlayerRotationControllerBase
     }
 
 
-    public void SetRotation(IPlayerRotationSystem system)
+    public void SetRotation(IRotationModule system)
     {
         _currentRotationSystem = system;
     }
