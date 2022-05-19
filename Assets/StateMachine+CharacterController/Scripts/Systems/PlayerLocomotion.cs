@@ -1,16 +1,16 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerController : MonoBehaviour
+public class PlayerLocomotion : MonoBehaviour
 {
 	[Inject] private readonly GroundCheckController _groundChecker;
 	[Inject] private readonly DirectionController _direction;
 
 	[Inject] private readonly GravitySystem _gravity;
 	[Inject] private readonly PlayerJumpControllerBase _jump;
-	[Inject] private readonly PlayerMovementControllerBase _movementController;
+	[Inject] private readonly PlayerMovementController _movementController;
 	[Inject] private readonly CameraControllerBase _cameraController;
-	[Inject] private readonly PlayerRotationControllerBase _playerRotationController;
+	[Inject] private readonly PlayerRotationController _rotationController;
 
 	[Inject] private readonly InputReader _input;
 
@@ -29,21 +29,6 @@ public class PlayerController : MonoBehaviour
 		var stateMachineBuilder = new StateMachineBuilder();
 		var stateBuilder = new StateBuilder();
 
-        StateMachine movementSM = stateMachineBuilder.Begin("Movement")
-            .BuildLogic()
-                .WithTick(() =>
-                {
-                    _jump.CalculateCanJump();
-                    AddForce(_movementController.CalculateSpeed(_velocity));
-
-                    SetRotation(_playerRotationController.CalculatePlayerRotation());
-                    AddForce(_gravity.ApplyGravity());
-
-                    _animation.SetHorizontalSpeed(_velocity.magnitude);
-                    _animation.SetVerticalSpeed(_velocity.y);
-                })
-            .Build();
-
         StateMachine groundedSM = stateMachineBuilder.Begin("Grounded")
             .BuildLogic()
                 .WithEnter(() => 
@@ -59,6 +44,22 @@ public class PlayerController : MonoBehaviour
                 .WithExit(() => 
                 {
                     _animation.SetIsGrounded(false);
+                })
+            .Build();
+
+        StateMachine freeformMovementSM = stateMachineBuilder.Begin("Freeform")
+            .BuildLogic()
+                .WithEnter(() =>
+                {
+                    ToggleMovementStyle();
+                })
+            .Build();
+
+        StateMachine strafeMovementSM = stateMachineBuilder.Begin("Strafe")
+            .BuildLogic()
+                .WithEnter(() =>
+                {
+                    ToggleMovementStyle();
                 })
             .Build();
 
@@ -84,26 +85,38 @@ public class PlayerController : MonoBehaviour
                 })
             .Build();
 
-        _fsm.AddState(movementSM);
+        _fsm.AddState(groundedSM);
+        _fsm.AddState(fallingSM);
 
-        movementSM.AddState(groundedSM);
-        movementSM.AddState(fallingSM);
+        groundedSM.AddState(freeformMovementSM);
+        groundedSM.AddState(strafeMovementSM);
 
-        groundedSM.AddState(jumpingS);
+        freeformMovementSM.AddState(jumpingS);
 
-        movementSM.AddTransition(new Transition(groundedSM, fallingSM, () => !_groundChecker.GroundCheck()));
-        movementSM.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck() && movementSM.ActiveState != jumpingS));
+        _fsm.AddTransition(new Transition(groundedSM, fallingSM, () => !_groundChecker.GroundCheck()));
+        _fsm.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck() && _fsm.ActiveStateMachine != jumpingS));
 
-        movementSM.AddTransition(new Transition(groundedSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
+        //_fsm.AddTransition(new Transition(groundedSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
+        groundedSM.AddTransition(new Transition(jumpingS, () => _jump.CanJump && _input.IsJumped));
 
-        movementSM.Init(groundedSM);
-        _fsm.Init(movementSM);
+        groundedSM.AddTransition(new Transition(freeformMovementSM, () => _input.SwitchMode && groundedSM.ActiveState != freeformMovementSM));
+        groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode && groundedSM.ActiveState != strafeMovementSM));
+
+        _fsm.Init(groundedSM);
 
     }
 
 	private void Update()
 	{
-		_animation.SetAngle(_direction.Angle);
+        _jump.CalculateCanJump();
+        AddForce(_movementController.CalculateSpeed(_velocity));
+
+        SetRotation(_rotationController.CalculatePlayerRotation());
+        AddForce(_gravity.ApplyGravity());
+
+        _animation.SetHorizontalSpeed(_velocity.magnitude);
+        _animation.SetVerticalSpeed(_velocity.y);
+        _animation.SetAngle(_direction.Angle);
 
 		_fsm.UpdateState();
 
@@ -132,6 +145,12 @@ public class PlayerController : MonoBehaviour
 	private void SetRotation(Quaternion value)
     {
 		transform.rotation = value;
+    }
+
+    private void ToggleMovementStyle()
+    {
+        _rotationController.ToggleRotation();
+        _movementController.ToggleMovement();
     }
 
 }

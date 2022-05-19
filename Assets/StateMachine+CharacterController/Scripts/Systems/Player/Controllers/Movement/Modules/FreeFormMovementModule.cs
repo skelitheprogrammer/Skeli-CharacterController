@@ -43,3 +43,11 @@ public class FreeFormMovementModule : IMovementModule
         return _neededAccel;
     }
 }
+
+public class StrafeMovementModule : IMovementModule
+{
+    public Vector3 CalculateMovement(Vector3 velocity)
+    {
+        return Vector3.zero;
+    }
+}

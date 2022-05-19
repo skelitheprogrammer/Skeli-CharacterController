@@ -6,7 +6,7 @@ public class DrawPlayerVelocityDirection : DrawGizmosBase
 {
     [SerializeField] private Vector3 _offset;
     [SerializeField] private Color _color;
-    [Inject] private PlayerController _controller;
+    [Inject] private PlayerLocomotion _controller;
 
     protected override void DrawGizmo()
     {
