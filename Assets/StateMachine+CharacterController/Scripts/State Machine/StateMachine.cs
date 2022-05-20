@@ -17,15 +17,22 @@ public class StateMachine : State, IStateMachine
 
     public void AddTransition(Transition transition) => _stateTransitions.Add(transition);
 
-    public void Init(State state)
+    public void SetStartState(State state)
     {
-        ChangeState(state);
+        ActiveState = state;
+    }
+
+    public override void DoLogic()
+    {
+        base.DoLogic();
+        UpdateState();
     }
 
     public void UpdateState()
     {
+        //Debug.Log($"{name} {ActiveState?.name}");
         ActiveState?.DoLogic();
-        DoLogic();
+        //DoLogic();
 
         LoopStateMachineTransitions();
     }
@@ -33,14 +40,22 @@ public class StateMachine : State, IStateMachine
     private void ChangeState(State state)
     {
         ActiveState?.Exit();
+
+        if (state == this || state == null)
+        {
+            ActiveState = null;
+            return;
+        }
+
         ActiveState = state;
-        ActiveState.Enter();
+        ActiveState?.Enter();
     }
 
     private void LoopStateMachineTransitions()
     {
         foreach (var transition in _stateTransitions)
         {
+            //Debug.Log($"{name} Check transition {transition.from.name} {transition.to.name}");
             if (ActiveState == transition.to) continue;
 
             TryProceedTransition(transition);
@@ -58,6 +73,7 @@ public class StateMachine : State, IStateMachine
     }
 }
 
+#region Builder
 public class StateMachineBuilder
 {
     private StateMachine _stateMachine;
@@ -122,3 +138,4 @@ public class StateMachineBuilder
         public StateMachine Build() => _stateMachine;
     }
 }
+#endregion

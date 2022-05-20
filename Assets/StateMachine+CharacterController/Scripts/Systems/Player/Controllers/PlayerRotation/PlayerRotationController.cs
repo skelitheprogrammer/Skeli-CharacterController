@@ -4,7 +4,9 @@ public class PlayerRotationController : PlayerRotationControllerBase
 {
     private readonly FreeFormRotationModule _freeFormRotation;
     private readonly StrafeRotationModule _strafeRotation;
-    
+
+    private MovementType _type;
+
     private IRotationModule _currentRotationModule;
 
     public PlayerRotationController(FreeFormRotationModule freeFormRotation, StrafeRotationModule strafeRotation)
@@ -19,8 +21,7 @@ public class PlayerRotationController : PlayerRotationControllerBase
         return _currentRotationModule.CalculateRotationAngle();
     }
 
-
-    public void SetRotation(IRotationModule system)
+    private void SetRotation(IRotationModule system)
     {
         _currentRotationModule = system;
     }
@@ -34,6 +35,19 @@ public class PlayerRotationController : PlayerRotationControllerBase
         else
         {
             SetRotation(_freeFormRotation);
+        }
+    }
+
+    public void SetType(MovementType type)
+    {
+        switch (type)
+        {
+            case MovementType.Freeform:
+                SetRotation(_freeFormRotation);
+                break;
+            case MovementType.Strafe:
+                SetRotation(_strafeRotation);
+                break;
         }
     }
 }

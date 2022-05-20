@@ -26,7 +26,7 @@ public class StateMachineContext : IStateMachine
 		
 		//Debug.Log($"{ActiveStateMachine.name} {ActiveStateMachine.ActiveState?.name}");
 		
-		ActiveStateMachine.UpdateState();
+		ActiveStateMachine.DoLogic();
 
 		foreach (var transition in _transitions)
 		{

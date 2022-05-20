@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using System.ComponentModel;
 using UnityEngine;
 using Zenject;
 
@@ -32,11 +34,14 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.Bind<GravitySystem>().AsSingle().NonLazy();
 
 		Container.Bind<FreeFormMovementModule>().AsSingle().NonLazy();
-		Container.Bind<PlayerMovementControllerBase>().To<PlayerMovementController>().AsSingle().NonLazy();
+		Container.Bind<StrafeMovementModule>().AsSingle().NonLazy();
+		Container.Bind<PlayerMovementController>().AsCached().NonLazy();
+		//Container.Bind<PlayerMovementControllerBase>().To<PlayerMovementController>().AsCached().NonLazy();
 
 		Container.Bind<FreeFormRotationModule>().AsCached().NonLazy();
 		Container.Bind<StrafeRotationModule>().AsSingle().NonLazy();
-		Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsCached().NonLazy();
+		Container.Bind<PlayerRotationController>().AsCached().NonLazy();
+		//Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsCached().NonLazy();
 
 		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
 		Container.Bind<CameraControllerBase>().To<PlayerCameraController>().AsSingle().NonLazy();

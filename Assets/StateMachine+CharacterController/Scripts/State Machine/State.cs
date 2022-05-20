@@ -8,9 +8,9 @@ public class State
 
 	public readonly string name;
 
-	public void Enter() => OnEnter?.Invoke();
-	public void DoLogic() => OnLogic?.Invoke();
-	public void Exit() => OnExit?.Invoke();
+	public virtual void Enter() => OnEnter?.Invoke();
+	public virtual void DoLogic() => OnLogic?.Invoke();
+	public virtual void Exit() => OnExit?.Invoke();
 
 	public State(string name) => this.name = name;
 

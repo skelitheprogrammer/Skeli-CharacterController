@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject;
 
 public class PlayerMovementController : PlayerMovementControllerBase
 {
@@ -12,7 +11,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
     {
         _directionalMovement = directionalMovement;
         _strafeMovement = strafeMovement;
-        _movementModule = _directionalMovement;
+        _movementModule = directionalMovement;
     }
 
     public override Vector3 CalculateSpeed(Vector3 velocity)
@@ -22,6 +21,12 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     public void ToggleMovement()
     {
+        if (_movementModule == null)
+        {
+            _movementModule = _directionalMovement;
+            return;
+        }
+
         if (_movementModule == _directionalMovement)
         {
             _movementModule = _strafeMovement;
@@ -31,4 +36,6 @@ public class PlayerMovementController : PlayerMovementControllerBase
             _movementModule = _directionalMovement;
         }
     }
+
+    
 }
