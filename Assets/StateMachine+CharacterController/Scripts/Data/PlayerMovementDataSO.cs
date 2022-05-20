@@ -1,3 +1,5 @@
+using System.Linq;
+using System;
 using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerMovementData", menuName = "Data/Player/Movement Data")]
 public class PlayerMovementDataSO : ScriptableObject
@@ -12,7 +14,7 @@ public class PlayerMovementData
     [field: SerializeField] public AnimationCurve AccelerationCurve { get; private set; }
     [field: SerializeField] public float MaxSpeed { get; private set; } = 6.5f;
 
-    [field: SerializeField] public float ForwardSpeed { get; private set; } = 5f;
-    [field: SerializeField] public float SideWaysSpeed { get; private set; } = 4f;
-    [field: SerializeField] public float BackwardSpeed { get; private set; } = 2f;
+    [field: SerializeField] public float ForwardSpeed { get; private set; } = 4;
+    [field: SerializeField] public float SideWaysSpeed { get; private set; } = 3;
+    [field: SerializeField] public float BackwardsSpeed { get; private set; } = 2;
 }

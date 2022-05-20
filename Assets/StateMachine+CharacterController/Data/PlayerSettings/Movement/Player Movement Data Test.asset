@@ -57,3 +57,16 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     <MaxSpeed>k__BackingField: 6.5
+    <Speeds>k__BackingField:
+    - speed: 4.5
+      direction:
+        <Direction>k__BackingField: 0
+    - speed: 3
+      direction:
+        <Direction>k__BackingField: 1
+    - speed: 3
+      direction:
+        <Direction>k__BackingField: 2
+    - speed: 2
+      direction:
+        <Direction>k__BackingField: 3

@@ -9,9 +9,7 @@ public class StateMachine : State, IStateMachine
 
     public State ActiveState { get; private set; }
 
-    public StateMachine(string name) : base(name)
-    {
-    }
+    public StateMachine(string name) : base(name) { }
 
     public void AddState(State state) => _states.Add(state);
 
@@ -32,7 +30,6 @@ public class StateMachine : State, IStateMachine
     {
         //Debug.Log($"{name} {ActiveState?.name}");
         ActiveState?.DoLogic();
-        //DoLogic();
 
         LoopStateMachineTransitions();
     }
@@ -55,7 +52,6 @@ public class StateMachine : State, IStateMachine
     {
         foreach (var transition in _stateTransitions)
         {
-            //Debug.Log($"{name} Check transition {transition.from.name} {transition.to.name}");
             if (ActiveState == transition.to) continue;
 
             TryProceedTransition(transition);
@@ -67,7 +63,7 @@ public class StateMachine : State, IStateMachine
     {
         if (transition.ShouldTransition())
         {
-            Debug.LogWarning($"transition: {transition.from.name} {transition.to.name}");
+            Debug.LogWarning($"transition: {transition.from?.name} {transition.to.name}");
             ChangeState(transition.to);
         }
     }

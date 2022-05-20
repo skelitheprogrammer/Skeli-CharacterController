@@ -102,8 +102,8 @@ public class PlayerLocomotion : MonoBehaviour
 
         //_fsm.AddTransition(new Transition(groundedSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
 
-        groundedSM.AddTransition(new Transition(groundedSM, freeformMovementSM, () => _input.SwitchMode));
-        groundedSM.AddTransition(new Transition(groundedSM, strafeMovementSM, () => _input.SwitchMode));
+        groundedSM.AddTransition(new Transition(freeformMovementSM, () => _input.SwitchMode));
+        groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode));
 
         freeformMovementSM.AddTransition(new Transition(freeformMovementSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
         freeformMovementSM.AddTransition(new Transition(jumpingS, freeformMovementSM));
@@ -155,7 +155,7 @@ public class PlayerLocomotion : MonoBehaviour
     private void ToggleMovementStyle()
     {
         _rotationController.ToggleRotation();
-        //_movementController.ToggleMovement();
+        _movementController.ToggleMovement();
     }
 
 }
