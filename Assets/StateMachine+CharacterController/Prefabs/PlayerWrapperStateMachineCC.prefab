@@ -51,6 +51,7 @@ MonoBehaviour:
   _rotateOrigin: {fileID: 3066434252578736767}
   _playerTransform: {fileID: 3066434253015596508}
   _camera: {fileID: 1116562261671746372}
+  _virtualCamera: {fileID: 910635224582335683}
 --- !u!114 &2368127899467892913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +90,7 @@ PrefabInstance:
     - target: {fileID: 2091871366480360352, guid: 5f36b06572acfd7479978852be4cd9b9,
         type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 0.9247136
+      value: 1.7777778
       objectReference: {fileID: 0}
     - target: {fileID: 2091871366480360353, guid: 5f36b06572acfd7479978852be4cd9b9,
         type: 3}
@@ -153,6 +154,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f36b06572acfd7479978852be4cd9b9, type: 3}
+--- !u!114 &910635224582335683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2091871366480360352, guid: 5f36b06572acfd7479978852be4cd9b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1271396106419265379}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &910635224582335692 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2091871366480360367, guid: 5f36b06572acfd7479978852be4cd9b9,

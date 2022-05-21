@@ -9,7 +9,6 @@ public class PlayerLocomotion : MonoBehaviour
     [Inject] private readonly GravitySystem _gravity;
     [Inject] private readonly PlayerJumpControllerBase _jump;
     [Inject] private readonly PlayerMovementController _movementController;
-    [Inject] private readonly CameraControllerBase _cameraController;
     [Inject] private readonly PlayerRotationController _rotationController;
 
     [Inject] private readonly InputReader _input;
@@ -43,7 +42,6 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithExit(() =>
                 {
                     _animation.SetIsGrounded(false);
-                    _rotationController.SetType(MovementType.Freeform);
                 })
             .Build();
 
@@ -100,8 +98,6 @@ public class PlayerLocomotion : MonoBehaviour
         _fsm.AddTransition(new Transition(groundedSM, fallingSM, () => !_groundChecker.GroundCheck()));
         _fsm.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck() && _fsm.ActiveStateMachine != jumpingS));
 
-        //_fsm.AddTransition(new Transition(groundedSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
-
         groundedSM.AddTransition(new Transition(freeformMovementSM, () => _input.SwitchMode));
         groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode));
 
@@ -126,11 +122,6 @@ public class PlayerLocomotion : MonoBehaviour
         _fsm.UpdateState();
 
         _controller.Move(_velocity * Time.deltaTime);
-    }
-
-    private void LateUpdate()
-    {
-        _cameraController.ControlCamera();
     }
 
     private void AddForce(Vector3 value)

@@ -5,8 +5,6 @@ public class PlayerRotationController : PlayerRotationControllerBase
     private readonly FreeFormRotationModule _freeFormRotation;
     private readonly StrafeRotationModule _strafeRotation;
 
-    private MovementType _type;
-
     private IRotationModule _currentRotationModule;
 
     public PlayerRotationController(FreeFormRotationModule freeFormRotation, StrafeRotationModule strafeRotation)
@@ -38,16 +36,4 @@ public class PlayerRotationController : PlayerRotationControllerBase
         }
     }
 
-    public void SetType(MovementType type)
-    {
-        switch (type)
-        {
-            case MovementType.Freeform:
-                SetRotation(_freeFormRotation);
-                break;
-            case MovementType.Strafe:
-                SetRotation(_strafeRotation);
-                break;
-        }
-    }
 }

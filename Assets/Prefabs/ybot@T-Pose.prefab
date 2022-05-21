@@ -2088,7 +2088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _overrideComponent: {fileID: 3387330160941574489}
   _rotationSmoothTime: 0.15
-  _roataionFactor: 0.3
+  _roataionFactor: 0.13
   _maxRotationAngle: 15
 --- !u!114 &3387330160941574489
 MonoBehaviour:

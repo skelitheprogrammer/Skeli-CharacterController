@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-using System.ComponentModel;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +8,7 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 	[SerializeField] private GroundCheckDataSO _directionCheck;
 	[SerializeField] private PlayerJumpDataSO _jumpData;
 	[SerializeField] private PlayerMovementDataSO _movementData;
-	[SerializeField] private OriginRotationDataSO _originRotationData;
+	[SerializeField] private CameraDataSO _originRotationData;
 	[SerializeField] private PlayerRotationDataSO _playerRotationData;
 	[SerializeField] private PlayerGravityDataSO _playerGravityData;
 
@@ -43,8 +41,9 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.Bind<PlayerRotationController>().AsCached().NonLazy();
 		//Container.Bind<PlayerRotationControllerBase>().To<PlayerRotationController>().AsCached().NonLazy();
 
-		Container.Bind<OriginRotationSystem>().AsSingle().NonLazy();
-		Container.Bind<CameraControllerBase>().To<PlayerCameraController>().AsSingle().NonLazy();
+		Container.Bind<OriginRotationModule>().AsSingle().NonLazy();
+		Container.Bind<CameraZoomModule>().AsSingle().NonLazy();
+		Container.Bind<PlayerCameraController>().AsSingle().NonLazy();
 
 		Container.Bind<CoyoteBufferCalculator>().AsSingle().NonLazy();
 		Container.Bind<PlayerJumpControllerBase>().To<PlayerJumpController>().AsSingle().NonLazy();
