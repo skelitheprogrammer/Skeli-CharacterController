@@ -14,7 +14,7 @@ public class PlayerLocomotion : MonoBehaviour
     [Inject] private readonly InputReader _input;
 
     [Inject] private readonly CharacterController _controller;
-    [Inject] private readonly PlayerAnimationSync _animation;
+    [Inject] private readonly PlayerAnimationController _animation;
 
     [Inject] private readonly StateMachineContext _fsm;
 
@@ -50,6 +50,7 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithEnter(() =>
                 {
                     ToggleMovementStyle();
+                    _animation.SetIsStrafing(false);
                 })
                 .WithTick(() =>
                 {
@@ -62,6 +63,7 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithEnter(() =>
                 {
                     ToggleMovementStyle();
+                    _animation.SetIsStrafing(true);
                 })
             .Build();
 
@@ -115,8 +117,10 @@ public class PlayerLocomotion : MonoBehaviour
         SetRotation(_rotationController.CalculatePlayerRotation());
         AddForce(_gravity.ApplyGravity());
 
-        _animation.SetHorizontalSpeed(_velocity.magnitude);
-        _animation.SetVerticalSpeed(_velocity.y);
+        _animation.SetHorizontalSpeed(_input.MoveInput.x);
+        _animation.SetVerticalSpeed(_input.MoveInput.y);
+        _animation.SetSpeed(_input.MoveInput.magnitude);
+        _animation.SetGravity(_velocity.y);
         _animation.SetAngle(_direction.Angle);
 
         _fsm.UpdateState();
@@ -149,10 +153,4 @@ public class PlayerLocomotion : MonoBehaviour
         _movementController.ToggleMovement();
     }
 
-}
-
-public enum MovementType
-{
-    Freeform,
-    Strafe
 }

@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0792091fda84a4808c22663c199cf03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blendSmoothTime: 0
+  _blendSmoothTime: 10
 --- !u!1001 &4274059208021050991
 PrefabInstance:
   m_ObjectHideFlags: 0
