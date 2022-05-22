@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovementController : PlayerMovementControllerBase
+public class PlayerMovementController
 {
     private readonly FreeFormMovementModule _directionalMovement;
     private readonly StrafeMovementModule _strafeMovement;
@@ -14,7 +14,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
         _movementModule = directionalMovement;
     }
 
-    public override Vector3 CalculateSpeed(Vector3 velocity)
+    public Vector3 CalculateSpeed(Vector3 velocity)
     {
         return _movementModule.CalculateMovement(velocity);
     }

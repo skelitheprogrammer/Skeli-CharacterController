@@ -63,7 +63,7 @@ public class StateMachine : State, IStateMachine
     {
         if (transition.ShouldTransition())
         {
-            Debug.LogWarning($"transition: {transition.from?.name} {transition.to.name}");
+            //Debug.LogWarning($"transition: {transition.from?.name} {transition.to.name}");
             ChangeState(transition.to);
         }
     }
@@ -79,6 +79,7 @@ public class StateMachineBuilder
         _stateMachine = new StateMachine(name);
         return new StateMachineLogicBuild(_stateMachine);
     }
+
     public class StateMachineLogicBuild
     {
         private readonly StateMachine _stateMachine;
@@ -127,9 +128,7 @@ public class StateMachineBuilder
 
     public class StateMachineLogicBuilder : StateMachineLogic
     {
-        public StateMachineLogicBuilder(StateMachine state) : base(state)
-        {
-        }
+        public StateMachineLogicBuilder(StateMachine state) : base(state) { }
 
         public StateMachine Build() => _stateMachine;
     }

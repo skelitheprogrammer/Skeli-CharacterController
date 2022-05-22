@@ -2,20 +2,21 @@ using System;
 
 public class State
 {
+	public readonly string Name;
+
 	protected internal Action OnEnter;
 	protected internal Action OnLogic;
 	protected internal Action OnExit;
-
-	public readonly string name;
 
 	public virtual void Enter() => OnEnter?.Invoke();
 	public virtual void DoLogic() => OnLogic?.Invoke();
 	public virtual void Exit() => OnExit?.Invoke();
 
-	public State(string name) => this.name = name;
+	public State(string name) => Name = name;
 
 }
 
+#region Builder
 public class StateBuilder
 {
     private State _state;
@@ -78,6 +79,6 @@ public class StateBuilder
 
     }
 }
-
+#endregion
 
 

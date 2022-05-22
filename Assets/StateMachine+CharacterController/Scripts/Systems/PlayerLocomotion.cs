@@ -7,7 +7,7 @@ public class PlayerLocomotion : MonoBehaviour
     [Inject] private readonly DirectionController _direction;
 
     [Inject] private readonly GravitySystem _gravity;
-    [Inject] private readonly PlayerJumpControllerBase _jump;
+    [Inject] private readonly PlayerJumpController _jump;
     [Inject] private readonly PlayerMovementController _movementController;
     [Inject] private readonly PlayerRotationController _rotationController;
 

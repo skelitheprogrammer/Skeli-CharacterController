@@ -38,7 +38,7 @@ public class StateMachineContext : IStateMachine
 
 	public void Init(StateMachine stateMachine)
     {
-		if (!_stateMachines.Contains(stateMachine)) throw new NullReferenceException($"Theres no {stateMachine.name} in State Machine Context");
+		if (!_stateMachines.Contains(stateMachine)) throw new NullReferenceException($"Theres no {stateMachine.Name} in State Machine Context");
 
 		if (_initialized) throw new InvalidOperationException("State Machine Context already initialized");
 
@@ -57,7 +57,7 @@ public class StateMachineContext : IStateMachine
 	{
 		if (transition.ShouldTransition())
 		{
-			Debug.Log($"{transition.from.name} {transition.to.name}");
+			Debug.Log($"{transition.from.Name} {transition.to.Name}");
 			ChangeState(transition.to);
 		}
 	}

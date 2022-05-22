@@ -13,27 +13,27 @@ public class PlayerTransformInstall : MonoInstaller
     {
         Container.BindInstance(_playerTransform)
            .WithId(IDConstants.PLAYERTRANSFORM)
-           .AsSingle()
+           .AsCached()
            .NonLazy();
 
         Container.BindInstance(_rotateOrigin)
             .WithId(IDConstants.ROTATEORIGIN)
-            .AsSingle()
+            .AsCached()
             .NonLazy();
 
         Container.BindInstance(_camera)
             .WithId(IDConstants.MAINCAMERA)
-            .AsSingle()
+            .AsCached()
             .NonLazy();
 
         Container.BindInstance(_virtualCamera)
             .WithId(IDConstants.VIRTUALCAMERA)
-            .AsSingle()
+            .AsCached()
             .NonLazy();
 
         Container.BindInstance(_virtualCamera.transform)
             .WithId(IDConstants.VIRTUALCAMERA)
-            .AsSingle()
+            .AsCached()
             .NonLazy();
     }
 

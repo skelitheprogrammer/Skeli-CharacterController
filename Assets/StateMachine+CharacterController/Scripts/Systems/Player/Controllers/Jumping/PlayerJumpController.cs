@@ -1,16 +1,16 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerJumpController : PlayerJumpControllerBase
+public class PlayerJumpController
 {
     [Inject] private readonly CoyoteBufferCalculator _coyoteBuffer;
     [Inject] private readonly PlayerJumpCalculator _jumpForce;
 
     private bool _canJump;
 
-    public override bool CanJump => _canJump;
+    public bool CanJump => _canJump;
 
-    public override Vector3 CalculateJumpForce()
+    public  Vector3 CalculateJumpForce()
     {
         if (_canJump)
         {
@@ -20,7 +20,7 @@ public class PlayerJumpController : PlayerJumpControllerBase
         return Vector3.zero;
     }
 
-    public override void CalculateCanJump()
+    public void CalculateCanJump()
     {
         _coyoteBuffer.UpdateTimer(out _canJump);
     }

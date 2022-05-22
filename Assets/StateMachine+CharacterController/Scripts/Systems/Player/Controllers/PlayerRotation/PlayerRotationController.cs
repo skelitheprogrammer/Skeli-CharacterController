@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerRotationController : PlayerRotationControllerBase
+public class PlayerRotationController
 {
     private readonly FreeFormRotationModule _freeFormRotation;
     private readonly StrafeRotationModule _strafeRotation;
@@ -14,7 +14,7 @@ public class PlayerRotationController : PlayerRotationControllerBase
         _currentRotationModule = _freeFormRotation;
     }
 
-    public override Quaternion CalculatePlayerRotation()
+    public Quaternion CalculatePlayerRotation()
     {
         return _currentRotationModule.CalculateRotationAngle();
     }

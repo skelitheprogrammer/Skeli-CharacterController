@@ -5,7 +5,6 @@ public class CoyoteBufferCalculator : GameSystem
 {
     [Inject] private readonly PlayerJumpData _jumpData;
     [Inject] private readonly GroundCheckController _groundCheck;
-    //[Inject] private readonly CharacterStateData _data;
 
     private float _coyoteTimer;
     private float _bufferTimer;

@@ -16,6 +16,6 @@ public class CameraData
 
     [field: SerializeField] public float MinZoomDistance { get; private set; } = 1;
     [field: SerializeField] public float MaxZoomDistance { get; private set; } = 3;
-    [field: SerializeField] public float ZoomDelta { get; private set; } = 10;
+    [field: SerializeField] public float ZoomSpeed { get; private set; } = 10;
 }
 

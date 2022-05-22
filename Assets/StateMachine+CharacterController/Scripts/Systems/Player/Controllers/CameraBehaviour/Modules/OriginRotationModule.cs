@@ -3,7 +3,6 @@ using Zenject;
 
 public class OriginRotationModule : GameSystem, IInitializable
 {
-	[Inject] private readonly InputReader _input;
 	[Inject] private readonly CameraData _data;
 	[Inject(Id = IDConstants.ROTATEORIGIN)] private readonly Transform _rotationOrigin;
 
@@ -17,17 +16,17 @@ public class OriginRotationModule : GameSystem, IInitializable
         _pitch = _rotationOrigin.eulerAngles.x;
     }
 
-	public void RotateOrigin()
+	public void RotateOrigin(Vector2 rotateInput)
 	{
 		if (!_enabled) return;
 
 		var topClamp = _data.TopClamp;
 		var botClamp = _data.BotClamp;
 
-		if (_input.RotateInput.sqrMagnitude >= _threshold)
+		if (rotateInput.sqrMagnitude >= _threshold)
 		{
-			_yaw += _input.RotateInput.x * _data.Sensitivity * Time.unscaledDeltaTime;
-			_pitch += _input.RotateInput.y * _data.Sensitivity * Time.unscaledDeltaTime;
+			_yaw += rotateInput.x * _data.Sensitivity * Time.unscaledDeltaTime;
+			_pitch += rotateInput.y * _data.Sensitivity * Time.unscaledDeltaTime;
 		}
 
 		_yaw = ClampAngle(_yaw, float.MinValue, float.MaxValue);

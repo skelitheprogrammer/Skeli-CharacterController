@@ -299,13 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e585ee2d7491a834b8adb023052a97d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateInput: {x: 0, y: 0}
-  _moveAction: {fileID: -7787182657449943418, guid: 05eecf4cb69a8c94f931a76344d583f9,
-    type: 3}
-  _rotateAction: {fileID: -5230080763624501279, guid: 05eecf4cb69a8c94f931a76344d583f9,
-    type: 3}
-  _jumpInput: {fileID: 8987590539736616729, guid: 05eecf4cb69a8c94f931a76344d583f9,
-    type: 3}
 --- !u!114 &8723216577799142452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +379,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components:
-  - {fileID: 6905579503600756744}
   - {fileID: 579583710224226186}
   - {fileID: 7504523559050088259}
   - {fileID: 3702993919780146389}

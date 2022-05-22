@@ -4,8 +4,8 @@ using Zenject;
 
 public class PlayerCameraController : MonoBehaviour
 {
-    private CinemachineFramingTransposer _transposer;
-    
+    private Cinemachine3rdPersonFollow _thirdPerson;
+
     [Inject] private readonly OriginRotationModule _originRotation;
     [Inject] private readonly CameraZoomModule _zoom;
     [Inject] private readonly InputReader _input;
@@ -14,31 +14,28 @@ public class PlayerCameraController : MonoBehaviour
     
     private void Awake()
     {
-        _transposer = _virtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachineFramingTransposer;
-        _transposer.m_CameraDistance = _cameraData.MaxZoomDistance;
+        _thirdPerson = _virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        SetCameraDistance(_cameraData.MaxZoomDistance);
+
     }
 
     private void Update()
     {
         if (_input.CameraScroll != 0)
         {
-            _transposer.m_CameraDistance = Mathf.Clamp(_transposer.m_CameraDistance + _zoom.CalculateZoomAmount(_input.CameraScroll), _cameraData.MinZoomDistance, _cameraData.MaxZoomDistance);
+            float newValue = _thirdPerson.CameraDistance + _zoom.CalculateZoomDelta(_input.CameraScroll * _cameraData.ZoomSpeed * Time.deltaTime);
+            SetCameraDistance(newValue);
         }
     }
 
     private void LateUpdate()
     {
-        _originRotation.RotateOrigin();    
+        _originRotation.RotateOrigin(_input.RotateInput);    
     }
 
-}
-
-
-public class CameraZoomModule
-{
-
-    public float CalculateZoomAmount(float delta)
+    private void SetCameraDistance(float value)
     {
-        return 0;
+        _thirdPerson.CameraDistance = Mathf.Clamp(value, _cameraData.MinZoomDistance, _cameraData.MaxZoomDistance);
     }
+
 }

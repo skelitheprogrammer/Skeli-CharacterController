@@ -68,7 +68,7 @@ public partial class @PlayerInputMap : IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""0b83f84a-4943-4184-8a52-2c2881fcdd97"",
                     ""expectedControlType"": ""Analog"",
-                    ""processors"": """",
+                    ""processors"": ""Normalize(min=-1,max=1),Clamp(min=-1,max=1),Invert"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
@@ -165,7 +165,7 @@ public partial class @PlayerInputMap : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b13928ff-6499-4e15-b86b-60d14f907ff8"",
-                    ""path"": ""<Mouse>/scroll"",
+                    ""path"": ""<Mouse>/scroll/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

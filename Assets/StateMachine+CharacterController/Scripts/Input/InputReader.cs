@@ -18,7 +18,7 @@ public class InputReader : MonoBehaviour
     private void Awake()
     {
         _map = new();
-        SetCursorMode(CursorLockMode.Locked);        
+        SetCursorMode(CursorLockMode.Locked);
     }
 
     private void OnEnable()
@@ -59,7 +59,10 @@ public class InputReader : MonoBehaviour
     private void OnMove(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector2>();
     private void OnRotate(InputAction.CallbackContext ctx) => RotateInput = ctx.ReadValue<Vector2>();
     private void OnJump(InputAction.CallbackContext ctx) => JumpInput = ctx.ReadValueAsButton();
-    private void OnCameraScroll(InputAction.CallbackContext ctx) => CameraScroll = ctx.ReadValue<float>();
+    private void OnCameraScroll(InputAction.CallbackContext ctx)
+    {
+        CameraScroll = ctx.ReadValue<float>();
+    }
 
     public void SetCursorMode(CursorLockMode mode) => Cursor.lockState = mode;
 }
