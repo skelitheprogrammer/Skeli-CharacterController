@@ -11,11 +11,15 @@ public class PlayerCameraController : MonoBehaviour
     [Inject] private readonly InputReader _input;
     [Inject] private readonly CameraData _cameraData;
     [Inject(Id = IDConstants.VIRTUALCAMERA)] private readonly CinemachineVirtualCamera _virtualCamera;
-    
+
+    private float _velocity;
+    private float _currentZoomValue;
+
     private void Awake()
     {
         _thirdPerson = _virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-        SetCameraDistance(_cameraData.MaxZoomDistance);
+        _currentZoomValue = _cameraData.MaxZoomDistance;
+        SetCameraDistance(_currentZoomValue);
 
     }
 
@@ -23,9 +27,10 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (_input.CameraScroll != 0)
         {
-            float newValue = _thirdPerson.CameraDistance + _zoom.CalculateZoomDelta(_input.CameraScroll * _cameraData.ZoomSpeed * Time.deltaTime);
-            SetCameraDistance(newValue);
+            _currentZoomValue = Mathf.Clamp(_thirdPerson.CameraDistance + _zoom.CalculateZoomDelta(_input.CameraScroll * _cameraData.ZoomAmount), _cameraData.MinZoomDistance, _cameraData.MaxZoomDistance);
         }
+       
+        SetCameraDistance(_currentZoomValue);
     }
 
     private void LateUpdate()
@@ -34,8 +39,8 @@ public class PlayerCameraController : MonoBehaviour
     }
 
     private void SetCameraDistance(float value)
-    {
-        _thirdPerson.CameraDistance = Mathf.Clamp(value, _cameraData.MinZoomDistance, _cameraData.MaxZoomDistance);
+    {     
+        _thirdPerson.CameraDistance = Mathf.SmoothDamp(_thirdPerson.CameraDistance, value, ref _velocity, _cameraData.ZoomSmoothTime);
     }
 
 }

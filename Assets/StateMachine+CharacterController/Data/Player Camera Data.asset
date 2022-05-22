@@ -18,4 +18,5 @@ MonoBehaviour:
     <TopClamp>k__BackingField: 55
     <MinZoomDistance>k__BackingField: 1
     <MaxZoomDistance>k__BackingField: 3
-    <ZoomSpeed>k__BackingField: 600
+    <ZoomAmount>k__BackingField: 30
+    <ZoomSmoothTime>k__BackingField: 0.1
