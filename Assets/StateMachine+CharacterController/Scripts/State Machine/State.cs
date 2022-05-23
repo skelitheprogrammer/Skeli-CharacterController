@@ -37,9 +37,7 @@ namespace Skeli.StateMachine
 
         public class StateBuild : StateLogic
         {
-            public StateBuild(State state) : base(state)
-            {
-            }
+            public StateBuild(State state) : base(state) { }
 
             public State Build() => _state;
         }
@@ -47,25 +45,16 @@ namespace Skeli.StateMachine
         {
             private readonly State _state;
 
-            public StateLogicBuild(State state)
-            {
-                _state = state;
-            }
+            public StateLogicBuild(State state) => _state = state;
 
-            public StateLogic BuildLogic()
-            {
-                return new StateLogic(_state);
-            }
+            public StateLogic BuildLogic() => new StateLogic(_state);
         }
 
         public class StateLogic
         {
             protected readonly State _state;
 
-            public StateLogic(State state)
-            {
-                _state = state;
-            }
+            public StateLogic(State state) => _state = state;
 
             public StateBuild WithEnter(Action enter)
             {

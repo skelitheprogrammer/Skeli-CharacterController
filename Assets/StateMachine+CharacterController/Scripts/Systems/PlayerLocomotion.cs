@@ -36,11 +36,14 @@ public class PlayerLocomotion : MonoBehaviour
                 })
                 .WithTick(() =>
                 {
-                    if (_direction.IsOnSlope)
+                    if (_groundChecker.GroundCheck())
                     {
-                        _velocity.y = _gravity.SetGroundedGravity();
-                    }
 
+                        if (_direction.IsOnSlope)
+                        {
+                            _velocity.y = _gravity.SetGroundedGravity();
+                        }
+                    }
                 })
                 .WithExit(() =>
                 {
@@ -74,23 +77,8 @@ public class PlayerLocomotion : MonoBehaviour
             .BuildLogic()
                 .WithEnter(() =>
                 {
-                    //_groundChecker.Toggle(false);
-                    _gravity.Toggle(false);
                     SetSpeed(_jump.CalculateJumpForce());
                     _animation.TriggerJump();
-                })
-                .WithTick(() =>
-                {
-                    if (!_groundChecker.GroundCheck())
-                    {
-                        _gravity.Toggle(true);
-                    }
-                })
-                .WithExit(() =>
-                {
-                    Debug.Log("1");
-                    //_groundChecker.Toggle(true);
-                    _gravity.Toggle(true);
                 })
             .Build();
 
@@ -145,7 +133,7 @@ public class PlayerLocomotion : MonoBehaviour
         _animation.SetSpeed(_input.MoveInput.magnitude);
 
         _animation.SetAngle(_direction.Angle);
-        
+
         _controller.Move(_velocity * Time.deltaTime);
     }
 

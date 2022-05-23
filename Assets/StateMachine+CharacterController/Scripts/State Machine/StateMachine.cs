@@ -41,7 +41,8 @@ namespace Skeli.StateMachine
 
         public void UpdateState()
         {
-            //Debug.Log($"{name} {ActiveState?.name}");
+            Debug.Log($"{Name} {ActiveState?.Name}");
+
             ActiveState?.DoLogic();
 
             LoopStateMachineTransitions();
@@ -55,7 +56,8 @@ namespace Skeli.StateMachine
 
         private void ChangeState(State state)
         {
-            Debug.LogWarning($"{Name} transition: from {ActiveState?.Name} to {(state == null ? "null" : state.Name)}");
+            Debug.LogWarning($"{Name} transition: from {(ActiveState == null ? "null" : ActiveState.Name)} to {(state == null ? "null" : state.Name)}");
+
             ActiveState?.Exit();
 
             if (state == null)
@@ -75,18 +77,14 @@ namespace Skeli.StateMachine
                 if (ActiveState == transition.to) continue;
 
                 TryProceedTransition(transition);
+
                 return;
             }
         }
 
         private void TryProceedTransition(Transition transition)
         {
-            if (transition.ShouldTransition())
-            {
-
-
-                ChangeState(transition.to);
-            }
+            if (transition.ShouldTransition()) ChangeState(transition.to);
         }
     }
 
@@ -111,15 +109,9 @@ namespace Skeli.StateMachine
         {
             private readonly StateMachine _stateMachine;
 
-            public StateMachineLogicBuild(StateMachine state)
-            {
-                _stateMachine = state;
-            }
+            public StateMachineLogicBuild(StateMachine state) => _stateMachine = state;
 
-            public StateMachineLogic BuildLogic()
-            {
-                return new StateMachineLogic(_stateMachine);
-            }
+            public StateMachineLogic BuildLogic() => new StateMachineLogic(_stateMachine);
 
             public StateMachine Build() => _stateMachine;
         }
@@ -128,10 +120,7 @@ namespace Skeli.StateMachine
         {
             protected readonly StateMachine _stateMachine;
 
-            public StateMachineLogic(StateMachine state)
-            {
-                _stateMachine = state;
-            }
+            public StateMachineLogic(StateMachine state) => _stateMachine = state;
 
             public StateMachineLogicBuilder WithEnter(Action enter)
             {
