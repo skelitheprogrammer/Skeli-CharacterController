@@ -23,7 +23,6 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void Awake()
     {
-
         var stateMachineBuilder = new StateMachineBuilder();
         var stateBuilder = new StateBuilder();
 
@@ -32,12 +31,15 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithEnter(() =>
                 {
                     SetSpeed(Vector3.zero);
-                    _gravity.Toggle(false);
                     _animation.SetIsGrounded(true);
                 })
                 .WithTick(() =>
                 {
-                    _velocity.y = 0;
+                    if (_direction.IsOnSlope)
+                    {
+                        _velocity.y = _gravity.SetGroundedGravity();
+                    }
+
                 })
                 .WithExit(() =>
                 {
@@ -71,8 +73,23 @@ public class PlayerLocomotion : MonoBehaviour
             .BuildLogic()
                 .WithEnter(() =>
                 {
-                    _animation.TriggerJump();
+                    //_groundChecker.Toggle(false);
+                    _gravity.Toggle(false);
                     SetSpeed(_jump.CalculateJumpForce());
+                    _animation.TriggerJump();
+                })
+                .WithTick(() =>
+                {
+                    if (!_groundChecker.GroundCheck())
+                    {
+                        _gravity.Toggle(true);
+                    }
+                })
+                .WithExit(() =>
+                {
+                    Debug.Log("1");
+                    //_groundChecker.Toggle(true);
+                    _gravity.Toggle(true);
                 })
             .Build();
 
@@ -80,8 +97,12 @@ public class PlayerLocomotion : MonoBehaviour
             .BuildLogic()
                 .WithEnter(() =>
                 {
-                    _gravity.Toggle(true);
                     _animation.SetFreeFall(true);
+                })
+                .WithTick(() =>
+                {
+                    AddForce(_gravity.ApplyGravity());
+                    _animation.SetGravity(_velocity.y);
                 })
                 .WithExit(() =>
                 {
@@ -98,7 +119,7 @@ public class PlayerLocomotion : MonoBehaviour
         freeformMovementSM.AddState(jumpingS);
 
         _fsm.AddTransition(new Transition(groundedSM, fallingSM, () => !_groundChecker.GroundCheck()));
-        _fsm.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck() && _fsm.ActiveStateMachine != jumpingS));
+        _fsm.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck()));
 
         groundedSM.AddTransition(new Transition(freeformMovementSM, () => _input.SwitchMode));
         groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode));
@@ -113,18 +134,17 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void Update()
     {
+        _fsm.UpdateState();
+
         AddForce(_movementController.CalculateSpeed(_velocity));
         SetRotation(_rotationController.CalculatePlayerRotation());
-        AddForce(_gravity.ApplyGravity());
 
         _animation.SetHorizontalSpeed(_input.MoveInput.x);
         _animation.SetVerticalSpeed(_input.MoveInput.y);
         _animation.SetSpeed(_input.MoveInput.magnitude);
-        _animation.SetGravity(_velocity.y);
+
         _animation.SetAngle(_direction.Angle);
-
-        _fsm.UpdateState();
-
+        
         _controller.Move(_velocity * Time.deltaTime);
     }
 

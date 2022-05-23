@@ -37,7 +37,8 @@ public class Sensor
                 break;
         }
 
-        hit.distance = Mathf.Abs(hit.distance - Offset.magnitude);
+        //Debug.Log($"{Offset.magnitude} - {hit.distance} = {Offset.magnitude - hit.distance }");
+        hit.distance = Mathf.Abs(Offset.magnitude - hit.distance);
        
         return IsHit;
     }

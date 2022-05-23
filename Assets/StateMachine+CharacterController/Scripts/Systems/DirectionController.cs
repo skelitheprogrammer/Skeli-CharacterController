@@ -7,9 +7,12 @@ public class DirectionController
     [Inject(Id = IDConstants.DIRECTIONCHECK)] private readonly GroundCheckData _data;
     [Inject(Id = IDConstants.MAINCAMERA)] public Transform Camera { get; private set; }
     [Inject(Id = IDConstants.PLAYERTRANSFORM)] public Transform Player { get; private set; }
-    [Inject(Id = IDConstants.GROUNDCHECK)] private readonly Sensor _sensor;
+    [Inject(Id = IDConstants.GROUNDCHECK)] private readonly Sensor _groundSensor;
+    [Inject(Id = IDConstants.DIRECTIONCHECK)] private readonly Sensor _directionSensor;
 
     public float Angle { get; private set; }
+    public bool IsOnSlope => Angle > 1;
+
     public Vector3 Normal { get; private set; }
 
     public Vector3 GetSlopeVector()
@@ -51,21 +54,39 @@ public class DirectionController
 
     private void CalculateNormal()
     {
-        if (_sensor.hit.distance > _data.GroundDistance)
+        if (_groundSensor.hit.distance > _data.GroundDistance)
         {
             Normal = Vector3.zero;
             return;
         }
 
-        Angle = Vector3.Angle(_sensor.hit.normal, Vector3.up);
-
-        if (Angle > 1)
+        if (_directionSensor.hit.distance > _groundSensor.hit.distance)
         {
-            Normal = _sensor.hit.normal;
+            Angle = Vector3.Angle(_directionSensor.hit.normal, Vector3.up);
+
+            if (IsOnSlope)
+            {
+                Normal = _directionSensor.hit.normal;
+            }
+            else
+            {
+                Normal = Vector3.up;
+            }
         }
         else
         {
-            Normal = Vector3.up;
+            Angle = Vector3.Angle(_groundSensor.hit.normal, Vector3.up);
+
+            if (IsOnSlope)
+            {
+                Normal = _groundSensor.hit.normal;
+            }
+            else
+            {
+                Normal = Vector3.up;
+            }
         }
+
+
     }
 }

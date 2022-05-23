@@ -2,8 +2,8 @@
 
 public class GroundCheckController : GameSystem
 {
-    [Inject(Id = IDConstants.GROUNDCHECK)] private GroundCheckData _groundCheckData;
-    [Inject(Id = IDConstants.GROUNDCHECK)] private Sensor _sensor;
+    [Inject(Id = IDConstants.GROUNDCHECK)] private readonly GroundCheckData _groundCheckData;
+    [Inject(Id = IDConstants.GROUNDCHECK)] private readonly Sensor _sensor;
 
     public bool GroundCheck()
     {

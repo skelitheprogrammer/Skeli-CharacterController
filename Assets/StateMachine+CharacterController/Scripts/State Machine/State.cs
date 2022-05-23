@@ -12,7 +12,9 @@ public class State
 	public virtual void DoLogic() => OnLogic?.Invoke();
 	public virtual void Exit() => OnExit?.Invoke();
 
+    public State() => Name = string.Empty;
 	public State(string name) => Name = name;
+
 
 }
 
@@ -20,6 +22,12 @@ public class State
 public class StateBuilder
 {
     private State _state;
+
+    public StateLogicBuild Begin()
+    {
+        _state = new State();
+        return new StateLogicBuild(_state);
+    }
 
     public StateLogicBuild Begin(string name)
     {
@@ -65,7 +73,7 @@ public class StateBuilder
             return new StateBuild(_state);
         }
 
-        public StateBuild WithLogic(Action logic)
+        public StateBuild WithTick(Action logic)
         {
             _state.OnLogic = logic;
             return new StateBuild(_state);

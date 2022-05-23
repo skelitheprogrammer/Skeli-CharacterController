@@ -20,9 +20,6 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 		Container.BindInstance(_playerRotationData.Data).AsSingle().NonLazy();
 		Container.BindInstance(_playerGravityData.Data).AsSingle().NonLazy();
 
-		Container.Bind<StateMachineContext>().AsTransient().NonLazy();
-		Container.BindInterfacesAndSelfTo<StateMachineTickable>().AsCached().NonLazy();
-
 		Container.Bind<GroundCheckController>().AsSingle().NonLazy();
 		Container.Bind<DirectionController>().AsSingle().NonLazy();
 

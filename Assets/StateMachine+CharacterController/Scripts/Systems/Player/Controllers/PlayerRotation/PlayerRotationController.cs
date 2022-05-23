@@ -21,6 +21,7 @@ public class PlayerRotationController
 
     private void SetRotation(IRotationModule system)
     {
+
         _currentRotationModule = system;
     }
 
@@ -28,6 +29,7 @@ public class PlayerRotationController
     {
         if (_currentRotationModule == _freeFormRotation)
         {
+            _freeFormRotation._targetRotation = 0;
             SetRotation(_strafeRotation);
         }
         else

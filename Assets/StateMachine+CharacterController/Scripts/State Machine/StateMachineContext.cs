@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachineContext : IStateMachine
+public sealed class StateMachineContext : IStateMachine
 {
 	private readonly List<StateMachine> _stateMachines = new();
     private readonly List<Transition> _transitions = new();
@@ -57,7 +57,8 @@ public class StateMachineContext : IStateMachine
 	{
 		if (transition.ShouldTransition())
 		{
-			Debug.Log($"{transition.from.Name} {transition.to.Name}");
+			Debug.LogWarning($"StateMachineContext transition: {transition.from?.Name} {transition.to?.Name}");
+
 			ChangeState(transition.to);
 		}
 	}

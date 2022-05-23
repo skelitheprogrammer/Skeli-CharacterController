@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Transition : TransitionBase
+public sealed class Transition : TransitionBase
 {
     public readonly State from;
     public readonly State to;

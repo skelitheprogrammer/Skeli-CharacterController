@@ -9,7 +9,7 @@ public class FreeFormRotationModule : IRotationModule
     [Inject] private readonly InputReader _input;
     [Inject] private readonly PlayerRotationData _rotationData;
 
-    private float _targetRotation;
+    public float _targetRotation;
     private float _rotationVelocity;
 
     public Quaternion CalculateRotationAngle()
@@ -21,15 +21,5 @@ public class FreeFormRotationModule : IRotationModule
 
         var rotation = Mathf.SmoothDampAngle(_player.eulerAngles.y, _targetRotation, ref _rotationVelocity, _rotationData.RotationSmoothTime);    
         return Quaternion.Euler(0, rotation, 0);
-    }
-}
-
-public class StrafeRotationModule : IRotationModule
-{
-    [Inject(Id = IDConstants.ROTATEORIGIN)] private readonly Transform _origin;
-
-    public Quaternion CalculateRotationAngle()
-    {
-        return Quaternion.Euler(0, _origin.eulerAngles.y, 0);
     }
 }
