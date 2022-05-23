@@ -1,3 +1,4 @@
+using Skeli.StateMachine;
 using UnityEngine;
 using Zenject;
 
@@ -125,7 +126,7 @@ public class PlayerLocomotion : MonoBehaviour
         groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode));
 
         freeformMovementSM.AddTransition(new Transition(freeformMovementSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
-        freeformMovementSM.AddTransition(new Transition(jumpingS, freeformMovementSM));
+        //freeformMovementSM.AddTransition(new Transition(jumpingS, freeformMovementSM));
 
         groundedSM.SetStartState(freeformMovementSM);
         _fsm.Init(groundedSM);

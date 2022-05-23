@@ -7,7 +7,7 @@ public class GameInstall : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<StateMachineContext>().AsTransient().NonLazy();
+        Container.Bind<Skeli.StateMachine.StateMachineContext>().AsTransient().NonLazy();
         //Container.BindInterfacesAndSelfTo<StateMachineTickable>().AsCached().NonLazy();
     }
 }
