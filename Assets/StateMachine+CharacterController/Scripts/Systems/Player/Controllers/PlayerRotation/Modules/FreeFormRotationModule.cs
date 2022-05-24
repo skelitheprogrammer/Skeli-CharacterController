@@ -3,23 +3,18 @@ using Zenject;
 
 public class FreeFormRotationModule : IRotationModule
 {
-    [Inject(Id = IDConstants.PLAYERTRANSFORM)] private readonly Transform _player;
-    [Inject(Id = IDConstants.ROTATEORIGIN)] private readonly Transform _origin;
-
-    [Inject] private readonly InputReader _input;
     [Inject] private readonly PlayerRotationData _rotationData;
 
-    public float _targetRotation;
-    private float _rotationVelocity;
+    private float _velocity;
 
-    public Quaternion CalculateRotationAngle()
+    public Quaternion CalculateRotationAngle(Vector2 direction, Vector3 currentRotation, Vector3 targetRotation, ref float targetShit)
     {
-        if (_input.MoveInput != Vector2.zero)
+        if (direction != Vector2.zero)
         {
-            _targetRotation = Mathf.Atan2(_input.MoveInput.x, _input.MoveInput.y) * Mathf.Rad2Deg + _origin.eulerAngles.y;
+            targetShit = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + targetRotation.y;
         }
 
-        var rotation = Mathf.SmoothDampAngle(_player.eulerAngles.y, _targetRotation, ref _rotationVelocity, _rotationData.RotationSmoothTime);    
+        var rotation = Mathf.SmoothDampAngle(currentRotation.y, targetShit, ref _velocity, _rotationData.RotationSmoothTime);    
         return Quaternion.Euler(0, rotation, 0);
     }
 }
