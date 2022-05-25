@@ -57,7 +57,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     <MaxSpeed>k__BackingField: 6.5
-    <AirMaxSpeed>k__BackingField: 10
-    <ForwardSpeed>k__BackingField: 3
-    <SideWaysSpeed>k__BackingField: 2.8
-    <BackwardsSpeed>k__BackingField: 2.4
+    <AirStrafeSpeed>k__BackingField: 100
+    <ForwardSpeed>k__BackingField: 5
+    <SideWaysSpeed>k__BackingField: 4.6
+    <BackwardsSpeed>k__BackingField: 3

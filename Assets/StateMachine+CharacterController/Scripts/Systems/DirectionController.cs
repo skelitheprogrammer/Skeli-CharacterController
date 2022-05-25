@@ -36,15 +36,15 @@ public class DirectionController
     {
         var forward = new Vector3(Camera.forward.x, 0, Camera.forward.z);
         var right = new Vector3(Camera.right.x, 0, Camera.right.z);
-        var cameraDirection = (forward * _input.MoveInput.y + right * _input.MoveInput.x).normalized;
+        var cameraDirection = forward * _input.MoveInput.y + right * _input.MoveInput.x;
 
         CalculateNormal();
-        return Vector3.ProjectOnPlane(cameraDirection, Normal).normalized;
+        return Vector3.ProjectOnPlane(cameraDirection, Normal);
     }
 
     public Vector3 GetJumpVector()
     {
-        return (Vector3.up + GetCameraSlopeVector() * _input.MoveInputDirection.magnitude).normalized;
+        return (Vector3.up + GetCameraSlopeVector()).normalized;
     }
 
     public float GetDot()

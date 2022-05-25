@@ -13,7 +13,7 @@ public class PlayerMovementData
     [field: SerializeField] public float Acceleration { get; private set; } = 200;
     [field: SerializeField] public AnimationCurve AccelerationCurve { get; private set; }
     [field: SerializeField] public float MaxSpeed { get; private set; } = 6.5f;
-    [field: SerializeField] public float AirMaxSpeed { get; private set; } = 2;
+    [field: SerializeField] public float AirStrafeSpeed { get; private set; } = 10;
 
     [field: SerializeField] public float ForwardSpeed { get; private set; } = 4;
     [field: SerializeField] public float SideWaysSpeed { get; private set; } = 3;
