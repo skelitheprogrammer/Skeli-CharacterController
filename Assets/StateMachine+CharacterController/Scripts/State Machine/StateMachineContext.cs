@@ -46,12 +46,13 @@ namespace Skeli.StateMachine
 
             _initialized = true;
             ActiveStateMachine = stateMachine;
+            ActiveStateMachine?.Enter();
         }
 
-        private void ChangeState(State state)
+        private void ChangeState(StateMachine stateMachine)
         {
             ActiveStateMachine?.Exit();
-            ActiveStateMachine = (StateMachine)state;
+            ActiveStateMachine = stateMachine;
             ActiveStateMachine?.Enter();
         }
 
@@ -61,7 +62,7 @@ namespace Skeli.StateMachine
             {
                 Debug.LogWarning($"StateMachineContext transition: {transition.from?.Name} {transition.to?.Name}");
 
-                ChangeState(/*(StateMachine)*/transition.to);
+                ChangeState((StateMachine)transition.to);
             }
         }
     }

@@ -9,6 +9,7 @@ namespace Skeli.StateMachine
         private readonly List<State> _states = new();
         private readonly List<Transition> _stateTransitions = new();
 
+        private State _entryState;
         public State ActiveState { get; private set; }
 
         public StateMachine() : base() { }
@@ -17,10 +18,15 @@ namespace Skeli.StateMachine
         public void AddState(State state) => _states.Add(state);
 
         public void AddTransition(Transition transition) => _stateTransitions.Add(transition);
-
-        public void SetStartState(State state)
+        public void SetEntryState(State state)
         {
-            ActiveState = state;
+            _entryState = state;
+        }
+
+        public override void Enter()
+        {
+            ChangeState(_entryState);
+            base.Enter();
         }
 
         public override void DoLogic()
@@ -36,12 +42,16 @@ namespace Skeli.StateMachine
                 (ActiveState as StateMachine).ChangeState(null);
             }
 
+            ChangeState(null);
             base.Exit();
+
         }
 
         public void UpdateState()
         {
-            Debug.Log($"{Name} {ActiveState?.Name}");
+            //Debug.Log($"{Name} {ActiveState?.Name}");
+
+            //if (_entryState == null) throw new NullReferenceException($"Set Entry state in {Name} !");
 
             ActiveState?.DoLogic();
 
@@ -56,6 +66,11 @@ namespace Skeli.StateMachine
 
         private void ChangeState(State state)
         {
+            if (state == null && ActiveState == null)
+            {
+                return;
+            }
+
             Debug.LogWarning($"{Name} transition: from {(ActiveState == null ? "null" : ActiveState.Name)} to {(state == null ? "null" : state.Name)}");
 
             ActiveState?.Exit();

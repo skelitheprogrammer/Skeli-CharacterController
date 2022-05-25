@@ -28,6 +28,7 @@ public class CharacterInitInstallSO : ScriptableObjectInstaller<CharacterInitIns
 
 		Container.Bind<FreeFormMovementModule>().AsSingle().NonLazy();
 		Container.Bind<StrafeMovementModule>().AsSingle().NonLazy();
+		Container.Bind<AirControlModule>().AsSingle().NonLazy();
 		Container.Bind<PlayerMovementController>().AsCached().NonLazy();
 
 		Container.Bind<FreeFormRotationModule>().AsCached().NonLazy();

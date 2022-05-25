@@ -54,6 +54,13 @@ namespace Skeli.StateMachine
             _condition = () => true;
         }
 
+        public Transition(State to)
+        {
+            from = null;
+            this.to = to;
+            _condition = () => true;
+        }
+
         public Transition(State to, Func<bool> condition)
         {
             from = null;
