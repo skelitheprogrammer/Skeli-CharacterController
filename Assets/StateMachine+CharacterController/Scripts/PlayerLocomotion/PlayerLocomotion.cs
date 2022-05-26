@@ -85,7 +85,6 @@ public class PlayerLocomotion : MonoBehaviour
                 {
                     SetSpeed(Vector3.zero);
                     AddForce(_jump.CalculateJumpForce());
-                    Debug.Log($"{Velocity} {Velocity.magnitude}");
                     _animation.TriggerJump();
                 })
             .Build();
@@ -115,7 +114,7 @@ public class PlayerLocomotion : MonoBehaviour
                 })
                 .WithTick(() =>
                 {
-                    //AddForce(_movementController.CalculateSpeed(_velocity));
+                    AddForce(_movementController.CalculateSpeed(_velocity));
                 })
             .Build();
 

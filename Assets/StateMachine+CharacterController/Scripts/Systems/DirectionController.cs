@@ -32,11 +32,18 @@ public class DirectionController
 		return Player.forward * _input.MoveInput.y + Player.right * _input.MoveInput.x;
     }
 
-    public Vector3 GetCameraSlopeVector()
+    public Vector3 GetCameraVector()
     {
         var forward = new Vector3(Camera.forward.x, 0, Camera.forward.z);
         var right = new Vector3(Camera.right.x, 0, Camera.right.z);
         var cameraDirection = forward * _input.MoveInput.y + right * _input.MoveInput.x;
+
+        return cameraDirection;
+    }
+
+    public Vector3 GetCameraSlopeVector()
+    {
+        var cameraDirection = GetCameraVector();
 
         CalculateNormal();
         return Vector3.ProjectOnPlane(cameraDirection, Normal);
