@@ -13,15 +13,17 @@ public class AirControlModule : IMovementModule
 
         var goalVel = _directionController.GetCameraVector() * _moveData.AirStrafeSpeed;
         var velocityDirection = new Vector3(velocity.x,0, velocity.z);
-        var neededAccel = Vector3.zero;
 
-        if (goalVel != Vector3.zero && velDot <= .97f)
+        if (goalVel != Vector3.zero)
         {
             Vector3 currentVelocity = Vector3.MoveTowards(velocityDirection, goalVel, accel * Time.deltaTime);
-
-            neededAccel = currentVelocity - velocity + Vector3.up * velocity.y;
+            
+            if (currentVelocity.magnitude <= goalVel.magnitude)
+            {
+                return currentVelocity - velocity + Vector3.up * velocity.y;
+            }
         }
 
-        return neededAccel;
+        return Vector3.zero;
     }
 }

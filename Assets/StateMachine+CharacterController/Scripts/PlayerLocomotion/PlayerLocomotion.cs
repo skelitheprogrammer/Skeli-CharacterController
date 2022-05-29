@@ -83,8 +83,7 @@ public class PlayerLocomotion : MonoBehaviour
             .BuildLogic()
                 .WithEnter(() =>
                 {
-                    SetSpeed(Vector3.zero);
-                    AddForce(_jump.CalculateJumpForce());
+                    SetSpeed(_jump.CalculateJumpForce());
                     _animation.TriggerJump();
                 })
             .Build();

@@ -16,7 +16,7 @@ public class FreeFormMovementModule : IMovementModule
 
         _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.deltaTime);
 
-        var neededAccel = _goalVel - velocity + Vector3.up * velocity.y;
+        var neededAccel = _goalVel - velocity;
 
         return neededAccel;
     }
