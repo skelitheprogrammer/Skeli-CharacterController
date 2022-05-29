@@ -46,7 +46,7 @@ public class DirectionController
         var cameraDirection = GetCameraVector();
 
         CalculateNormal();
-        return Vector3.ProjectOnPlane(cameraDirection, Normal);
+        return Vector3.ProjectOnPlane(cameraDirection, Normal).normalized;
     }
 
     public Vector3 GetJumpVector()
