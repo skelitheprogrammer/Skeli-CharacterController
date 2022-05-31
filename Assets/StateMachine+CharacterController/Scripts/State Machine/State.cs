@@ -1,81 +1,70 @@
 using System;
 
+
 namespace Skeli.StateMachine
 {
-    public class State
+    public class State : StateBase, IEnter, ILogic, IExit
     {
-        public readonly string Name;
+        protected Action OnEnter { get; private set; }
+        protected Action OnLogic { get; private set; }
+        protected Action OnExit { get; private set; }
 
-        internal protected Action OnEnter;
-        internal protected Action OnLogic;
-        internal protected Action OnExit;
+        protected State() { }
+        protected State(string name) : base(name) { }
+
+        public class Builder
+        {
+            private readonly State _state;
+
+            public Builder()
+            {
+                _state = new State();
+            }
+
+            public Builder(string name)
+            {
+                _state = new State(name);
+            }
+
+            public LogicBuilder BuildLogic()
+            {
+                return new LogicBuilder(_state);
+            }
+        }
+
+        public class LogicBuilder
+        {
+            protected readonly State _state;
+
+            public LogicBuilder(State state) => _state = state;
+
+            public LogicBuilder WithEnter(Action enter)
+            {
+                _state.OnEnter = enter;
+                return this;
+            }
+
+            public LogicBuilder WithTick(Action logic)
+            {
+                _state.OnLogic = logic;
+                return this;
+            }
+
+            public LogicBuilder WithExit(Action exit)
+            {
+                _state.OnExit = exit;
+                return this;
+            }
+
+            private State Build() => _state;
+
+            public static implicit operator State(LogicBuilder builder) => builder.Build();
+        }
 
         public virtual void Enter() => OnEnter?.Invoke();
         public virtual void DoLogic() => OnLogic?.Invoke();
         public virtual void Exit() => OnExit?.Invoke();
 
-        public State() => Name = string.Empty;
-        public State(string name) => Name = name;
     }
 
-    #region Builder
-    public class StateBuilder
-    {
-        private State _state;
-
-        public StateLogicBuild Begin()
-        {
-            _state = new State();
-            return new StateLogicBuild(_state);
-        }
-
-        public StateLogicBuild Begin(string name)
-        {
-            _state = new State(name);
-            return new StateLogicBuild(_state);
-        }
-
-        public class StateBuild : StateLogic
-        {
-            public StateBuild(State state) : base(state) { }
-
-            public State Build() => _state;
-        }
-        public class StateLogicBuild
-        {
-            private readonly State _state;
-
-            public StateLogicBuild(State state) => _state = state;
-
-            public StateLogic BuildLogic() => new StateLogic(_state);
-        }
-
-        public class StateLogic
-        {
-            protected readonly State _state;
-
-            public StateLogic(State state) => _state = state;
-
-            public StateBuild WithEnter(Action enter)
-            {
-                _state.OnEnter = enter;
-                return new StateBuild(_state);
-            }
-
-            public StateBuild WithTick(Action logic)
-            {
-                _state.OnLogic = logic;
-                return new StateBuild(_state);
-            }
-
-            public StateBuild WithExit(Action exit)
-            {
-                _state.OnExit = exit;
-                return new StateBuild(_state);
-            }
-
-        }
-    }
-
-    #endregion
 }

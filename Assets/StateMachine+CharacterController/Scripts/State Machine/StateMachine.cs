@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Skeli.StateMachine
 {
@@ -10,10 +9,63 @@ namespace Skeli.StateMachine
         private readonly List<Transition> _stateTransitions = new();
 
         private State _entryState;
-        public State ActiveState { get; private set; }
+        private State _activeState;
 
-        public StateMachine() : base() { }
-        public StateMachine(string name) : base(name) { }
+        public string ActiveStateName => _activeState.Name;
+
+        private StateMachine() : base() { }
+        private StateMachine(string name) : base(name) { }
+
+        public static implicit operator StateMachine(LogicBuilder builder) => (StateMachine)builder;
+
+        /*        public class StateMachineBuilder
+                {
+                    private readonly StateMachine _sm;
+
+                    public StateMachineBuilder()
+                    {
+                        _sm = new StateMachine();
+                    }
+
+                    public StateMachineBuilder(string name)
+                    {
+                        _sm = new StateMachine(name);
+                    }
+
+                    public StateMachineLogicBuilder BuildLogic()
+                    {
+                        return new StateMachineLogicBuilder(_sm);
+                    }
+
+                    private StateMachine Build() => _sm;
+
+                    public static implicit operator StateMachine(StateMachineBuilder builder) => builder.Build();
+                }
+
+                public class StateMachineLogicBuilder
+                {
+                    protected readonly StateMachine _state;
+
+                    public StateMachineLogicBuilder(StateMachine state) => _state = state;
+
+                    public StateMachineLogicBuilder WithEnter(Action enter)
+                    {
+                        _state.OnEnter = enter;
+                        return this;
+                    }
+
+                    public StateMachineLogicBuilder WithTick(Action logic)
+                    {
+                        _state.OnLogic = logic;
+                        return this;
+                    }
+
+                    public StateMachineLogicBuilder WithExit(Action exit)
+                    {
+                        _state.OnExit = exit;
+                        return this;
+                    }
+                }*/
 
         public void AddState(State state) => _states.Add(state);
 
@@ -37,10 +89,10 @@ namespace Skeli.StateMachine
 
         public override void Exit()
         {
-            if (ActiveState != null && ActiveState is StateMachine)
+/*            if (ActiveState != null && ActiveState is StateMachine)
             {
                 (ActiveState as StateMachine).ChangeState(null);
-            }
+            }*/
 
             ChangeState(null);
             base.Exit();
@@ -49,47 +101,41 @@ namespace Skeli.StateMachine
 
         public void UpdateState()
         {
-            //Debug.Log($"{Name} {ActiveState?.Name}");
-
-            //if (_entryState == null) throw new NullReferenceException($"Set Entry state in {Name} !");
-
-            ActiveState?.DoLogic();
+            _activeState?.DoLogic();
 
             LoopStateMachineTransitions();
         }
 
         public void ResetState()
         {
-            ActiveState?.Exit();
-            ActiveState = null;
+            _activeState?.Exit();
+            _activeState = null;
         }
 
         private void ChangeState(State state)
         {
-            if (state == null && ActiveState == null)
+            if (state == null && _activeState == null)
             {
                 return;
             }
 
-            Debug.LogWarning($"{Name} transition: from {(ActiveState == null ? "null" : ActiveState.Name)} to {(state == null ? "null" : state.Name)}");
-
-            ActiveState?.Exit();
+            _activeState?.Exit();
 
             if (state == null)
             {
-                ActiveState = null;
+                _activeState = null;
                 return;
             }
 
-            ActiveState = state;
-            ActiveState?.Enter();
+            _activeState = state;
+            _activeState?.Enter();
         }
 
         private void LoopStateMachineTransitions()
         {
             foreach (var transition in _stateTransitions)
             {
-                if (ActiveState == transition.to) continue;
+                if (_activeState == transition.to) continue;
 
                 TryProceedTransition(transition);
 
@@ -102,67 +148,4 @@ namespace Skeli.StateMachine
             if (transition.ShouldTransition()) ChangeState(transition.to);
         }
     }
-
-    #region Builder
-    public class StateMachineBuilder
-    {
-        private StateMachine _stateMachine;
-
-        public StateMachineLogicBuild Begin()
-        {
-            _stateMachine = new StateMachine();
-            return new StateMachineLogicBuild(_stateMachine);
-        }
-
-        public StateMachineLogicBuild Begin(string name)
-        {
-            _stateMachine = new StateMachine(name);
-            return new StateMachineLogicBuild(_stateMachine);
-        }
-
-        public class StateMachineLogicBuild
-        {
-            private readonly StateMachine _stateMachine;
-
-            public StateMachineLogicBuild(StateMachine state) => _stateMachine = state;
-
-            public StateMachineLogic BuildLogic() => new StateMachineLogic(_stateMachine);
-
-            public StateMachine Build() => _stateMachine;
-        }
-
-        public class StateMachineLogic
-        {
-            protected readonly StateMachine _stateMachine;
-
-            public StateMachineLogic(StateMachine state) => _stateMachine = state;
-
-            public StateMachineLogicBuilder WithEnter(Action enter)
-            {
-                _stateMachine.OnEnter = enter;
-                return new StateMachineLogicBuilder(_stateMachine);
-            }
-
-            public StateMachineLogicBuilder WithTick(Action logic)
-            {
-                _stateMachine.OnLogic = logic;
-                return new StateMachineLogicBuilder(_stateMachine);
-            }
-
-            public StateMachineLogicBuilder WithExit(Action exit)
-            {
-                _stateMachine.OnExit = exit;
-                return new StateMachineLogicBuilder(_stateMachine);
-            }
-
-        }
-
-        public class StateMachineLogicBuilder : StateMachineLogic
-        {
-            public StateMachineLogicBuilder(StateMachine state) : base(state) { }
-
-            public StateMachine Build() => _stateMachine;
-        }
-    }
-    #endregion
 }

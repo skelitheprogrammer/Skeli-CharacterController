@@ -24,7 +24,11 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void Awake()
     {
-        var stateMachineBuilder = new StateMachineBuilder();
+
+        //StateMachine checkSM = StateMachineBuilder
+
+
+/*        var stateMachineBuilder = new StateMachineBuilder();
         var stateBuilder = new StateBuilder();
 
         StateMachine groundedSM = stateMachineBuilder.Begin("Grounded")
@@ -36,13 +40,7 @@ public class PlayerLocomotion : MonoBehaviour
                 })
                 .WithTick(() =>
                 {
-                    if (_groundChecker.GroundCheck())
-                    {
-                        if (_direction.IsOnSlope)
-                        {
-                            _velocity.y = _gravity.SetGroundedGravity();
-                        }
-                    }
+                    _velocity.y = _gravity.SetGroundedGravity();
                 })
                 .WithExit(() =>
                 {
@@ -117,8 +115,8 @@ public class PlayerLocomotion : MonoBehaviour
                 })
             .Build();
 
-        _context.AddState(groundedSM);
-        _context.AddState(fallingSM);
+        _context.AddStateMachine(groundedSM);
+        _context.AddStateMachine(fallingSM);
 
         _context.AddTransition(new Transition(groundedSM, fallingSM, () => !_groundChecker.GroundCheck()));
         _context.AddTransition(new Transition(fallingSM, groundedSM, () => _groundChecker.GroundCheck()));
@@ -132,20 +130,21 @@ public class PlayerLocomotion : MonoBehaviour
         groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode));
 
         freeformMovementSM.AddTransition(new Transition(freeformMovementSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
+        freeformMovementSM.AddTransition(new Transition(jumpingS, freeformMovementSM));
 
         fallingSM.AddState(airControlS);
 
+        freeformMovementSM.SetEntryState(null);
         groundedSM.SetEntryState(freeformMovementSM);
         fallingSM.SetEntryState(airControlS);
-        _context.Init(groundedSM);
+        _context.Init(groundedSM);*/
 
     }
 
     private void Update()
     {
-        _context.UpdateState();
-
         SetRotation(_rotationController.CalculatePlayerRotation());
+        _context.UpdateState();
 
         _animation.SetHorizontalSpeed(_input.MoveInput.x);
         _animation.SetVerticalSpeed(_input.MoveInput.y);

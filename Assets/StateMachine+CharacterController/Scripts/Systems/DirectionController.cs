@@ -38,7 +38,7 @@ public class DirectionController
         var right = new Vector3(Camera.right.x, 0, Camera.right.z);
         var cameraDirection = forward * _input.MoveInput.y + right * _input.MoveInput.x;
 
-        return cameraDirection;
+        return cameraDirection.normalized;
     }
 
     public Vector3 GetCameraSlopeVector()
