@@ -72,8 +72,13 @@ public class PlayerLocomotion : MonoBehaviour
             .BuildLogic()
                 .WithEnter(() =>
                 {
+                    _groundChecker.Toggle(false);
                     SetSpeed(_jump.CalculateJumpForce());
                     _animation.TriggerJump();
+                })
+                .WithExit(() => 
+                {
+                    _groundChecker.Toggle(true);
                 });
 
         StateMachine fallingSM = StateMachineBuilder.Begin("Falling")
@@ -118,7 +123,7 @@ public class PlayerLocomotion : MonoBehaviour
         groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode));
 
         freeformMovementSM.AddTransition(new Transition(freeformMovementSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
-        freeformMovementSM.AddTransition(new Transition(jumpingS, freeformMovementSM));
+        //freeformMovementSM.AddTransition(new Transition(jumpingS, freeformMovementSM));
 
         fallingSM.AddState(airControlS);
 

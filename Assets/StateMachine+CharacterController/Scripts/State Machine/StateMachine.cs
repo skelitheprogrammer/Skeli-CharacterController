@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Skeli.StateMachine
 {
@@ -10,7 +11,18 @@ namespace Skeli.StateMachine
         private State _entryState;
         private State _activeState;
 
-        public string ActiveStateName => _activeState.Name;
+        public string ActiveStateName
+        {
+            get
+            {
+                if (_activeState == null)
+                {
+                    return "null";
+                }
+
+                return _activeState.Name;
+            }
+        }
 
         private StateMachine() : base() { }
         private StateMachine(string name) : base(name) { }
@@ -25,8 +37,12 @@ namespace Skeli.StateMachine
 
         public override void Enter()
         {
-            ChangeState(_entryState);
             base.Enter();
+
+            if (_entryState != null)
+            {
+                ChangeState(_entryState);
+            }
         }
 
         public override void DoLogic()
@@ -37,11 +53,6 @@ namespace Skeli.StateMachine
 
         public override void Exit()
         {
-/*            if (ActiveState != null && ActiveState is StateMachine)
-            {
-                (ActiveState as StateMachine).ChangeState(null);
-            }*/
-
             ChangeState(null);
             base.Exit();
 
@@ -50,6 +61,7 @@ namespace Skeli.StateMachine
         public void UpdateState()
         {
             _activeState?.DoLogic();
+            Debug.Log($"{ActiveStateName}");
 
             LoopStateMachineTransitions();
         }
@@ -62,19 +74,21 @@ namespace Skeli.StateMachine
 
         private void ChangeState(State state)
         {
+            Debug.LogWarning($"{Name} : {ActiveStateName} {(state == null ? "null" : state.Name)}");
+
             if (state == null && _activeState == null)
             {
                 return;
             }
 
-            _activeState?.Exit();
-
             if (state == null)
             {
+                _activeState?.Exit();
                 _activeState = null;
                 return;
             }
 
+            _activeState?.Exit();
             _activeState = state;
             _activeState?.Enter();
         }
