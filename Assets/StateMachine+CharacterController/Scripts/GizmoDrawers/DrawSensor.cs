@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
-
 #if UNITY_EDITOR
+using UnityEngine;
+
 public class DrawSensor : DrawGizmosBase
 {
     [SerializeField] private SensorBehaviour _sensor;
+    [SerializeField] private float _rayRadius = .01f;
+    [SerializeField] private float _hitRadius = .02f;
     [SerializeField] private Color _baseColor;
     [SerializeField] private Color _hitColor;
-
 
     protected override void DrawGizmo()
     {
@@ -18,15 +16,19 @@ public class DrawSensor : DrawGizmosBase
         Gizmos.color = _baseColor;
 
         var pos = transform.position + _sensor.Sensor.Offset;
-        var direction = _sensor.Sensor.Direction * _sensor.Sensor.hit.distance - _sensor.Sensor.Offset;
+        var direction = _sensor.Sensor.Direction * _sensor.Sensor.Distance - _sensor.Sensor.Offset;
 
-        Gizmos.DrawSphere(pos, _sensor.Sensor.Radius);
+        Gizmos.DrawSphere(pos, _rayRadius);
         
         if (_sensor.Sensor.IsHit)
         {
             Gizmos.color = _hitColor;
             Gizmos.DrawRay(pos, direction);
-            Gizmos.DrawSphere(_sensor.Sensor.hit.point, _sensor.Sensor.Radius);
+            Gizmos.DrawSphere(_sensor.Sensor.Point, _hitRadius);
+        }
+        else
+        {
+            Gizmos.DrawRay(pos, _sensor.Sensor.Direction * .5f);
         }
     }
 }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: IsGrounded Distance Check
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
-    <GroundDistance>k__BackingField: 0.1
+    <GroundDistance>k__BackingField: 0.01

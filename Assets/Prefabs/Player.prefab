@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Sensor>k__BackingField:
-    <Offset>k__BackingField: {x: 0, y: 0.3, z: 0}
+    <Offset>k__BackingField: {x: 0, y: 0.05, z: 0}
     <Direction>k__BackingField: {x: 0, y: -1, z: 0}
     <Type>k__BackingField: 1
-    <Radius>k__BackingField: 0.05
+    <Radius>k__BackingField: 0.14
 --- !u!114 &2539002908004668777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +64,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _sensor: {fileID: 2907085025100847297}
+  _rayRadius: 0.01
+  _hitRadius: 0.02
   _baseColor: {r: 0, g: 0.7649777, b: 1, a: 1}
   _hitColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &3511462676903739254
@@ -162,7 +164,7 @@ MonoBehaviour:
   <Sensor>k__BackingField:
     <Offset>k__BackingField: {x: 0, y: 1, z: 0}
     <Direction>k__BackingField: {x: 0, y: -1, z: 0}
-    <Type>k__BackingField: 1
+    <Type>k__BackingField: 0
     <Radius>k__BackingField: 0.05
 --- !u!114 &6270517333949700745
 MonoBehaviour:
@@ -178,6 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _sensor: {fileID: 2441193134501274651}
+  _rayRadius: 0.01
+  _hitRadius: 0.02
   _baseColor: {r: 0, g: 0.7649777, b: 1, a: 1}
   _hitColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6280058484603683429
@@ -352,7 +356,7 @@ CharacterController:
   m_Radius: 0.14
   m_SlopeLimit: 46
   m_StepOffset: 0.5
-  m_SkinWidth: 0.02
+  m_SkinWidth: 0.045
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
 --- !u!114 &6905579503600756744
@@ -530,6 +534,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 489844174748643800, guid: 4529079e97da1d04daab5b06de815501,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1071313719627319788, guid: 4529079e97da1d04daab5b06de815501,
         type: 3}
       propertyPath: m_Name
@@ -539,6 +548,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013974969123211564, guid: 4529079e97da1d04daab5b06de815501,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258265341002217059, guid: 4529079e97da1d04daab5b06de815501,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4529079e97da1d04daab5b06de815501, type: 3}

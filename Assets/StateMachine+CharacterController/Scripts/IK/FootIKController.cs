@@ -56,12 +56,12 @@ public class FootIKController : MonoBehaviour
             
             if (sensor.IsHit)
             {
-                var targetPosition = sensor.hit.point + Vector3.up * _footOffset;
+                var targetPosition = sensor.Point + Vector3.up * _footOffset;
                 var difference = footTipTransform.position.y - targetPosition.y;
                 footIK.weight = animWeight;
 
                 footTargetTransform.position = targetPosition - Vector3.up * difference;
-                footTargetTransform.rotation = Quaternion.FromToRotation(Vector3.up, sensor.hit.normal) * transform.rotation;
+                footTargetTransform.rotation = Quaternion.FromToRotation(Vector3.up, sensor.Normal) * transform.rotation;
             }
 
         }

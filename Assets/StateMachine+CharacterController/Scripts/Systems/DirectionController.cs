@@ -61,19 +61,19 @@ public class DirectionController
 
     private void CalculateNormal()
     {
-        if (_groundSensor.hit.distance > _data.GroundDistance)
+        if (_groundSensor.Distance > _data.GroundDistance)
         {
             Normal = Vector3.zero;
             return;
         }
 
-        if (_directionSensor.hit.distance > _groundSensor.hit.distance)
+        if (_directionSensor.Distance > _groundSensor.Distance)
         {
-            Angle = Vector3.Angle(_directionSensor.hit.normal, Vector3.up);
+            Angle = Vector3.Angle(_directionSensor.Normal, Vector3.up);
 
             if (IsOnSlope)
             {
-                Normal = _directionSensor.hit.normal;
+                Normal = _directionSensor.Normal;
             }
             else
             {
@@ -82,11 +82,11 @@ public class DirectionController
         }
         else
         {
-            Angle = Vector3.Angle(_groundSensor.hit.normal, Vector3.up);
+            Angle = Vector3.Angle(_groundSensor.Normal, Vector3.up);
 
             if (IsOnSlope)
             {
-                Normal = _groundSensor.hit.normal;
+                Normal = _groundSensor.Normal;
             }
             else
             {

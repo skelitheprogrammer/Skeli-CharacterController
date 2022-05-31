@@ -15,31 +15,32 @@ public class Sensor
     [field: SerializeField] public Vector3 Direction { get; private set; }
 
     [field: SerializeField] public SensorType Type { get; private set; }
-
+    
     [field: SerializeField] public float Radius { get; private set; }
 
-    public RaycastHit hit;
+    private RaycastHit _hit;
+
     public bool IsHit { get; private set; }
+    public float Distance { get; private set; }
+    public Vector3 Point => _hit.point;
+    public Vector3 Normal => _hit.normal;
 
     public bool Shoot(Vector3 position)
     {
         if (Direction == Vector3.zero) throw new InvalidOperationException($"Direction is Vector3.zero in {GetHashCode()}");
 
-        Ray ray = new(position + Offset, Direction);
-
         switch (Type)
         {
             case SensorType.Ray:
-                IsHit = Physics.Raycast(ray, out hit, Mathf.Infinity);
+                IsHit = Physics.Raycast(position + Offset,Direction, out _hit, Mathf.Infinity);
                 break;
             case SensorType.Sphere:
-                IsHit = Physics.SphereCast(ray, Radius, out hit);
+                IsHit = Physics.SphereCast(position + Offset + Vector3.up * Radius, Radius, Direction, out _hit);
                 break;
         }
 
-        //Debug.Log($"{Offset.magnitude} - {hit.distance} = {Offset.magnitude - hit.distance }");
-        hit.distance = Mathf.Abs(Offset.magnitude - hit.distance);
-       
+        Distance = Mathf.Abs(Offset.magnitude - _hit.distance);
+        Debug.Log($"{Offset.magnitude} - {_hit.distance} = {Distance}");
         return IsHit;
     }
 }

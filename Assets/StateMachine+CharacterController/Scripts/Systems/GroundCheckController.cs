@@ -9,7 +9,7 @@ public class GroundCheckController : GameSystem
     {
         if (!_enabled) return false;
 
-        if (_sensor.hit.distance <= _groundCheckData.GroundDistance) return true;
+        if (_sensor.Distance <= _groundCheckData.GroundDistance) return true;
 
         return false;
     }
