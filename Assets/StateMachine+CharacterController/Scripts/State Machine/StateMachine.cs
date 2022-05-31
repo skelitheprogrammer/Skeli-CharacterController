@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Skeli.StateMachine
@@ -15,57 +14,6 @@ namespace Skeli.StateMachine
 
         private StateMachine() : base() { }
         private StateMachine(string name) : base(name) { }
-
-        public static implicit operator StateMachine(LogicBuilder builder) => (StateMachine)builder;
-
-        /*        public class StateMachineBuilder
-                {
-                    private readonly StateMachine _sm;
-
-                    public StateMachineBuilder()
-                    {
-                        _sm = new StateMachine();
-                    }
-
-                    public StateMachineBuilder(string name)
-                    {
-                        _sm = new StateMachine(name);
-                    }
-
-                    public StateMachineLogicBuilder BuildLogic()
-                    {
-                        return new StateMachineLogicBuilder(_sm);
-                    }
-
-                    private StateMachine Build() => _sm;
-
-                    public static implicit operator StateMachine(StateMachineBuilder builder) => builder.Build();
-                }
-
-                public class StateMachineLogicBuilder
-                {
-                    protected readonly StateMachine _state;
-
-                    public StateMachineLogicBuilder(StateMachine state) => _state = state;
-
-                    public StateMachineLogicBuilder WithEnter(Action enter)
-                    {
-                        _state.OnEnter = enter;
-                        return this;
-                    }
-
-                    public StateMachineLogicBuilder WithTick(Action logic)
-                    {
-                        _state.OnLogic = logic;
-                        return this;
-                    }
-
-                    public StateMachineLogicBuilder WithExit(Action exit)
-                    {
-                        _state.OnExit = exit;
-                        return this;
-                    }
-                }*/
 
         public void AddState(State state) => _states.Add(state);
 
@@ -147,5 +95,26 @@ namespace Skeli.StateMachine
         {
             if (transition.ShouldTransition()) ChangeState(transition.to);
         }
+        public class StateMachineBuilder
+        {
+            private readonly StateMachine _sm;
+
+            public StateMachineBuilder()
+            {
+                _sm = new StateMachine();
+            }
+
+            public StateMachineBuilder(string name)
+            {
+                _sm = new StateMachine(name);
+            }
+
+            public LogicBuilder BuildLogic()
+            {
+                return new LogicBuilder(_sm);
+            }
+        }
+
+        public static implicit operator StateMachine(LogicBuilder builder) => (StateMachine)builder.Build();
     }
 }

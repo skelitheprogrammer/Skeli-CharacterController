@@ -12,6 +12,9 @@ namespace Skeli.StateMachine
         protected State() { }
         protected State(string name) : base(name) { }
 
+        public virtual void Enter() => OnEnter?.Invoke();
+        public virtual void DoLogic() => OnLogic?.Invoke();
+        public virtual void Exit() => OnExit?.Invoke();
         public class Builder
         {
             private readonly State _state;
@@ -56,15 +59,9 @@ namespace Skeli.StateMachine
                 return this;
             }
 
-            private State Build() => _state;
+            protected internal State Build() => _state;
 
             public static implicit operator State(LogicBuilder builder) => builder.Build();
         }
-
-        public virtual void Enter() => OnEnter?.Invoke();
-        public virtual void DoLogic() => OnLogic?.Invoke();
-        public virtual void Exit() => OnExit?.Invoke();
-
     }
-
 }

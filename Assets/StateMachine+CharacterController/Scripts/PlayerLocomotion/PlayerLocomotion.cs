@@ -25,13 +25,7 @@ public class PlayerLocomotion : MonoBehaviour
     private void Awake()
     {
 
-        //StateMachine checkSM = StateMachineBuilder
-
-
-/*        var stateMachineBuilder = new StateMachineBuilder();
-        var stateBuilder = new StateBuilder();
-
-        StateMachine groundedSM = stateMachineBuilder.Begin("Grounded")
+        StateMachine groundedSM = StateMachineBuilder.Begin("Grounded")
             .BuildLogic()
                 .WithEnter(() =>
                 {
@@ -45,10 +39,9 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithExit(() =>
                 {
                     _animation.SetIsGrounded(false);
-                })
-            .Build();
+                });
 
-        StateMachine freeformMovementSM = stateMachineBuilder.Begin("Freeform")
+        StateMachine freeformMovementSM = StateMachineBuilder.Begin("Freeform")
             .BuildLogic()
                 .WithEnter(() =>
                 {
@@ -60,10 +53,9 @@ public class PlayerLocomotion : MonoBehaviour
                 {
                     _jump.CalculateCanJump();
                     AddForce(_movementController.CalculateSpeed(_velocity));
-                })
-            .Build();
+                });
 
-        StateMachine strafeMovementSM = stateMachineBuilder.Begin("Strafe")
+        StateMachine strafeMovementSM = StateMachineBuilder.Begin("Strafe")
             .BuildLogic()
                 .WithEnter(() =>
                 {
@@ -74,19 +66,17 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithTick(() =>
                 {
                     SetSpeed(_movementController.CalculateSpeed(_velocity));
-                })
-            .Build();
+                });
 
-        State jumpingS = stateBuilder.Begin("Jumping")
+        State jumpingS = StateBuilder.Begin("Jumping")
             .BuildLogic()
                 .WithEnter(() =>
                 {
                     SetSpeed(_jump.CalculateJumpForce());
                     _animation.TriggerJump();
-                })
-            .Build();
+                });
 
-        StateMachine fallingSM = stateMachineBuilder.Begin("Falling")
+        StateMachine fallingSM = StateMachineBuilder.Begin("Falling")
             .BuildLogic()
                 .WithEnter(() =>
                 {
@@ -100,10 +90,9 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithExit(() =>
                 {
                     _animation.SetFreeFall(false);
-                })
-            .Build();
+                });
 
-        State airControlS = stateBuilder.Begin("AirControl")
+        State airControlS = StateBuilder.Begin("AirControl")
             .BuildLogic()
                 .WithEnter(() =>
                 {
@@ -112,8 +101,7 @@ public class PlayerLocomotion : MonoBehaviour
                 .WithTick(() =>
                 {
                     AddForce(_movementController.CalculateSpeed(_velocity));
-                })
-            .Build();
+                });
 
         _context.AddStateMachine(groundedSM);
         _context.AddStateMachine(fallingSM);
@@ -137,7 +125,7 @@ public class PlayerLocomotion : MonoBehaviour
         freeformMovementSM.SetEntryState(null);
         groundedSM.SetEntryState(freeformMovementSM);
         fallingSM.SetEntryState(airControlS);
-        _context.Init(groundedSM);*/
+        _context.Init(groundedSM);
 
     }
 
