@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Skeli.StateMachine
 {
@@ -8,7 +7,7 @@ namespace Skeli.StateMachine
         private readonly List<State> _states = new();
         private readonly List<Transition> _stateTransitions = new();
 
-        private State _entryState;
+        private State _entryState = null;
         private State _activeState;
 
         public string ActiveStateName
@@ -30,6 +29,7 @@ namespace Skeli.StateMachine
         public void AddState(State state) => _states.Add(state);
 
         public void AddTransition(Transition transition) => _stateTransitions.Add(transition);
+        
         public void SetEntryState(State state)
         {
             _entryState = state;
@@ -39,16 +39,14 @@ namespace Skeli.StateMachine
         {
             base.Enter();
 
-            if (_entryState != null)
-            {
-                ChangeState(_entryState);
-            }
+            ChangeState(_entryState);
         }
 
         public override void DoLogic()
         {
             base.DoLogic();
             UpdateState();
+            LoopStateMachineTransitions();
         }
 
         public override void Exit()
@@ -61,25 +59,16 @@ namespace Skeli.StateMachine
         public void UpdateState()
         {
             _activeState?.DoLogic();
-            Debug.Log($"{ActiveStateName}");
-
-            LoopStateMachineTransitions();
-        }
-
-        public void ResetState()
-        {
-            _activeState?.Exit();
-            _activeState = null;
         }
 
         private void ChangeState(State state)
         {
-            Debug.LogWarning($"{Name} : {ActiveStateName} {(state == null ? "null" : state.Name)}");
-
             if (state == null && _activeState == null)
             {
                 return;
             }
+
+            //Debug.LogWarning($"{Name} : {ActiveStateName} {(state == null ? "null" : state.Name)}");
 
             if (state == null)
             {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Skeli.StateMachine
 {
@@ -28,7 +27,7 @@ namespace Skeli.StateMachine
         public void UpdateState()
         {
             if (_activeStateMachine == null) throw new NullReferenceException($"Initialize State Machine Context");
-            Debug.Log($"{ActiveStateMachineName} {_activeStateMachine.ActiveStateName ?? "null"}");
+            //Debug.Log($"{ActiveStateMachineName}");
             _activeStateMachine.DoLogic();
 
             foreach (var transition in _transitions)

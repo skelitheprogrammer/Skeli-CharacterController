@@ -24,17 +24,12 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void Awake()
     {
-
         StateMachine groundedSM = StateMachineBuilder.Begin("Grounded")
             .BuildLogic()
                 .WithEnter(() =>
                 {
                     SetSpeed(Vector3.zero);
                     _animation.SetIsGrounded(true);
-                })
-                .WithTick(() =>
-                {
-                    _velocity.y = _gravity.SetGroundedGravity();
                 })
                 .WithExit(() =>
                 {
@@ -78,7 +73,6 @@ public class PlayerLocomotion : MonoBehaviour
                 })
                 .WithExit(() => 
                 {
-                    _groundChecker.Toggle(true);
                 });
 
         StateMachine fallingSM = StateMachineBuilder.Begin("Falling")
@@ -91,6 +85,7 @@ public class PlayerLocomotion : MonoBehaviour
                 {
                     AddForce(Vector3.up * _gravity.ApplyGravity());
                     _animation.SetGravity(_velocity.y);
+                    _groundChecker.Toggle(true);
                 })
                 .WithExit(() =>
                 {
@@ -123,7 +118,6 @@ public class PlayerLocomotion : MonoBehaviour
         groundedSM.AddTransition(new Transition(strafeMovementSM, () => _input.SwitchMode));
 
         freeformMovementSM.AddTransition(new Transition(freeformMovementSM, jumpingS, () => _jump.CanJump && _input.IsJumped));
-        //freeformMovementSM.AddTransition(new Transition(jumpingS, freeformMovementSM));
 
         fallingSM.AddState(airControlS);
 
