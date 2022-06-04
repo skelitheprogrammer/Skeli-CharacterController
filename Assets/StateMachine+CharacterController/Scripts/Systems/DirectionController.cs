@@ -7,8 +7,8 @@ public class DirectionController
     [Inject(Id = IDConstants.DIRECTIONCHECK)] private readonly GroundCheckData _data;
     [Inject(Id = IDConstants.MAINCAMERA)] public Transform Camera { get; private set; }
     [Inject(Id = IDConstants.PLAYERTRANSFORM)] public Transform Player { get; private set; }
-    [Inject(Id = IDConstants.GROUNDCHECK)] private readonly Sensor _groundSensor;
-    [Inject(Id = IDConstants.DIRECTIONCHECK)] private readonly Sensor _directionSensor;
+    [Inject(Id = IDConstants.GROUNDCHECK)] private readonly ISensorCaster _groundSensor;
+    [Inject(Id = IDConstants.DIRECTIONCHECK)] private readonly ISensorCaster _directionSensor;
 
     public float Angle { get; private set; }
     public bool IsOnSlope => Angle > 1;

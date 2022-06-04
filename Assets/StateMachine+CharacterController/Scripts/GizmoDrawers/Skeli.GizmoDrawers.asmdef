@@ -2,7 +2,8 @@
     "name": "Skeli.GizmoDrawers",
     "rootNamespace": "",
     "references": [
-        "GUID:de106f9f4e2b56948bd86cc4998696ad"
+        "GUID:de106f9f4e2b56948bd86cc4998696ad",
+        "GUID:e2ec1dc7053ded04bb84cf158345578f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -28,7 +28,6 @@ public class PlayerLocomotion : MonoBehaviour
             .BuildLogic()
                 .WithEnter(() =>
                 {
-                    SetSpeed(Vector3.zero);
                     _animation.SetIsGrounded(true);
                 })
                 .WithExit(() =>
@@ -83,7 +82,6 @@ public class PlayerLocomotion : MonoBehaviour
                 })
                 .WithTick(() =>
                 {
-                    AddForce(Vector3.up * _gravity.ApplyGravity());
                     _animation.SetGravity(_velocity.y);
                     _groundChecker.Toggle(true);
                 })
@@ -132,6 +130,7 @@ public class PlayerLocomotion : MonoBehaviour
     {
         SetRotation(_rotationController.CalculatePlayerRotation());
         _context.UpdateState();
+        AddForce(Vector3.up * _gravity.ApplyGravity());
 
         _animation.SetHorizontalSpeed(_input.MoveInput.x);
         _animation.SetVerticalSpeed(_input.MoveInput.y);

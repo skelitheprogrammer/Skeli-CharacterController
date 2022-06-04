@@ -11,15 +11,15 @@ public class DrawSensor : DrawGizmosBase
 
     protected override void DrawGizmo()
     {
-        if (_sensor == null) return;
+/*        if (_sensor.TryGetComponent<SensorBehaviour>(out var sensor)) return;
 
         Gizmos.color = _baseColor;
 
-        var pos = transform.position + _sensor.Sensor.Offset;
-        var direction = _sensor.Sensor.Direction * _sensor.Sensor.Distance - _sensor.Sensor.Offset;
+        var pos = transform.position + sensor.SensorSO.Sensor.Offset;
+        var direction = sensor.SensorSO.Sensor.Direction * _sensor.Sensor.Distance - _sensor.Sensor.Offset;
 
         Gizmos.DrawSphere(pos, _rayRadius);
-        
+
         if (_sensor.Sensor.IsHit)
         {
             Gizmos.color = _hitColor;
@@ -29,7 +29,7 @@ public class DrawSensor : DrawGizmosBase
         else
         {
             Gizmos.DrawRay(pos, _sensor.Sensor.Direction * .5f);
-        }
+        }*/
     }
 }
 #endif

@@ -380,7 +380,7 @@ AnimatorState:
   m_Motion: {fileID: -197038766754119844}
   m_Tag: 
   m_SpeedParameter: MotionSpeed
-  m_MirrorParameter: 
+  m_MirrorParameter: Grounded
   m_CycleOffsetParameter: 
   m_TimeParameter: SideWays
 --- !u!1101 &-3131692360282338278
@@ -1134,7 +1134,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State
+  m_Name: Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

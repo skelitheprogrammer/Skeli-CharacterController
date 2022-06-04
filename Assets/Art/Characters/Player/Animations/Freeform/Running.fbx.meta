@@ -83,13 +83,13 @@ ModelImporter:
             outWeight: 0
           - serializedVersion: 3
             time: 0.43349752
-            value: 1
-            inSlope: 0
-            outSlope: 0
+            value: 0.96
+            inSlope: -0.00000162354
+            outSlope: -0.00000162354
             tangentMode: 0
-            weightedMode: 0
+            weightedMode: 2
             inWeight: 0
-            outWeight: 0
+            outWeight: 0.11992839
           - serializedVersion: 3
             time: 0.7396199
             value: 0
@@ -117,13 +117,13 @@ ModelImporter:
           curve:
           - serializedVersion: 3
             time: 0
-            value: 1
-            inSlope: -4.106937
-            outSlope: -4.106937
-            tangentMode: 34
-            weightedMode: 0
+            value: 0.92
+            inSlope: -2.9075563
+            outSlope: -2.9075563
+            tangentMode: 0
+            weightedMode: 2
             inWeight: 0
-            outWeight: 0.33333334
+            outWeight: 0.035983678
           - serializedVersion: 3
             time: 0.24349047
             value: 0
@@ -152,23 +152,14 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.9014779
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
             time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0
+            value: 0.96
+            inSlope: 0.10446757
+            outSlope: 0.10446757
+            tangentMode: 0
+            weightedMode: 1
+            inWeight: 0.04836347
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4

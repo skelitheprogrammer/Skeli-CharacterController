@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 569028785843374805}
-  - component: {fileID: 2907085025100847297}
+  - component: {fileID: 3270697379655436790}
   - component: {fileID: 2539002908004668777}
   m_Layer: 2
   m_Name: GroundSensor
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 1607496499528762860}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2907085025100847297
+--- !u!114 &3270697379655436790
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,14 +42,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 793798359346439174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8450babbf6e13494389077c4999e5234, type: 3}
+  m_Script: {fileID: 11500000, guid: e1b6d949f7fecdd4c9fd30cedb2b91aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Sensor>k__BackingField:
-    <Offset>k__BackingField: {x: 0, y: 0.05, z: 0}
-    <Direction>k__BackingField: {x: 0, y: -1, z: 0}
-    <Type>k__BackingField: 1
-    <Radius>k__BackingField: 0.14
+  <SensorSO>k__BackingField: {fileID: 11400000, guid: a42dc42c006707b44a02d7b12c1100ad,
+    type: 2}
 --- !u!114 &2539002908004668777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _sensor: {fileID: 2907085025100847297}
+  _sensor: {fileID: 3270697379655436790}
   _rayRadius: 0.01
   _hitRadius: 0.02
   _baseColor: {r: 0, g: 0.7649777, b: 1, a: 1}
@@ -114,8 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075a66ceef80cc34b97a98718c791463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundCheckSensor: {fileID: 2907085025100847297}
-  _directionCheckSensor: {fileID: 2441193134501274651}
+  _groundCheckSensor: {fileID: 3270697379655436790}
+  _directionCheckSensor: {fileID: 0}
 --- !u!1 &6103341527788303866
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +122,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1288484136905488387}
-  - component: {fileID: 2441193134501274651}
+  - component: {fileID: 6614097477023108244}
   - component: {fileID: 6270517333949700745}
   m_Layer: 2
   m_Name: DirectionSensor
@@ -149,7 +146,7 @@ Transform:
   m_Father: {fileID: 1607496499528762860}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2441193134501274651
+--- !u!114 &6614097477023108244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,14 +155,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6103341527788303866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8450babbf6e13494389077c4999e5234, type: 3}
+  m_Script: {fileID: 11500000, guid: e1b6d949f7fecdd4c9fd30cedb2b91aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Sensor>k__BackingField:
-    <Offset>k__BackingField: {x: 0, y: 1, z: 0}
-    <Direction>k__BackingField: {x: 0, y: -1, z: 0}
-    <Type>k__BackingField: 0
-    <Radius>k__BackingField: 0.05
+  <SensorSO>k__BackingField: {fileID: 11400000, guid: ebd0677fe2983c94c9925b3e688178d3,
+    type: 2}
 --- !u!114 &6270517333949700745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _sensor: {fileID: 2441193134501274651}
+  _sensor: {fileID: 6614097477023108244}
   _rayRadius: 0.01
   _hitRadius: 0.02
   _baseColor: {r: 0, g: 0.7649777, b: 1, a: 1}
@@ -534,11 +528,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 489844174748643800, guid: 4529079e97da1d04daab5b06de815501,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1071313719627319788, guid: 4529079e97da1d04daab5b06de815501,
         type: 3}
       propertyPath: m_Name
@@ -552,12 +541,7 @@ PrefabInstance:
     - target: {fileID: 6013974969123211564, guid: 4529079e97da1d04daab5b06de815501,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8258265341002217059, guid: 4529079e97da1d04daab5b06de815501,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4529079e97da1d04daab5b06de815501, type: 3}
