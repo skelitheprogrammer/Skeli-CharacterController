@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName ="Data/Sensors/Ray Sensor")]
-public class RaySensorCreator : SensorCreatorBase
+[CreateAssetMenu(menuName = "Data/Sensors/Ray Sphere Sensor")]
+public class RaySphereCreator : SensorCreatorBase
 {
     [SerializeField] private SensorData _data;
+    [SerializeField] private float _radius;
 
     public override ISensorCaster Sensor
     {
@@ -11,7 +12,7 @@ public class RaySensorCreator : SensorCreatorBase
         {
             if (this == null)
             {
-                return new RaySensor(_data.Offset, _data.Direction);
+                return new RaySphereSensor(_data.Offset, _data.Direction, _radius);
             }
 
             return Sensor;
