@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3854205349447523850}
-  - component: {fileID: 3854205349447523844}
   - component: {fileID: 3854205349447523847}
-  - component: {fileID: 3854205349767820207}
-  - component: {fileID: 1119797477993413318}
+  - component: {fileID: 1903909103}
   m_Layer: 0
   m_Name: PlayerSpawnPoint
   m_TagString: Untagged
@@ -35,20 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3854205349447523844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3854205349447523848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0a4b0f0211e9943b9ebd08505cd2f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerWrapperPrefab: {fileID: 6840563327239875512, guid: 68f0c834bfe13dd4487b192350e33982,
-    type: 3}
 --- !u!114 &3854205349447523847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aebc6c32327c4842afddf987ce16cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enabled: 1
+  <Enabled>k__BackingField: 1
   _disableOnStart: 1
   _color: {r: 1, g: 0, b: 0, a: 1}
   _height: 2
@@ -73,7 +57,7 @@ MonoBehaviour:
     ArrowLength: 1.5
     ArrowHeadLength: 1
     ArrowHeadAngle: 30
---- !u!114 &3854205349767820207
+--- !u!114 &1903909103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,24 +66,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3854205349447523848}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Script: {fileID: 11500000, guid: aaec79babc4dede4caf7c46d1179bd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 3854205349447523844}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &1119797477993413318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3854205349447523848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4637585894af88418ec2e80ce1d5814, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _player: {fileID: 6840563327239875512, guid: 68f0c834bfe13dd4487b192350e33982, type: 3}
+  _disableOnSpawn: 1
